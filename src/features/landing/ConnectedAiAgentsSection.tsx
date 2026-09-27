@@ -70,7 +70,7 @@ export function ConnectedAiAgentsSection() {
           </div>
 
           <WordByWord
-            text="Intelligence Behind Every Refill."
+            text="An AI Team Working Behind Every Refill."
             as="h2"
             className="text-3xl sm:text-5xl font-extrabold tracking-tight font-display text-slate-100 justify-center text-center"
           />

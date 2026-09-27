@@ -10,7 +10,6 @@ import { SilentLapseSection } from './SilentLapseSection';
 import { ConnectedAiAgentsSection } from './ConnectedAiAgentsSection';
 import { ExplainabilitySection } from './ExplainabilitySection';
 import { ClinicalCollaborationSection } from './ClinicalCollaborationSection';
-import { NcetSection } from './NcetSection';
 import { BottomCtaBanner } from './BottomCtaBanner';
 import { LandingFooter } from './LandingFooter';
 
@@ -39,7 +38,7 @@ export default function LandingPage() {
               >
                 <span className="size-2 rounded-full bg-teal-400" />
                 <span className="font-mono uppercase tracking-widest text-[11px]">
-                  Autonomous Prescription Refill &amp; Lapse Prevention
+                  AI-POWERED REFILL INTELLIGENCE
                 </span>
               </motion.div>
 
@@ -155,16 +154,13 @@ export default function LandingPage() {
       {/* 7. Section 6: "AI That Explains Every Decision." (Explainability) */}
       <ExplainabilitySection />
 
-      {/* 8. Section 7: "From Refill Data to Resolution Intelligence." (Analytics) */}
+      {/* 8. Section 7: "Refill Operations, At a Glance." (Analytics) */}
       <ClinicalCollaborationSection />
 
-      {/* 9. NCET Institutional Credibility Section */}
-      <NcetSection />
-
-      {/* 10. Bottom CTA Banner */}
+      {/* 9. Bottom CTA Banner */}
       <BottomCtaBanner />
 
-      {/* 11. Minimal Footer with NCET Attribution */}
+      {/* 10. Minimal Healthcare SaaS Footer */}
       <LandingFooter />
     </div>
   );

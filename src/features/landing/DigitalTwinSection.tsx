@@ -2,15 +2,6 @@ import { motion } from 'motion/react';
 import { Cpu, Sparkles, CheckCircle2 } from 'lucide-react';
 import { WordByWord } from './WordByWord';
 
-const TWIN_DETAILS = [
-  { label: 'Medication', value: 'Metformin 500 mg', sub: 'Oral Tablet · Twice Daily with Meals' },
-  { label: 'Current State', value: 'Provider Approval Required', alert: true },
-  { label: 'Risk Tier', value: 'HIGH', badge: 'bg-rose-500/15 text-rose-300 border-rose-500/30' },
-  { label: 'Days Remaining', value: '2 Days Supply', sub: 'Historical fill lag: 6 days' },
-  { label: 'Next Action', value: 'Request Provider Approval', action: true },
-  { label: 'Confidence Score', value: '92%', sub: 'Backed by 14 historical adherence events' },
-];
-
 export function DigitalTwinSection() {
   return (
     <section id="digital-twin" className="py-24 bg-[#07111F] text-white border-t border-white/10 relative overflow-hidden">
@@ -22,7 +13,7 @@ export function DigitalTwinSection() {
           </div>
 
           <WordByWord
-            text="Every Refill Has a Digital Twin."
+            text="See Every Refill’s Digital Twin."
             as="h2"
             className="text-3xl sm:text-5xl font-extrabold tracking-tight font-display text-slate-100 justify-center text-center"
           />
@@ -32,13 +23,41 @@ export function DigitalTwinSection() {
           </p>
         </div>
 
+        {/* 5-Stage Refill Progression Timeline */}
+        <div className="mt-12 max-w-4xl mx-auto">
+          <div className="p-4 sm:p-6 rounded-2xl bg-[#0B1726]/80 border border-white/10 mb-8">
+            <div className="text-xs font-mono uppercase text-teal-400 tracking-wider mb-4 flex items-center justify-between">
+              <span>Refill Progression Timeline</span>
+              <span className="text-slate-400">Step 3 of 5 In Progress</span>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+              {[
+                { stage: 'Requested', status: 'Completed', color: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30' },
+                { stage: 'Pharmacy Review', status: 'Completed', color: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30' },
+                { stage: 'Provider Approval', status: 'Active (Current)', color: 'bg-teal-500/20 text-teal-300 border-teal-500/50 ring-1 ring-teal-400/40' },
+                { stage: 'Patient Action', status: 'Pending Approval', color: 'bg-white/5 text-slate-400 border-white/10' },
+                { stage: 'Resolved', status: 'Final Stage', color: 'bg-white/5 text-slate-400 border-white/10' },
+              ].map((step, idx) => (
+                <div key={step.stage} className={`p-3 rounded-xl border text-center flex flex-col justify-between ${step.color}`}>
+                  <span className="text-[10px] font-mono uppercase tracking-wider block opacity-75">
+                    0{idx + 1}
+                  </span>
+                  <div className="text-xs font-bold font-display my-1">{step.stage}</div>
+                  <div className="text-[9.5px] font-mono opacity-80">{step.status}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* Large Interactive Digital Twin Card */}
         <motion.div
           initial={{ opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-14 max-w-3xl mx-auto rounded-3xl bg-[#0B1726] border border-white/10 p-6 sm:p-10 shadow-2xl"
+          className="max-w-3xl mx-auto rounded-3xl bg-[#0B1726] border border-white/10 p-6 sm:p-10 shadow-2xl"
         >
           {/* Top Metadata */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-white/10 gap-4">
@@ -51,7 +70,7 @@ export function DigitalTwinSection() {
                   REFILL DIGITAL TWIN
                 </span>
                 <h3 className="text-lg font-bold text-slate-100">
-                  Telemetry Stream · Case #RX-4091
+                  Telemetry Stream · Case #RX-4091 · Metformin 500 mg
                 </h3>
               </div>
             </div>
@@ -65,47 +84,74 @@ export function DigitalTwinSection() {
             </div>
           </div>
 
-          {/* Sequential Grid Rows */}
+          {/* Sequential Grid Rows: Required Fields */}
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {TWIN_DETAILS.map((item, idx) => (
-              <motion.div
-                key={item.label}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                className="p-4 rounded-2xl bg-[#07111F]/80 border border-white/5 flex flex-col justify-between"
-              >
-                <div>
-                  <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-400">
-                    {item.label}
-                  </span>
-                  <div className="mt-1 flex items-center gap-2">
-                    <span className="text-base font-semibold text-slate-100">
-                      {item.value}
-                    </span>
-                    {item.badge && (
-                      <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border ${item.badge}`}>
-                        HIGH
-                      </span>
-                    )}
-                  </div>
+            <div className="p-4 rounded-2xl bg-[#07111F]/80 border border-white/5 flex flex-col justify-between">
+              <div>
+                <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-400">
+                  Current Blocker
+                </span>
+                <div className="mt-1 text-base font-semibold text-rose-300">
+                  Provider Approval Required
                 </div>
+              </div>
+              <div className="mt-2 text-xs text-slate-400 font-mono">
+                Prescription requires clinical re-authorization (0 refills remaining)
+              </div>
+            </div>
 
-                {item.sub && (
-                  <div className="mt-2 text-xs text-slate-400 font-mono">
-                    {item.sub}
-                  </div>
-                )}
+            <div className="p-4 rounded-2xl bg-[#07111F]/80 border border-white/5 flex flex-col justify-between">
+              <div>
+                <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-400">
+                  Risk Score
+                </span>
+                <div className="mt-1 flex items-center gap-2">
+                  <span className="text-base font-semibold text-slate-100">
+                    89% (HIGH RISK)
+                  </span>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold border bg-rose-500/15 text-rose-300 border-rose-500/30">
+                    CRITICAL
+                  </span>
+                </div>
+              </div>
+              <div className="mt-2 text-xs text-slate-400 font-mono">
+                2 days supply remaining vs 6-day historical patient delay
+              </div>
+            </div>
 
-                {item.action && (
-                  <div className="mt-2 text-xs text-teal-400 font-medium flex items-center gap-1">
-                    <Sparkles className="size-3" />
-                    <span>Auto-drafted clinical signature packet</span>
-                  </div>
-                )}
-              </motion.div>
-            ))}
+            <div className="p-4 rounded-2xl bg-[#07111F]/80 border border-white/5 flex flex-col justify-between">
+              <div>
+                <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-400">
+                  Resolution Probability
+                </span>
+                <div className="mt-1 flex items-center gap-2">
+                  <span className="text-base font-semibold text-teal-300">
+                    94% High Confidence
+                  </span>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold border bg-teal-500/15 text-teal-300 border-teal-500/30">
+                    HIGH
+                  </span>
+                </div>
+              </div>
+              <div className="mt-2 text-xs text-slate-400 font-mono">
+                Clean lab recency with no active clinical contraindications
+              </div>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-[#07111F]/80 border border-white/5 flex flex-col justify-between">
+              <div>
+                <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-400">
+                  Next Best Action
+                </span>
+                <div className="mt-1 text-base font-semibold text-cyan-300">
+                  Request Provider Approval
+                </div>
+              </div>
+              <div className="mt-2 text-xs text-teal-400 font-medium flex items-center gap-1">
+                <Sparkles className="size-3" />
+                <span>Pre-drafted digital clinical packet waiting for signature</span>
+              </div>
+            </div>
           </div>
 
           <div className="mt-8 pt-5 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-400 font-mono">

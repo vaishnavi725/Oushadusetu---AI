@@ -3,11 +3,11 @@ import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { Sparkles } from 'lucide-react';
 
 const AI_STATUS_STEPS = [
-  { text: 'Analyzing refill stream...', status: 'INTAKE', icon: 'telemetry' },
-  { text: 'Checking clinical blocker: Prior authorization pending', status: 'AUDIT', icon: 'blocker' },
-  { text: 'Identifying responsible party: Dr. Rao (Cardiology)', status: 'ROUTING', icon: 'party' },
-  { text: 'Finding next action: Pre-drafting digital authorization packet', status: 'PREPARE', icon: 'action' },
-  { text: 'Flow restored ✓ — Refill ready for dispense', status: 'RESOLVED', icon: 'done' },
+  { text: 'Analyzing refill...', status: 'INTAKE', icon: 'telemetry' },
+  { text: 'Checking blocker...', status: 'AUDIT', icon: 'blocker' },
+  { text: 'Identifying responsible party...', status: 'ROUTING', icon: 'party' },
+  { text: 'Finding next action...', status: 'PREPARE', icon: 'action' },
+  { text: 'Flow restored ✓', status: 'RESOLVED', icon: 'done' },
 ];
 
 export function CapsuleHeroVisual() {

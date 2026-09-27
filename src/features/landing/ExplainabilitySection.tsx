@@ -16,13 +16,13 @@ export function ExplainabilitySection() {
           </div>
 
           <WordByWord
-            text="AI That Explains Every Decision."
+            text="Every AI Decision Has a Reason."
             as="h2"
             className="text-3xl sm:text-5xl font-extrabold tracking-tight font-display text-slate-100 justify-center text-center"
           />
 
           <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">
-            OushadhaSetu never executes autonomous prescription changes behind closed doors. Every recommended action is backed by explicit clinical evidence and requires licensed human approval.
+            OushadhaSetu never executes autonomous prescription changes behind closed doors. Every recommended action is backed by explicit clinical evidence, transparent rationale, and licensed human approval.
           </p>
         </div>
 
@@ -53,7 +53,7 @@ export function ExplainabilitySection() {
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono text-slate-400">Confidence:</span>
               <span className="px-2.5 py-1 rounded-full text-xs font-bold font-mono bg-teal-500/15 text-teal-300 border border-teal-500/30">
-                92% Confirmed
+                94% Confirmed
               </span>
             </div>
           </div>
@@ -62,23 +62,23 @@ export function ExplainabilitySection() {
           <div className="py-6 space-y-6">
             <div>
               <span className="text-xs font-mono uppercase tracking-wider text-slate-400 block mb-1">
-                WHY THIS ACTION?
+                WHY
               </span>
               <p className="text-base font-semibold text-slate-100">
-                Provider approval is required before renewal can be dispatched to dispensing pharmacy.
+                Provider approval is required.
               </p>
             </div>
 
             <div>
               <span className="text-xs font-mono uppercase tracking-wider text-slate-400 block mb-2.5">
-                CLINICAL EVIDENCE BASE
+                EVIDENCE
               </span>
-              <div className="space-y-2">
+              <div className="space-y-2.5">
                 <div className="flex items-center gap-2.5 text-sm text-slate-200">
                   <span className="size-5 rounded-full bg-teal-500/20 text-teal-300 flex items-center justify-center shrink-0">
                     <Check className="size-3 stroke-[3]" />
                   </span>
-                  <span>No refills remaining on current prescription order (0 refills authorized).</span>
+                  <span>Prescription requires authorization before refill.</span>
                 </div>
                 <div className="flex items-center gap-2.5 text-sm text-slate-200">
                   <span className="size-5 rounded-full bg-teal-500/20 text-teal-300 flex items-center justify-center shrink-0">
@@ -101,7 +101,7 @@ export function ExplainabilitySection() {
                   RECOMMENDED ACTION
                 </span>
                 <span className="text-sm font-semibold text-slate-100">
-                  Request provider approval with attached fasting lipid lab record.
+                  Request provider approval.
                 </span>
               </div>
               <span className="text-xs font-mono text-slate-400 shrink-0">
@@ -113,7 +113,7 @@ export function ExplainabilitySection() {
           {/* Interactive Human Buttons */}
           <div className="pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
             <div className="text-xs text-slate-400 font-mono">
-              {decisionState === 'idle' && 'Human sign-off required to finalize dispatch.'}
+              {decisionState === 'idle' && 'Human sign-off required — clinical team remains in full control.'}
               {decisionState === 'approved' && '✓ Approved by clinician. Forwarded to pharmacy.'}
               {decisionState === 'rejected' && 'Action rejected. Escalated to clinic head.'}
               {decisionState === 'overridden' && 'Manual override mode engaged.'}
@@ -130,7 +130,7 @@ export function ExplainabilitySection() {
                 }`}
               >
                 <Check className="size-3.5 stroke-[3]" />
-                <span>Approve Action</span>
+                <span>Approve</span>
               </button>
 
               <button

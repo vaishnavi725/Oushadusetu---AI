@@ -47,7 +47,7 @@ export function LandingFooter() {
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>© {new Date().getFullYear()} OushadhaSetu. All rights reserved.</p>
           <p className="text-teal-400/90 font-medium">
-            Built at Nagarjuna College of Engineering &amp; Technology
+            Autonomous Prescription Refill &amp; Lapse Prevention
           </p>
         </div>
       </div>

@@ -147,6 +147,57 @@ export function EcosystemFlowSection() {
             );
           })}
         </div>
+
+        {/* Every Refill Becomes a Live Digital Twin Parameters */}
+        <div className="mt-20 pt-16 border-t border-white/10">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="text-xs font-mono uppercase tracking-widest text-teal-400 block mb-2">
+              Continuous Virtual Representation
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-bold font-display text-slate-100">
+              Every Refill Becomes a Synchronized Digital Twin
+            </h3>
+            <p className="mt-2 text-sm text-slate-300 leading-relaxed">
+              Eight real-time operational parameters continuously calculated for every active prescription in the network.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { label: 'Current State', val: 'Provider Approval Required', desc: 'Real-time synchronization across clinic EHR and pharmacy systems.' },
+              { label: 'Root Cause', val: 'Authorization Exhausted', desc: 'Zero authorized refills remaining on current prescription order.' },
+              { label: 'Responsible Party', val: 'Dr. Rao (Prescriber)', desc: 'Directly routes clinical dossier to the authorized prescriber.' },
+              { label: 'Next Action', val: 'Request Provider Approval', desc: 'Pre-drafted digital clinical packet waiting for one-click signature.' },
+              { label: 'Deadline', val: '24 Hours Before Empty', desc: 'Calculated from historical consumption and days-supply telemetry.' },
+              { label: 'Outcome', val: 'Zero Treatment Disruption', desc: 'Verified medication dispensed before final dose runout.' },
+              { label: 'Risk Score', val: '89% Discontinuation Risk', desc: 'Computed from historical lag velocity and medication criticality.' },
+              { label: 'Resolution Probability', val: '94% Automated First-Pass', desc: 'Predicted probability of same-day clinical authorization.' },
+            ].map((p, idx) => (
+              <div
+                key={p.label}
+                className="p-5 rounded-2xl bg-[#07111F] border border-white/10 hover:border-teal-400/40 transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+                      Parameter 0{idx + 1}
+                    </span>
+                    <span className="size-1.5 rounded-full bg-teal-400" />
+                  </div>
+                  <h4 className="text-sm font-bold text-slate-100 font-display">
+                    {p.label}
+                  </h4>
+                  <div className="mt-1 text-xs font-semibold text-teal-300 font-mono">
+                    {p.val}
+                  </div>
+                </div>
+                <p className="mt-3 text-xs text-slate-400 leading-relaxed border-t border-white/5 pt-2.5">
+                  {p.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

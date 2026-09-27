@@ -16,26 +16,23 @@ export function BottomCtaBanner() {
           transition={{ duration: 0.6 }}
           className="max-w-3xl mx-auto"
         >
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase bg-cyan-950/80 text-cyan-300 border border-cyan-800/60 shadow-[0_0_20px_rgba(34,211,238,0.2)] mb-5">
-            <Zap className="size-3.5 text-cyan-400 fill-current" />
-            Keep Every Refill Moving
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase bg-teal-950/80 text-teal-300 border border-teal-800/60 mb-5">
+            <Zap className="size-3.5 text-teal-400 fill-current" />
+            Resolution Engine
           </span>
 
           <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-display text-slate-100 leading-tight">
-            Ready to Stream Refills <br />
-            <span className="bg-gradient-to-r from-cyan-400 via-teal-300 to-blue-400 bg-clip-text text-transparent">
-              Without a Single Stalled Dose?
-            </span>
+            Keep Every Refill Moving.
           </h2>
 
-          <p className="mt-5 text-base sm:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Eliminate phone tag, prevent silent treatment gaps, and automate multi-stakeholder refill approvals with OushadhaSetu.
+          <p className="mt-5 text-base sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            Turn fragmented refill workflows into one intelligent resolution flow.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link
               to="/login"
-              className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full text-base font-bold text-slate-950 bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 hover:from-cyan-300 hover:to-teal-200 shadow-[0_0_25px_rgba(34,211,238,0.4)] hover:shadow-[0_0_35px_rgba(34,211,238,0.6)] transition-all duration-300 hover:scale-[1.04] active:scale-[0.96] min-w-[220px]"
+              className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full text-base font-bold text-slate-950 bg-gradient-to-r from-teal-400 via-cyan-300 to-teal-400 hover:from-teal-300 hover:to-cyan-200 shadow-[0_0_25px_rgba(20,184,166,0.35)] transition-all duration-300 hover:scale-[1.04] active:scale-[0.96] min-w-[220px]"
             >
               <span>Start the Refill Flow</span>
               <ArrowRight className="size-5" />
