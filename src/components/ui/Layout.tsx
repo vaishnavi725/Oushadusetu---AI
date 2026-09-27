@@ -13,12 +13,12 @@ export function Card({ children, className, as: As = 'section', ...rest }: { chi
 
 export function CardHeader({ title, description, action, icon }: { title: ReactNode; description?: ReactNode; action?: ReactNode; icon?: ReactNode }) {
   return (
-    <div className="flex items-start justify-between gap-3 border-b border-slate-100 px-6 py-4">
+    <div className="flex items-start justify-between gap-3 border-b border-[rgba(77,163,255,0.18)] px-6 py-4">
       <div className="flex min-w-0 items-start gap-3">
-        {icon && <span className="mt-0.5 text-[var(--pharmalink-primary)]">{icon}</span>}
+        {icon && <span className="mt-0.5 text-[#00D9FF]">{icon}</span>}
         <div className="min-w-0">
-          <h3 className="text-base font-semibold text-slate-900 tracking-tight">{title}</h3>
-          {description && <p className="mt-0.5 text-xs text-slate-500">{description}</p>}
+          <h3 className="text-base font-semibold text-[#F5FAFF] tracking-tight">{title}</h3>
+          {description && <p className="mt-0.5 text-xs text-[#A2C0E8]">{description}</p>}
         </div>
       </div>
       {action}
@@ -36,12 +36,12 @@ export function PageHeader({ title, description, actions, eyebrow }: { title: Re
     >
       <div className="min-w-0">
         {eyebrow && (
-          <div className="mb-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[var(--pharmalink-primary-soft)] text-[var(--pharmalink-primary)] border border-[var(--pharmalink-border)]">
+          <div className="mb-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#087BFF]/15 text-[#00D9FF] border border-[rgba(0,217,255,0.3)] shadow-[0_0_12px_rgba(0,217,255,0.2)]">
             {eyebrow}
           </div>
         )}
-        <h1 className="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl font-display">{title}</h1>
-        {description && <p className="mt-1.5 max-w-2xl text-sm text-slate-500 leading-relaxed">{description}</p>}
+        <h1 className="text-2xl font-semibold tracking-tight text-[#F5FAFF] sm:text-3xl font-display">{title}</h1>
+        {description && <p className="mt-1.5 max-w-2xl text-sm text-[#A2C0E8] leading-relaxed">{description}</p>}
       </div>
       {actions && <div className="flex flex-wrap items-center gap-3">{actions}</div>}
     </motion.header>
@@ -52,18 +52,18 @@ export function Pagination({ page, limit, total, onPage }: { page: number; limit
   const pages = Math.max(1, Math.ceil(total / limit));
   if (total <= limit) return null;
   return (
-    <nav className="mt-4 flex items-center justify-between text-sm text-ink-500" aria-label="Pagination">
+    <nav className="mt-4 flex items-center justify-between text-sm text-[#A2C0E8]" aria-label="Pagination">
       <span>
         {(page - 1) * limit + 1}–{Math.min(page * limit, total)} of {total}
       </span>
       <div className="flex items-center gap-1">
-        <button type="button" onClick={() => onPage(page - 1)} disabled={page <= 1} className="rounded-md p-2 hover:bg-white disabled:opacity-40" aria-label="Previous page">
+        <button type="button" onClick={() => onPage(page - 1)} disabled={page <= 1} className="rounded-md p-2 hover:bg-[#06245A] disabled:opacity-40" aria-label="Previous page">
           <ChevronLeft className="size-4" />
         </button>
-        <span className="px-2 font-medium text-ink-700">
+        <span className="px-2 font-medium text-[#F5FAFF]">
           {page} / {pages}
         </span>
-        <button type="button" onClick={() => onPage(page + 1)} disabled={page >= pages} className="rounded-md p-2 hover:bg-white disabled:opacity-40" aria-label="Next page">
+        <button type="button" onClick={() => onPage(page + 1)} disabled={page >= pages} className="rounded-md p-2 hover:bg-[#06245A] disabled:opacity-40" aria-label="Next page">
           <ChevronRight className="size-4" />
         </button>
       </div>
@@ -86,8 +86,8 @@ export function Tabs<T extends string>({ tabs, value, onChange, label }: { tabs:
             className={cn(
               'relative whitespace-nowrap px-4 py-2 text-xs font-semibold rounded-full transition-all duration-200 cursor-pointer',
               active
-                ? 'bg-[var(--pharmalink-primary)] text-white shadow-[0_4px_12px_var(--pharmalink-glow)]'
-                : 'text-slate-500 hover:text-slate-900 hover:bg-white/80 bg-white/40 border border-slate-200/60'
+                ? 'bg-[#087BFF] text-[#F5FAFF] shadow-[0_0_18px_rgba(0,217,255,0.4)] border border-[#00D9FF]/40'
+                : 'text-[#A2C0E8] hover:text-[#00D9FF] hover:bg-[#06245A]/80 bg-[#06245A]/40 border border-[rgba(77,163,255,0.18)]'
             )}
           >
             <span className="flex items-center gap-1.5">
@@ -96,7 +96,7 @@ export function Tabs<T extends string>({ tabs, value, onChange, label }: { tabs:
                 <span
                   className={cn(
                     'rounded-full px-1.5 py-0.2 text-[10px] font-mono',
-                    active ? 'bg-white/20 text-white' : 'bg-slate-200/80 text-slate-700'
+                    active ? 'bg-white/20 text-[#F5FAFF]' : 'bg-[#09347d]/80 text-[#A2C0E8]'
                   )}
                 >
                   {t.count}
@@ -113,8 +113,8 @@ export function Tabs<T extends string>({ tabs, value, onChange, label }: { tabs:
 export function KeyValue({ label, children, mono }: { label: string; children: ReactNode; mono?: boolean }) {
   return (
     <div className="min-w-0">
-      <dt className="text-[12px] font-medium uppercase tracking-wide text-ink-400">{label}</dt>
-      <dd className={cn('mt-0.5 truncate text-sm text-ink-900', mono && 'font-mono text-[13px]')}>{children}</dd>
+      <dt className="text-[12px] font-medium uppercase tracking-wide text-[#749BC9]">{label}</dt>
+      <dd className={cn('mt-0.5 truncate text-sm text-[#F5FAFF]', mono && 'font-mono text-[13px]')}>{children}</dd>
     </div>
   );
 }
@@ -125,15 +125,15 @@ export function Logo({ className, compact }: { className?: string; compact?: boo
       <img
         src="/images/oushadha-icon.png"
         alt="OushadhaSetu"
-        className="size-8 shrink-0 object-contain rounded-lg"
+        className="size-8 shrink-0 object-contain rounded-lg shadow-[0_0_12px_rgba(0,217,255,0.35)]"
       />
       {!compact && (
         <span className="flex flex-col">
-          <span className="font-display text-[17px] font-bold tracking-tight text-ink-900 leading-tight">
+          <span className="font-display text-[17px] font-bold tracking-tight text-[#F5FAFF] leading-tight">
             <span>Oushadha</span>
-            <span className="text-brand-700">Setu</span>
+            <span className="text-[#00D9FF]">Setu</span>
           </span>
-          <span className="text-[10px] font-medium tracking-wide text-ink-500 uppercase leading-none">
+          <span className="text-[10px] font-medium tracking-wide text-[#4DA3FF] uppercase leading-none">
             Prescription Bridge
           </span>
         </span>

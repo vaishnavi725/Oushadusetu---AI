@@ -141,7 +141,7 @@ export default function AgentActivityPage() {
         actions={
           <Link
             to="/command-center"
-            className="inline-flex h-10 items-center gap-2 rounded-lg border border-line-strong bg-white px-4 text-sm font-medium text-ink-900 transition hover:bg-brand-50"
+            className="inline-flex h-10 items-center gap-2 rounded-xl border border-[rgba(0,217,255,0.25)] bg-[#06245A]/70 px-4 text-sm font-medium text-[#F5FAFF] transition hover:border-[#00D9FF] hover:text-[#00D9FF] backdrop-blur-md"
           >
             ← System Overview
           </Link>

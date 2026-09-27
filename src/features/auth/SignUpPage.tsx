@@ -62,7 +62,7 @@ export default function SignUpPage() {
       footer={
         <>
           Already have an account?{' '}
-          <Link to="/sign-in" className="font-semibold text-brand-700 underline-offset-2 hover:underline">
+          <Link to="/sign-in" className="font-semibold text-[#00D9FF] underline-offset-2 hover:underline">
             Sign in
           </Link>
         </>
@@ -72,9 +72,9 @@ export default function SignUpPage() {
         <ResultPanel icon={<MailCheck className="size-7" aria-hidden />} title="Check your inbox">
           <p>{done.message}</p>
           {done.demoVerifyEmail && (
-            <div className="mt-5 rounded-xl border border-dashed border-brand-300 bg-brand-50/70 p-3.5 text-left">
-              <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-brand-600">Demo shortcut</p>
-              <p className="mt-1 text-[13px] text-ink-600">No real email is sent in the demo. Open the verification link directly:</p>
+            <div className="mt-5 rounded-xl border border-dashed border-[rgba(0,217,255,0.35)] bg-[#06245A]/70 p-3.5 text-left">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#00D9FF]">Demo shortcut</p>
+              <p className="mt-1 text-[13px] text-[#A2C0E8]">No real email is sent in the demo. Open the verification link directly:</p>
               <Link to={`/verify-email?email=${encodeURIComponent(done.demoVerifyEmail)}`} className="mt-3 block">
                 <Button variant="subtle" className="w-full" iconRight={<ExternalLink className="size-4" aria-hidden />}>
                   Demo: open verification link
@@ -87,15 +87,15 @@ export default function SignUpPage() {
         <form onSubmit={handleSubmit(onSubmit)} noValidate className="relative space-y-4">
           <div className="grid grid-cols-3 gap-1.5" aria-hidden>
             {[1, 2, 3].map((n) => (
-              <span key={n} className={cn('h-1 rounded-full transition-colors', n <= step ? 'bg-teal-700' : 'bg-slate-200')} />
+              <span key={n} className={cn('h-1 rounded-full transition-colors', n <= step ? 'bg-[#00D9FF] shadow-[0_0_8px_rgba(0,217,255,0.5)]' : 'bg-[#06245A]')} />
             ))}
           </div>
-          <p className="text-[12px] text-slate-500">{step === 1 ? 'Organisation' : step === 2 ? 'Your details' : 'Secure the account'}</p>
+          <p className="text-[12px] text-[#749BC9]">{step === 1 ? 'Organisation' : step === 2 ? 'Your details' : 'Secure the account'}</p>
           {formError && <FormAlert tone="error">{formError}</FormAlert>}
-          <Input label="Organisation name" autoComplete="organization" leading={<Building2 className="size-4" />} error={errors.orgName?.message} {...register('orgName')} />
+          <Input label="Organisation name" autoComplete="organization" leading={<Building2 className="size-4 text-[#4DA3FF]" />} error={errors.orgName?.message} {...register('orgName')} />
 
           <fieldset>
-            <legend className="mb-1.5 text-[13px] font-medium text-ink-700">Organisation type</legend>
+            <legend className="mb-1.5 text-[13px] font-medium text-[#D8E7FA]">Organisation type</legend>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               {ORG_TYPES.map((t) => {
                 const checked = orgType === t.value;
@@ -103,19 +103,19 @@ export default function SignUpPage() {
                   <label
                     key={t.value}
                     className={cn(
-                      'relative flex cursor-pointer items-start gap-2.5 rounded-xl border bg-white p-3 transition-all hover:-translate-y-px hover:shadow-[var(--shadow-soft)] has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-brand-100',
-                      checked ? 'border-brand-500 shadow-[var(--shadow-glow)]' : 'border-line-strong',
+                      'relative flex cursor-pointer items-start gap-2.5 rounded-xl border bg-[#06245A]/60 p-3 transition-all hover:-translate-y-px hover:shadow-[0_4px_16px_rgba(0,217,255,0.2)] has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-[#087BFF]/30 backdrop-blur-md',
+                      checked ? 'border-[#00D9FF] shadow-[0_0_16px_rgba(0,217,255,0.25)] bg-[#087BFF]/20' : 'border-[rgba(0,217,255,0.2)]',
                     )}
                   >
                     <input type="radio" value={t.value} className="sr-only" {...register('orgType')} />
-                    <span className={cn('flex size-8 shrink-0 items-center justify-center rounded-lg', checked ? 'bg-brand-700 text-white' : 'bg-brand-50 text-brand-700')}>
+                    <span className={cn('flex size-8 shrink-0 items-center justify-center rounded-lg', checked ? 'bg-[#087BFF] text-white shadow-[0_0_12px_rgba(0,217,255,0.4)]' : 'bg-[#03132F] text-[#A2C0E8]')}>
                       <t.icon className="size-4" aria-hidden />
                     </span>
                     <span className="min-w-0">
-                      <span className="block text-[13.5px] font-semibold text-ink-900">{t.label}</span>
-                      <span className="block text-[12px] leading-snug text-ink-500">{t.text}</span>
+                      <span className="block text-[13.5px] font-semibold text-[#F5FAFF]">{t.label}</span>
+                      <span className="block text-[12px] leading-snug text-[#A2C0E8]">{t.text}</span>
                     </span>
-                    {checked && <CheckCircle2 className="absolute right-2 top-2 size-4 text-brand-600" aria-hidden />}
+                    {checked && <CheckCircle2 className="absolute right-2 top-2 size-4 text-[#00D9FF]" aria-hidden />}
                   </label>
                 );
               })}

@@ -91,13 +91,13 @@ export default function DashboardPage() {
         eyebrow="OushadhaSetu Clinical Hub"
         title={
           <div className="flex items-baseline gap-3">
-            <span className="font-light">OushadhaSetu</span> <span className="font-bold text-teal-800">Dashboard</span>
+            <span className="font-light text-[#F5FAFF]">OushadhaSetu</span> <span className="font-bold text-[#00D9FF] drop-shadow-[0_0_12px_rgba(0,217,255,0.4)]">Dashboard</span>
             {isSupabaseLive ? (
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 text-emerald-800 px-2.5 py-0.5 text-[11px] font-bold">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 px-2.5 py-0.5 text-[11px] font-bold">
                 <Database className="size-3" /> Supabase Connected
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 text-slate-700 px-2.5 py-0.5 text-[11px] font-bold">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#06245A] border border-[rgba(0,217,255,0.2)] text-[#A2C0E8] px-2.5 py-0.5 text-[11px] font-bold">
                 Mock Mode
               </span>
             )}
@@ -108,14 +108,14 @@ export default function DashboardPage() {
           <div className="flex items-center gap-2">
             <Link
               to="/command-center"
-              className="inline-flex h-10 items-center gap-2 rounded-xl border border-line bg-white px-4 text-sm font-medium text-ink-700 shadow-2xs transition hover:bg-teal-50"
+              className="inline-flex h-10 items-center gap-2 rounded-xl border border-[rgba(0,217,255,0.25)] bg-[#06245A]/70 px-4 text-sm font-medium text-[#F5FAFF] shadow-sm backdrop-blur-md transition hover:border-[#00D9FF] hover:text-[#00D9FF]"
             >
-              <Bot className="size-4 text-teal-600" />
+              <Bot className="size-4 text-[#00D9FF]" />
               <span>AI Command Center</span>
             </Link>
             <Link
               to="/cases/new"
-              className="inline-flex h-10 items-center gap-2 rounded-xl bg-teal-700 px-4 text-sm font-semibold text-white shadow-md shadow-teal-700/20 transition hover:bg-teal-800"
+              className="inline-flex h-10 items-center gap-2 rounded-xl bg-gradient-to-r from-[#087BFF] to-[#0066e6] px-4 text-sm font-semibold text-[#F5FAFF] shadow-[0_4px_16px_rgba(0,217,255,0.35)] transition hover:from-[#00D9FF] hover:to-[#087BFF] hover:text-[#03132F]"
             >
               <span>+ Log Refill Request</span>
             </Link>
@@ -124,26 +124,26 @@ export default function DashboardPage() {
       />
 
       {/* Database Telemetry Quick Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 rounded-xl border border-teal-200/80 bg-gradient-to-r from-teal-50/60 via-white to-blue-50/40 text-[12.5px] text-teal-950 font-medium shadow-2xs">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 rounded-xl border border-[rgba(0,217,255,0.25)] bg-[#06245A]/60 backdrop-blur-md text-[12.5px] text-[#F5FAFF] font-medium shadow-[0_4px_16px_rgba(3,19,47,0.5)]">
         <div className="flex flex-wrap items-center gap-4">
           <span className="flex items-center gap-1.5">
-            <Users className="size-3.5 text-teal-700" /> Patients: <strong>{patientsQ.data?.length ?? 0}</strong>
+            <Users className="size-3.5 text-[#00D9FF]" /> Patients: <strong className="text-[#F5FAFF]">{patientsQ.data?.length ?? 0}</strong>
           </span>
-          <span className="text-slate-300">|</span>
+          <span className="text-[#1e3a6d]">|</span>
           <span className="flex items-center gap-1.5">
-            <Pill className="size-3.5 text-blue-700" /> Prescriptions: <strong>{prescriptionsQ.data?.length ?? 0}</strong>
+            <Pill className="size-3.5 text-[#4DA3FF]" /> Prescriptions: <strong className="text-[#F5FAFF]">{prescriptionsQ.data?.length ?? 0}</strong>
           </span>
-          <span className="text-slate-300">|</span>
+          <span className="text-[#1e3a6d]">|</span>
           <span className="flex items-center gap-1.5">
-            <Brain className="size-3.5 text-indigo-700" /> AI Decisions: <strong>{decisions.length}</strong>
+            <Brain className="size-3.5 text-[#00D9FF]" /> AI Decisions: <strong className="text-[#F5FAFF]">{decisions.length}</strong>
           </span>
-          <span className="text-slate-300">|</span>
+          <span className="text-[#1e3a6d]">|</span>
           <span className="flex items-center gap-1.5">
-            <Zap className="size-3.5 text-amber-600" /> Agent Actions: <strong>{actions.length}</strong>
+            <Zap className="size-3.5 text-amber-400" /> Agent Actions: <strong className="text-[#F5FAFF]">{actions.length}</strong>
           </span>
         </div>
-        <span className="text-[11.5px] text-ink-500 font-normal">
-          Refill Cases Source: <strong className="text-teal-900">{isSupabaseLive ? 'PostgreSQL (Supabase)' : 'Mock Engine'}</strong>
+        <span className="text-[11.5px] text-[#749BC9] font-normal">
+          Refill Cases Source: <strong className="text-[#00D9FF]">{isSupabaseLive ? 'PostgreSQL (Supabase)' : 'Mock Engine'}</strong>
         </span>
       </div>
 
@@ -454,22 +454,22 @@ function KpiCard({
   idx: number;
 }) {
   const tones = {
-    brand: 'text-teal-700 bg-teal-50/60 border-teal-200',
-    bad: 'text-rose-700 bg-rose-50/60 border-rose-200',
-    warn: 'text-amber-700 bg-amber-50/60 border-amber-200',
-    ok: 'text-emerald-700 bg-emerald-50/60 border-emerald-200',
-    neutral: 'text-slate-700 bg-slate-50/60 border-slate-200',
+    brand: 'text-[#00D9FF] bg-[#06245A]/70 border-[rgba(0,217,255,0.25)]',
+    bad: 'text-rose-400 bg-rose-950/40 border-rose-500/30',
+    warn: 'text-amber-400 bg-amber-950/40 border-amber-500/30',
+    ok: 'text-emerald-400 bg-emerald-950/40 border-emerald-500/30',
+    neutral: 'text-[#A2C0E8] bg-[#06245A]/50 border-[rgba(77,163,255,0.2)]',
   };
 
   return (
     <motion.div {...fadeUp(idx)} className="h-full">
-      <Card className={cn('flex flex-col justify-between p-3.5 rounded-2xl border transition hover:shadow-xs', tones[tone])}>
+      <Card className={cn('flex flex-col justify-between p-3.5 rounded-2xl border transition hover:shadow-[0_0_18px_rgba(0,217,255,0.2)]', tones[tone])}>
         <div className="flex items-center justify-between">
-          <span className="p-1.5 rounded-lg bg-white/80 shadow-2xs text-ink-700">{icon}</span>
+          <span className="p-1.5 rounded-lg bg-[#03132F]/80 border border-[rgba(0,217,255,0.2)] shadow-sm text-[#00D9FF]">{icon}</span>
         </div>
         <div className="mt-2.5">
-          <p className="text-[22px] font-bold text-ink-900 leading-none">{value}</p>
-          <p className="mt-1 text-[11px] font-medium text-ink-500 truncate" title={label}>
+          <p className="text-[22px] font-bold text-[#F5FAFF] leading-none">{value}</p>
+          <p className="mt-1 text-[11px] font-medium text-[#749BC9] truncate" title={label}>
             {label}
           </p>
         </div>

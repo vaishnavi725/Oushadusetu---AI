@@ -1,76 +1,76 @@
 @import 'tailwindcss';
 
-/* OushadhaSetu design tokens — Clinical Healthcare AI.
-   Executive clinical command aesthetic with Deep Teal (#0F766E),
-   Precision Cyan (#14B8A6), and Crisp Clinical Slate (#F8FAFC) surfaces. */
+/* OushadhaSetu design tokens — Indigo & Violet Modern Health.
+   Contemporary digital health & wellness aesthetic with vibrant Indigo (#4F46E5)
+   and Violet (#8B5CF6) accents on clean modern surfaces. */
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-display: 'Manrope', 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* Primary: Deep Clinical Teal */
-  --color-brand-50: #f0fdfa;
-  --color-brand-100: #ccfbf1;
-  --color-brand-200: #99f6e4;
-  --color-brand-300: #5eead4;
-  --color-brand-400: #2dd4bf;
-  --color-brand-500: #14b8a6;
-  --color-brand-600: #0d9488;
-  --color-brand-700: #0f766e; /* Primary Brand */
-  --color-brand-800: #115e59;
-  --color-brand-900: #134e4a;
-  --color-brand-950: #042f2e;
+  /* Primary: Electric Blue */
+  --color-brand-50: #e6f4ff;
+  --color-brand-100: #c7e5ff;
+  --color-brand-200: #99ceff;
+  --color-brand-300: #66b3ff;
+  --color-brand-400: #4DA3FF; /* Soft Blue */
+  --color-brand-500: #087BFF; /* Electric Blue */
+  --color-brand-600: #0066e6;
+  --color-brand-700: #087BFF;
+  --color-brand-800: #06245A; /* Dark Blue */
+  --color-brand-900: #03132F; /* Deep Midnight Navy */
+  --color-brand-950: #020b1c;
 
-  /* Secondary: Precision Medical Cyan & Sky */
-  --color-secondary-50: #f0f9ff;
-  --color-secondary-100: #e0f2fe;
-  --color-secondary-200: #bae6fd;
-  --color-secondary-300: #7dd3fc;
-  --color-secondary-400: #38bdf8;
-  --color-secondary-500: #0284c7;
-  --color-secondary-600: #0369a1;
-  --color-secondary-700: #075985;
-  --color-secondary-800: #0c4a6e;
-  --color-secondary-900: #082f49;
+  /* Secondary / Accent: Cyan Glow */
+  --color-secondary-50: #e0fbff;
+  --color-secondary-100: #b8f6ff;
+  --color-secondary-200: #85efff;
+  --color-secondary-300: #4de6ff;
+  --color-secondary-400: #1fe0ff;
+  --color-secondary-500: #00D9FF; /* Cyan Glow */
+  --color-secondary-600: #00bcdb;
+  --color-secondary-700: #009bb5;
+  --color-secondary-800: #007a8f;
+  --color-secondary-900: #005969;
 
-  /* Surfaces & Clean Clinical Slate */
-  --color-ice-50: #f8fafc;
-  --color-ice-100: #f1f5f9;
-  --color-ice-200: #e2e8f0;
-  --color-ice-300: #cbd5e1;
+  /* Surfaces & Dark Tech Navy Backgrounds */
+  --color-ice-50: #03132F; /* Deep midnight navy */
+  --color-ice-100: #06245A; /* Dark blue container */
+  --color-ice-200: #0a3375;
+  --color-ice-300: #104394;
 
-  /* Typography: Slate text */
-  --color-ink-900: #0f172a;
-  --color-ink-700: #1e293b;
-  --color-ink-600: #334155;
-  --color-ink-500: #64748b;
-  --color-ink-400: #94a3b8;
-  --color-line: #e2e8f0;
-  --color-line-strong: #cbd5e1;
+  /* Typography: High-contrast White & Soft Blue */
+  --color-ink-900: #F5FAFF; /* White text for headings */
+  --color-ink-700: #D8E7FA; /* Light blue/white text */
+  --color-ink-600: #A2C0E8; /* Soft readable blue text */
+  --color-ink-500: #749BC9;
+  --color-ink-400: #4A72A3;
+  --color-line: rgba(77, 163, 255, 0.18);
+  --color-line-strong: rgba(0, 217, 255, 0.28);
 
   /* Status Colors */
-  --color-ok-50: #f0fdf4;
-  --color-ok-600: #16a34a;
-  --color-ok-700: #15803d;
+  --color-ok-50: rgba(16, 185, 129, 0.12);
+  --color-ok-600: #10b981;
+  --color-ok-700: #059669;
 
-  --color-warn-50: #fffbeb;
+  --color-warn-50: rgba(245, 158, 11, 0.12);
   --color-warn-600: #f59e0b;
   --color-warn-700: #d97706;
 
-  --color-bad-50: #fef2f2;
+  --color-bad-50: rgba(239, 68, 68, 0.12);
   --color-bad-600: #ef4444;
   --color-bad-700: #dc2626;
 
-  --color-info-50: #f0fdfa;
-  --color-info-600: #0d9488;
-  --color-info-700: #0f766e;
+  --color-info-50: rgba(8, 123, 255, 0.14);
+  --color-info-600: #087BFF;
+  --color-info-700: #00D9FF;
 
-  --radius-card: 0.75rem;
-  --radius-input: 0.5rem;
+  --radius-card: 0.85rem;
+  --radius-input: 0.6rem;
 
-  --shadow-soft: 0 1px 2px rgb(15 23 42 / 0.04), 0 4px 16px -4px rgb(15 23 42 / 0.08);
-  --shadow-lift: 0 2px 4px rgb(15 23 42 / 0.05), 0 16px 40px -12px rgb(15 118 110 / 0.22);
-  --shadow-glow: 0 0 0 1px rgb(20 184 166 / 0.25), 0 12px 32px -8px rgb(15 118 110 / 0.35);
+  --shadow-soft: 0 2px 8px -2px rgba(3, 19, 47, 0.6), 0 8px 24px -4px rgba(8, 123, 255, 0.12);
+  --shadow-lift: 0 4px 12px rgba(3, 19, 47, 0.8), 0 16px 36px -8px rgba(8, 123, 255, 0.3);
+  --shadow-glow: 0 0 0 1px rgba(0, 217, 255, 0.35), 0 8px 30px -4px rgba(0, 217, 255, 0.4);
 
   --animate-float: float 7s ease-in-out infinite;
   --animate-pulse-ring: pulse-ring 2.4s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
@@ -94,34 +94,34 @@
   --font-heading: 'Plus Jakarta Sans', 'Manrope', ui-sans-serif, system-ui, sans-serif;
   --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
 
-  /* Global PharmaLink Design Tokens — Executive Clinical Healthcare System */
-  --pharmalink-primary: #0f766e;
-  --pharmalink-primary-hover: #115e59;
-  --pharmalink-primary-soft: rgba(15, 118, 110, 0.08);
-  --pharmalink-background: #f8fafc; /* Crisp clinical slate-50 */
-  --pharmalink-surface: rgba(255, 255, 255, 0.95);
-  --pharmalink-surface-elevated: #ffffff;
-  --pharmalink-border: rgba(15, 118, 110, 0.18);
-  --pharmalink-border-soft: rgba(226, 232, 240, 0.85);
-  --pharmalink-text-primary: #0f172a;
-  --pharmalink-text-secondary: #64748b;
-  --pharmalink-glow: rgba(20, 184, 166, 0.25);
-  --pharmalink-warm-blush: rgba(240, 253, 250, 0.7);
+  /* Global PharmaLink Design Tokens — Deep Navy + Electric Blue + Cyan */
+  --pharmalink-primary: #087BFF;
+  --pharmalink-primary-hover: #00D9FF;
+  --pharmalink-primary-soft: rgba(8, 123, 255, 0.16);
+  --pharmalink-background: #03132F; /* Deep midnight navy */
+  --pharmalink-surface: rgba(6, 36, 90, 0.55); /* Dark blue glass */
+  --pharmalink-surface-elevated: #06245A;
+  --pharmalink-border: rgba(0, 217, 255, 0.25);
+  --pharmalink-border-soft: rgba(77, 163, 255, 0.18);
+  --pharmalink-text-primary: #F5FAFF; /* White */
+  --pharmalink-text-secondary: #A2C0E8; /* Soft blue */
+  --pharmalink-glow: rgba(0, 217, 255, 0.38);
+  --pharmalink-warm-blush: rgba(6, 36, 90, 0.75);
 
-  /* Cinematic / Deep Tone Tokens */
-  --pharmalink-dark-background: #07111f;
-  --pharmalink-dark-surface: rgba(11, 23, 38, 0.78);
-  --pharmalink-dark-border: rgba(255, 255, 255, 0.1);
+  /* Deep Medical Tech Atmosphere Tokens */
+  --pharmalink-dark-background: #03132F;
+  --pharmalink-dark-surface: rgba(6, 36, 90, 0.78);
+  --pharmalink-dark-border: rgba(0, 217, 255, 0.22);
 
-  /* OushadhaSetu Primary Healthcare Palette */
-  --color-primary: #0F766E;
-  --color-accent: #14B8A6;
-  --color-secondary-blue: #2563EB;
-  --color-dark-bg: #0F172A;
-  --color-light-bg: #F8FAFC;
-  --color-status-success: #16A34A;
+  /* Primary Healthcare Palette */
+  --color-primary: #087BFF;
+  --color-accent: #00D9FF;
+  --color-secondary-blue: #4DA3FF;
+  --color-dark-bg: #03132F;
+  --color-light-bg: #06245A;
+  --color-status-success: #10B981;
   --color-status-warning: #F59E0B;
-  --color-status-danger: #DC2626;
+  --color-status-danger: #EF4444;
 }
 
 @layer base {
@@ -130,43 +130,49 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    background-color: var(--pharmalink-background);
+    color: var(--pharmalink-text-primary);
   }
   body {
-    @apply bg-ice-50 font-sans text-ink-900;
+    background-color: var(--pharmalink-background);
+    color: var(--pharmalink-text-primary);
+    font-family: var(--font-body);
   }
   h1, h2, h3, h4 {
-    @apply font-display tracking-tight;
+    @apply font-display tracking-tight text-[#F5FAFF];
   }
   :focus-visible {
-    outline: 2px solid var(--color-brand-500);
+    outline: 2px solid var(--pharmalink-primary-hover);
     outline-offset: 2px;
     border-radius: 6px;
   }
   ::selection {
-    background: var(--color-brand-200);
+    background: rgba(0, 217, 255, 0.35);
+    color: #F5FAFF;
   }
 }
 
 @layer components {
   .surface {
     background-color: var(--pharmalink-surface);
-    border-color: var(--pharmalink-border-soft);
+    border: 1px solid var(--pharmalink-border-soft);
     border-radius: 16px;
-    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
-    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px 0 rgba(3, 19, 47, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(14px);
     transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
   }
   .surface:hover {
-    box-shadow: 0 12px 30px -4px rgba(13, 148, 136, 0.1), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+    box-shadow: 0 14px 36px -4px rgba(8, 123, 255, 0.25), 0 0 20px -2px rgba(0, 217, 255, 0.2);
+    border-color: var(--pharmalink-border);
   }
   .glass {
-    background-color: rgba(255, 255, 255, 0.78);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    background-color: rgba(6, 36, 90, 0.5);
+    border: 1px solid rgba(0, 217, 255, 0.2);
     backdrop-filter: blur(16px);
-    box-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.04);
+    box-shadow: 0 8px 32px 0 rgba(3, 19, 47, 0.6);
   }
   .skeleton {
-    background: linear-gradient(90deg, #f1f5f9 0px, #e2e8f0 120px, #f1f5f9 240px);
+    background: linear-gradient(90deg, #06245A 0px, #09347d 120px, #06245A 240px);
     background-size: 800px 100%;
     @apply animate-shimmer rounded-xl;
   }
@@ -175,16 +181,16 @@
   }
   .app-backdrop {
     background:
-      radial-gradient(1200px 600px at 85% -5%, rgba(15, 118, 110, 0.07), transparent 60%),
-      radial-gradient(1000px 500px at 15% 105%, rgba(14, 165, 233, 0.05), transparent 60%),
-      radial-gradient(800px 400px at 50% 40%, rgba(240, 253, 250, 0.5), transparent 70%),
+      radial-gradient(1200px 700px at 80% -5%, rgba(8, 123, 255, 0.16), transparent 60%),
+      radial-gradient(1000px 600px at 15% 105%, rgba(0, 217, 255, 0.12), transparent 60%),
+      radial-gradient(900px 500px at 50% 30%, rgba(6, 36, 90, 0.75), transparent 75%),
       var(--pharmalink-background);
   }
   .hero-backdrop {
     background:
-      radial-gradient(900px 520px at 78% 18%, rgba(255, 255, 255, 0.95), transparent 60%),
-      radial-gradient(700px 480px at 12% 80%, rgba(20, 184, 166, 0.08), transparent 65%),
-      linear-gradient(180deg, #fbf9f6 0%, #faf8f5 55%, #f4f1ec 100%);
+      radial-gradient(900px 520px at 78% 18%, rgba(8, 123, 255, 0.22), transparent 60%),
+      radial-gradient(700px 480px at 12% 80%, rgba(0, 217, 255, 0.16), transparent 65%),
+      linear-gradient(180deg, #03132F 0%, #06245A 55%, #03132F 100%);
   }
 
   /* PharmaLink Reusable System Styles */
@@ -192,68 +198,71 @@
     background: var(--pharmalink-surface);
     border: 1px solid var(--pharmalink-border-soft);
     border-radius: 18px;
-    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
-    backdrop-filter: blur(14px);
+    box-shadow: 0 8px 28px -4px rgba(3, 19, 47, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
     transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
   }
   .pharma-card:hover {
     transform: translateY(-4px) scale(1.008);
-    box-shadow: 0 16px 36px -6px var(--pharmalink-glow), 0 6px 16px -2px rgba(15, 23, 42, 0.04);
+    box-shadow: 0 16px 36px -6px var(--pharmalink-glow), 0 0 20px -2px rgba(8, 123, 255, 0.25);
     border-color: var(--pharmalink-border);
   }
   .pharma-button-primary {
-    background-color: var(--pharmalink-primary);
-    color: #ffffff;
+    background: linear-gradient(135deg, #087BFF 0%, #0066e6 100%);
+    color: #F5FAFF;
     border-radius: 9999px;
     font-weight: 600;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 4px 14px 0 var(--pharmalink-glow);
+    box-shadow: 0 4px 16px 0 var(--pharmalink-glow), inset 0 1px 0 rgba(255, 255, 255, 0.25);
   }
   .pharma-button-primary:hover {
-    background-color: var(--pharmalink-primary-hover);
+    background: linear-gradient(135deg, #00D9FF 0%, #087BFF 100%);
     transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 8px 24px 0 rgba(13, 148, 136, 0.38);
+    box-shadow: 0 8px 26px 0 rgba(0, 217, 255, 0.45);
+    color: #03132F;
   }
   .pharma-button-primary:active {
     transform: translateY(0) scale(0.98);
   }
   .pharma-button-secondary {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(6, 36, 90, 0.6);
     color: var(--pharmalink-text-primary);
     border: 1px solid var(--pharmalink-border);
     border-radius: 9999px;
     font-weight: 600;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(8px);
   }
   .pharma-button-secondary:hover {
-    background: #ffffff;
-    border-color: var(--pharmalink-primary);
-    color: var(--pharmalink-primary);
+    background: rgba(8, 123, 255, 0.25);
+    border-color: var(--pharmalink-primary-hover);
+    color: var(--pharmalink-primary-hover);
     transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 6px 20px -2px rgba(13, 148, 136, 0.15);
+    box-shadow: 0 6px 20px -2px rgba(0, 217, 255, 0.25);
   }
   .pharma-input {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(226, 232, 240, 0.9);
+    background: rgba(6, 36, 90, 0.55);
+    border: 1px solid var(--pharmalink-border-soft);
+    color: #F5FAFF;
     border-radius: 12px;
     transition: all 0.2s ease;
   }
   .pharma-input:focus {
-    border-color: var(--pharmalink-primary);
+    border-color: var(--pharmalink-primary-hover);
     outline: none;
-    box-shadow: 0 0 0 3px var(--pharmalink-primary-soft);
+    box-shadow: 0 0 0 3px var(--pharmalink-glow);
   }
   .pharma-badge {
     background: var(--pharmalink-primary-soft);
-    color: var(--pharmalink-primary);
+    color: var(--pharmalink-primary-hover);
     border: 1px solid var(--pharmalink-border);
     border-radius: 9999px;
     font-weight: 600;
   }
   .window-light {
     background-image:
-      linear-gradient(rgb(255 255 255 / 0.55) 2px, transparent 2px),
-      linear-gradient(90deg, rgb(255 255 255 / 0.55) 2px, transparent 2px);
+      linear-gradient(rgba(0, 217, 255, 0.15) 2px, transparent 2px),
+      linear-gradient(90deg, rgba(8, 123, 255, 0.15) 2px, transparent 2px);
     background-size: 120px 150px;
     mask-image: radial-gradient(ellipse at 70% 30%, black 20%, transparent 70%);
   }
@@ -267,9 +276,9 @@
 
 .auth-mesh {
   background:
-    radial-gradient(520px 280px at 12% 8%, rgb(15 118 110 / 0.12), transparent 62%),
-    radial-gradient(420px 260px at 90% 90%, rgb(37 99 235 / 0.08), transparent 64%),
-    linear-gradient(180deg, #f3f7f6 0%, #ffffff 72%);
+    radial-gradient(600px 380px at 15% 15%, rgba(8, 123, 255, 0.22), transparent 70%),
+    radial-gradient(550px 350px at 85% 85%, rgba(0, 217, 255, 0.18), transparent 70%),
+    linear-gradient(180deg, #03132F 0%, #06245A 60%, #03132F 100%);
 }
 
 @media (prefers-reduced-motion: reduce) {

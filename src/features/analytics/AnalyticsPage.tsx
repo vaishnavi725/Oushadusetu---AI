@@ -60,9 +60,9 @@ export function rangeFor(days: number, now: number = Date.now()): DateRange {
   return { from: new Date(now - days * 86_400_000).toISOString(), to: new Date(now).toISOString() };
 }
 
-const linkBtn = 'inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-input)] px-4 text-sm font-medium transition-all duration-200 hover:-translate-y-px';
-const linkPrimary = cn(linkBtn, 'bg-brand-700 text-white shadow-[0_6px_16px_-6px_rgb(27_77_91/0.6)] hover:bg-brand-800');
-const linkSecondary = cn(linkBtn, 'border border-line-strong bg-white text-ink-900 hover:border-brand-300 hover:bg-brand-50');
+const linkBtn = 'inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-input)] px-4 text-sm font-semibold transition-all duration-200 hover:-translate-y-px';
+const linkPrimary = cn(linkBtn, 'bg-gradient-to-r from-[#087BFF] to-[#0066e6] text-[#F5FAFF] shadow-[0_4px_16px_rgba(0,217,255,0.35)] hover:from-[#00D9FF] hover:to-[#087BFF] hover:text-[#03132F]');
+const linkSecondary = cn(linkBtn, 'border border-[rgba(0,217,255,0.25)] bg-[#06245A]/70 text-[#F5FAFF] backdrop-blur-md hover:border-[#00D9FF] hover:text-[#00D9FF]');
 
 export default function AnalyticsPage() {
   const { user } = useAuth();

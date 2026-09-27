@@ -55,7 +55,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(fu
         onClick={() => setVisible((v) => !v)}
         aria-label={visible ? 'Hide password' : 'Show password'}
         aria-pressed={visible}
-        className="absolute right-1.5 top-[30px] flex size-8 items-center justify-center rounded-md text-ink-500 transition-colors hover:bg-brand-50 hover:text-brand-800"
+        className="absolute right-1.5 top-[30px] flex size-8 items-center justify-center rounded-md text-[#749BC9] transition-colors hover:bg-[#06245A] hover:text-[#00D9FF]"
       >
         {visible ? <EyeOff className="size-4" aria-hidden /> : <Eye className="size-4" aria-hidden />}
       </button>
@@ -71,10 +71,10 @@ export function PasswordChecklist({ password, email, name, id }: { password: str
     { id: 'personal', label: 'Must not contain your email or name', ok: password.length > 0 && !issues.has('Must not contain your email') && !issues.has('Must not contain your name') },
   ];
   return (
-    <ul id={id} aria-label="Password requirements" className="grid grid-cols-1 gap-x-4 gap-y-1.5 rounded-xl border border-line bg-ice-50/80 p-3 sm:grid-cols-2">
+    <ul id={id} aria-label="Password requirements" className="grid grid-cols-1 gap-x-4 gap-y-1.5 rounded-xl border border-[rgba(0,217,255,0.2)] bg-[#03132F]/80 p-3 sm:grid-cols-2">
       {rules.map((r) => (
-        <li key={r.id} className={cn('flex items-center gap-1.5 text-[12.5px] transition-colors', r.ok ? 'text-ok-700' : 'text-ink-500')}>
-          <span className={cn('flex size-4 shrink-0 items-center justify-center rounded-full transition-colors', r.ok ? 'bg-ok-600 text-white' : 'bg-ice-200 text-ink-500')} aria-hidden>
+        <li key={r.id} className={cn('flex items-center gap-1.5 text-[12.5px] transition-colors', r.ok ? 'text-emerald-400' : 'text-[#749BC9]')}>
+          <span className={cn('flex size-4 shrink-0 items-center justify-center rounded-full transition-colors', r.ok ? 'bg-emerald-600 text-white' : 'bg-[#06245A] text-[#749BC9]')} aria-hidden>
             {r.ok ? <Check className="size-3" strokeWidth={3} /> : <X className="size-3" strokeWidth={2.5} />}
           </span>
           <span>

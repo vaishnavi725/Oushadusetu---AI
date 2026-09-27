@@ -128,9 +128,9 @@ export default function QueuePage() {
           </div>
         </div>
         {filtersActive && (
-          <div className="flex flex-wrap items-center gap-2 border-b border-line bg-ice-50 px-4 py-2 text-[12.5px] text-ink-600">
-            <Filter className="size-3.5" /> Filters active
-            <button type="button" className="inline-flex items-center gap-1 rounded-md px-2 py-0.5 font-medium text-brand-700 hover:bg-brand-50" onClick={() => { setSearch(''); setParams(status === 'OPEN' ? {} : { status }, { replace: true }); }}>
+          <div className="flex flex-wrap items-center gap-2 border-b border-[rgba(77,163,255,0.18)] bg-[#03132F]/80 px-4 py-2 text-[12.5px] text-[#A2C0E8]">
+            <Filter className="size-3.5 text-[#00D9FF]" /> Filters active
+            <button type="button" className="inline-flex items-center gap-1 rounded-md px-2 py-0.5 font-medium text-[#00D9FF] hover:bg-[#06245A]" onClick={() => { setSearch(''); setParams(status === 'OPEN' ? {} : { status }, { replace: true }); }}>
               <X className="size-3.5" /> Clear all
             </button>
           </div>
@@ -201,9 +201,9 @@ function QueueTable({ data, now, onOpen, listParams }: { data: Paginated<CaseSum
   return (
     <>
       {/* Desktop table */}
-      <div className="hidden overflow-hidden rounded-xl border border-line md:block">
+      <div className="hidden overflow-hidden rounded-xl border border-[rgba(0,217,255,0.22)] bg-[#06245A]/40 backdrop-blur-md md:block shadow-[0_8px_32px_rgba(3,19,47,0.6)]">
         <table className="w-full text-left text-sm">
-          <thead className="bg-ice-50 text-[11.5px] uppercase tracking-wide text-ink-400">
+          <thead className="bg-[#03132F]/80 text-[11.5px] uppercase tracking-wide text-[#00D9FF] border-b border-[rgba(0,217,255,0.18)]">
             <tr>
               <th scope="col" className="px-4 py-2.5 font-semibold">Patient & medication</th>
               <th scope="col" className="px-4 py-2.5 font-semibold">Status & blockers</th>
@@ -212,7 +212,7 @@ function QueueTable({ data, now, onOpen, listParams }: { data: Paginated<CaseSum
               <th scope="col" className="px-4 py-2.5 font-semibold">SLA</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-line bg-white">
+          <tbody className="divide-y divide-[rgba(77,163,255,0.15)] bg-[#06245A]/30">
             {data.data.map((r, i) => (
               <motion.tr
                 key={r.id}
@@ -220,14 +220,14 @@ function QueueTable({ data, now, onOpen, listParams }: { data: Paginated<CaseSum
                 animate={{ opacity: 1 }}
                 transition={{ delay: Math.min(i * 0.02, 0.2) }}
                 onClick={() => onOpen(r.id)}
-                className="group cursor-pointer transition-colors hover:bg-brand-50/50"
+                className="group cursor-pointer transition-colors hover:bg-[#087BFF]/15"
               >
                 <td className="px-4 py-3">
-                  <Link to={`/cases/${r.id}`} onClick={(e) => e.stopPropagation()} className="font-semibold text-ink-900 group-hover:text-brand-800">
+                  <Link to={`/cases/${r.id}`} onClick={(e) => e.stopPropagation()} className="font-semibold text-[#F5FAFF] group-hover:text-[#00D9FF]">
                     {r.patientName}
                   </Link>
-                  <div className="flex items-center gap-2 text-[12.5px] text-ink-500">
-                    <span className="font-mono text-brand-700">{r.caseNumber}</span>
+                  <div className="flex items-center gap-2 text-[12.5px] text-[#A2C0E8]">
+                    <span className="font-mono text-[#00D9FF]">{r.caseNumber}</span>
                     <span className="truncate">{r.medication}</span>
                   </div>
                 </td>

@@ -102,10 +102,10 @@ export default function CommandCenterPage() {
     <div>
       <PageHeader
         eyebrow="OushadhaSetu"
-        title={<>Command <span className="font-bold">Center</span></>}
+        title={<>Command <span className="font-bold text-[#00D9FF] drop-shadow-[0_0_12px_rgba(0,217,255,0.4)]">Center</span></>}
         description={`Autonomous refill orchestration for ${user?.orgName ?? 'your organization'} — real-time workflow intelligence.`}
         actions={
-          <Link to="/proactive-risk" className="inline-flex h-10 items-center gap-2 rounded-lg bg-brand-700 px-4 text-sm font-medium text-white shadow-lg transition hover:-translate-y-px hover:bg-brand-800">
+          <Link to="/proactive-risk" className="inline-flex h-10 items-center gap-2 rounded-xl bg-gradient-to-r from-[#087BFF] to-[#0066e6] px-4 text-sm font-semibold text-[#F5FAFF] shadow-[0_4px_16px_rgba(0,217,255,0.35)] transition hover:from-[#00D9FF] hover:to-[#087BFF] hover:text-[#03132F]">
             <Radio className="size-4" /> Proactive Risk View
           </Link>
         }
@@ -488,13 +488,18 @@ export default function CommandCenterPage() {
 // ─── Sub-components ─────────────────────────────────────────────────
 
 function KpiTile({ i, label, value, icon, color }: { i: number; label: string; value: number; icon: ReactNode; color: 'brand' | 'ok' | 'warn' | 'bad' | 'info' }) {
-  const bg = { brand: 'bg-brand-50', ok: 'bg-ok-50', warn: 'bg-warn-50', bad: 'bg-bad-50', info: 'bg-info-50' }[color];
-  const fg = { brand: 'text-brand-700', ok: 'text-ok-700', warn: 'text-warn-700', bad: 'text-bad-700', info: 'text-info-700' }[color];
+  const bg = {
+    brand: 'bg-[#087BFF]/20 text-[#00D9FF] border border-[rgba(0,217,255,0.35)]',
+    ok: 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30',
+    warn: 'bg-amber-500/20 text-amber-400 border border-amber-500/30',
+    bad: 'bg-rose-500/20 text-rose-400 border border-rose-500/30',
+    info: 'bg-[#4DA3FF]/20 text-[#4DA3FF] border border-[#4DA3FF]/30',
+  }[color];
   return (
-    <motion.div {...fadeUp(i)} className="surface flex flex-col items-center gap-1.5 p-3 text-center transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)]">
-      <span className={cn('flex size-8 items-center justify-center rounded-lg', bg, fg)}>{icon}</span>
-      <span className="text-[22px] font-bold leading-none text-ink-900">{value}</span>
-      <span className="text-[11px] font-medium text-ink-500">{label}</span>
+    <motion.div {...fadeUp(i)} className="surface flex flex-col items-center gap-1.5 p-3 text-center transition hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(0,217,255,0.3)] border border-[rgba(0,217,255,0.22)] bg-[#06245A]/50 backdrop-blur-md">
+      <span className={cn('flex size-8 items-center justify-center rounded-lg shadow-sm', bg)}>{icon}</span>
+      <span className="text-[22px] font-bold leading-none text-[#F5FAFF]">{value}</span>
+      <span className="text-[11px] font-medium text-[#749BC9]">{label}</span>
     </motion.div>
   );
 }

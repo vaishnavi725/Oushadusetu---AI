@@ -3,9 +3,9 @@ import { AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/format';
 
 const control =
-  'w-full rounded-[var(--radius-input)] border bg-white px-3 text-sm text-ink-900 placeholder:text-ink-400 transition-colors duration-150 focus:outline-none focus:ring-4 disabled:bg-ice-100 disabled:text-ink-500';
-const ok = 'border-line-strong hover:border-brand-300 focus:border-brand-500 focus:ring-brand-100';
-const bad = 'border-bad-600 focus:border-bad-600 focus:ring-bad-50';
+  'w-full rounded-[var(--radius-input)] border bg-[#06245A]/60 px-3 text-sm text-[#F5FAFF] placeholder:text-[#5076A8] transition-all duration-150 focus:outline-none focus:ring-4 disabled:bg-[#03132F]/50 disabled:text-[#5076A8] backdrop-blur-md';
+const ok = 'border-[rgba(0,217,255,0.25)] hover:border-[#00D9FF]/70 focus:border-[#00D9FF] focus:ring-[rgba(0,217,255,0.22)]';
+const bad = 'border-bad-600 focus:border-bad-600 focus:ring-bad-500/20';
 
 interface FieldShellProps {
   label: string;

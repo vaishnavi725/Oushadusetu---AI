@@ -75,13 +75,13 @@ export function AppShell() {
         Skip to content
       </a>
       {/* Desktop sidebar */}
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-[var(--pharmalink-border-soft)] bg-white/85 backdrop-blur-xl lg:flex shadow-[4px_0_24px_rgba(15,23,42,0.02)]">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-[rgba(0,217,255,0.18)] bg-[#03132F]/95 backdrop-blur-2xl lg:flex shadow-[4px_0_32px_rgba(3,19,47,0.8)]">
         <div className="flex h-16 items-center px-5">
           <Logo />
         </div>
-        <div className="mx-4 mb-3 rounded-2xl border border-[var(--pharmalink-border)] bg-gradient-to-br from-teal-50/70 via-white/80 to-white px-3.5 py-3 shadow-sm">
-          <p className="truncate text-xs font-bold text-slate-900 tracking-tight">{user.orgName}</p>
-          <p className="text-[11px] text-slate-500 font-medium mt-0.5">{user.orgType === 'practice' ? 'Physician practice' : 'Pharmacy'}</p>
+        <div className="mx-4 mb-3 rounded-2xl border border-[rgba(0,217,255,0.22)] bg-gradient-to-br from-[#06245A]/80 via-[#03132F]/80 to-[#06245A]/60 px-3.5 py-3 shadow-[0_4px_16px_rgba(3,19,47,0.5)]">
+          <p className="truncate text-xs font-bold text-[#F5FAFF] tracking-tight">{user.orgName}</p>
+          <p className="text-[11px] text-[#4DA3FF] font-medium mt-0.5">{user.orgType === 'practice' ? 'Physician practice' : 'Pharmacy'}</p>
         </div>
         <nav className="flex-1 space-y-1 px-3" aria-label="Main">
           {items.map((item, i) => (
@@ -91,7 +91,7 @@ export function AppShell() {
           ))}
         </nav>
         {can(user.role, 'simulator.use') && import.meta.env.VITE_APP_ENV !== 'production' && (
-          <button type="button" onClick={() => setSimOpen(true)} className="mx-3 mb-2 flex items-center gap-2.5 rounded-xl border border-dashed border-teal-300/80 px-3 py-2 text-xs font-semibold text-[var(--pharmalink-primary)] transition hover:bg-[var(--pharmalink-primary-soft)]">
+          <button type="button" onClick={() => setSimOpen(true)} className="mx-3 mb-2 flex items-center gap-2.5 rounded-xl border border-dashed border-[rgba(0,217,255,0.35)] px-3 py-2 text-xs font-semibold text-[#00D9FF] transition hover:bg-[#087BFF]/15">
             <FlaskRound className="size-4" /> Failure simulator
           </button>
         )}
@@ -99,9 +99,9 @@ export function AppShell() {
       </aside>
 
       {/* Mobile top bar */}
-      <header className="sticky top-0 z-40 flex h-14 items-center justify-between border-b border-line bg-white/85 px-4 backdrop-blur-xl lg:hidden">
+      <header className="sticky top-0 z-40 flex h-14 items-center justify-between border-b border-[rgba(0,217,255,0.18)] bg-[#03132F]/90 px-4 backdrop-blur-xl lg:hidden">
         <Logo />
-        <button type="button" onClick={() => setMenuOpen(true)} className="rounded-lg p-2 text-ink-700 hover:bg-brand-50" aria-label="Open menu">
+        <button type="button" onClick={() => setMenuOpen(true)} className="rounded-lg p-2 text-[#A2C0E8] hover:bg-[#06245A]" aria-label="Open menu">
           <Menu className="size-5" />
         </button>
       </header>
@@ -121,20 +121,20 @@ export function AppShell() {
             <AlertTriangle className="size-4" /> Background jobs delayed — reminders and escalations may be late.
           </p>
         )}
-        <main id="main" className="mx-auto w-full max-w-[1400px] px-4 pb-28 pt-6 sm:px-6 lg:px-8 lg:pb-12 lg:pt-8">
+        <main id="main" className="mx-auto w-full max-w-[1400px] px-4 pb-28 pt-6 sm:px-6 lg:px-8 lg:pb-12 lg:pt-8 text-[#F5FAFF]">
           <Outlet />
         </main>
       </div>
 
       {/* Mobile bottom tabs (max 4: 3 destinations + menu) */}
-      <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 border-t border-line bg-white/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl lg:hidden" aria-label="Main">
+      <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 border-t border-[rgba(0,217,255,0.18)] bg-[#03132F]/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl lg:hidden" aria-label="Main">
         {mobileTabs.map((item) => (
-          <NavLink key={item.to} to={item.to} end={item.end} className={({ isActive }) => cn('flex flex-col items-center gap-0.5 py-2 text-[11px] font-medium', isActive ? 'text-brand-700' : 'text-ink-500')}>
+          <NavLink key={item.to} to={item.to} end={item.end} className={({ isActive }) => cn('flex flex-col items-center gap-0.5 py-2 text-[11px] font-medium', isActive ? 'text-[#00D9FF]' : 'text-[#749BC9]')}>
             {item.icon}
             <span className="truncate">{item.label}</span>
           </NavLink>
         ))}
-        <button type="button" onClick={() => setMenuOpen(true)} className="flex flex-col items-center gap-0.5 py-2 text-[11px] font-medium text-ink-500">
+        <button type="button" onClick={() => setMenuOpen(true)} className="flex flex-col items-center gap-0.5 py-2 text-[11px] font-medium text-[#749BC9]">
           <Menu className={I} />
           More
         </button>
@@ -147,11 +147,11 @@ export function AppShell() {
           ))}
         </nav>
         {can(user.role, 'simulator.use') && (
-          <button type="button" onClick={() => setSimOpen(true)} className="mt-4 flex w-full items-center gap-2.5 rounded-lg border border-dashed border-brand-300 px-3 py-2.5 text-sm font-medium text-brand-700">
+          <button type="button" onClick={() => setSimOpen(true)} className="mt-4 flex w-full items-center gap-2.5 rounded-lg border border-dashed border-[rgba(0,217,255,0.35)] px-3 py-2.5 text-sm font-medium text-[#00D9FF]">
             <FlaskRound className="size-4" /> Failure simulator
           </button>
         )}
-        <button type="button" onClick={() => void signOut('manual')} className="mt-2 flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm font-medium text-ink-700 hover:bg-ice-100">
+        <button type="button" onClick={() => void signOut('manual')} className="mt-2 flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm font-medium text-[#A2C0E8] hover:bg-[#06245A]">
           <LogOut className="size-4" /> Sign out
         </button>
       </Drawer>
@@ -171,8 +171,8 @@ function SideLink({ item }: { item: NavItem }) {
         cn(
           'group relative flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-xs font-semibold tracking-wide transition-all duration-200 select-none',
           isActive
-            ? 'bg-brand-700 text-white shadow-[0_4px_14px_rgba(15,118,110,0.35)]'
-            : 'text-slate-600 hover:bg-brand-50 hover:text-brand-800',
+            ? 'bg-[#087BFF] text-[#F5FAFF] shadow-[0_0_18px_rgba(0,217,255,0.4)] border border-[#00D9FF]/40'
+            : 'text-[#A2C0E8] hover:bg-[#06245A]/70 hover:text-[#00D9FF]'
         )
       }
     >
@@ -187,21 +187,21 @@ function UserCard({ onSignOut }: { onSignOut: () => void }) {
   if (!user) return null;
   const initials = user.name.replace(/^Dr\.\s*/, '').split(/\s+/).map((p) => p[0]).slice(0, 2).join('');
   return (
-    <div className="border-t border-[var(--pharmalink-border-soft)] p-3">
-      <div className="flex items-center gap-3 rounded-xl p-2 hover:bg-white/60 transition">
-        <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-teal-500 to-teal-800 text-[13px] font-bold text-white shadow-sm">{initials}</div>
+    <div className="border-t border-[rgba(0,217,255,0.18)] p-3">
+      <div className="flex items-center gap-3 rounded-xl p-2 hover:bg-[#06245A]/60 transition">
+        <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#087BFF] to-[#06245A] border border-[#00D9FF]/40 text-[13px] font-bold text-[#F5FAFF] shadow-[0_0_12px_rgba(0,217,255,0.25)]">{initials}</div>
         <div className="min-w-0 flex-1">
-          <p className="truncate text-xs font-bold text-slate-900">{user.name}</p>
-          <p className="flex items-center gap-1 text-[11px] text-slate-500 font-mono">
+          <p className="truncate text-xs font-bold text-[#F5FAFF]">{user.name}</p>
+          <p className="flex items-center gap-1 text-[11px] text-[#749BC9] font-mono">
             {ROLE_LABELS[user.role]}
             {user.aal === 'aal2' && (
-              <span className="inline-flex items-center gap-0.5 text-emerald-600 font-bold" title="MFA verified this session">
+              <span className="inline-flex items-center gap-0.5 text-[#00D9FF] font-bold" title="MFA verified this session">
                 <ShieldCheck className="size-3" /> MFA
               </span>
             )}
           </p>
         </div>
-        <button type="button" onClick={onSignOut} className="rounded-lg p-2 text-slate-400 transition hover:bg-rose-50 hover:text-rose-600 cursor-pointer" aria-label="Sign out" title="Sign out">
+        <button type="button" onClick={onSignOut} className="rounded-lg p-2 text-[#749BC9] transition hover:bg-[#EF4444]/20 hover:text-[#EF4444] cursor-pointer" aria-label="Sign out" title="Sign out">
           <LogOut className="size-4" />
         </button>
       </div>

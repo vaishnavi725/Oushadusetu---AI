@@ -17,12 +17,13 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variants: Record<Variant, string> = {
   primary:
-    'bg-brand-700 text-white shadow-[0_1px_0_rgb(255_255_255/0.15)_inset,0_6px_16px_-6px_rgb(15_118_110/0.45)] hover:bg-brand-800 hover:shadow-[0_1px_0_rgb(255_255_255/0.15)_inset,0_10px_22px_-8px_rgb(15_118_110/0.55)] active:bg-brand-900',
-  secondary: 'border border-slate-200 bg-white text-ink-900 hover:border-brand-400 hover:bg-brand-50 active:bg-brand-100',
-  ghost: 'text-ink-700 hover:bg-brand-50 hover:text-brand-800 active:bg-brand-100',
-  subtle: 'bg-brand-50 text-brand-800 hover:bg-brand-100 active:bg-brand-200 border border-brand-200/60',
-  danger: 'bg-bad-600 text-white hover:bg-bad-700 shadow-[0_6px_16px_-6px_rgb(187_58_51/0.55)]',
-  success: 'bg-ok-600 text-white hover:bg-ok-700 shadow-[0_6px_16px_-6px_rgb(27_127_80/0.5)]',
+    'bg-gradient-to-r from-[#087BFF] to-[#0066e6] text-[#F5FAFF] font-semibold shadow-[0_4px_16px_rgba(0,217,255,0.35),inset_0_1px_0_rgba(255,255,255,0.2)] hover:from-[#00D9FF] hover:to-[#087BFF] hover:text-[#03132F] hover:shadow-[0_6px_22px_rgba(0,217,255,0.5)] active:scale-[0.98]',
+  secondary:
+    'border border-[rgba(0,217,255,0.28)] bg-[#06245A]/75 text-[#F5FAFF] backdrop-blur-md hover:border-[#00D9FF] hover:bg-[#087BFF]/25 hover:text-[#00D9FF] active:bg-[#087BFF]/35',
+  ghost: 'text-[#A2C0E8] hover:bg-[#06245A]/70 hover:text-[#00D9FF] active:bg-[#06245A]',
+  subtle: 'bg-[#087BFF]/15 text-[#4DA3FF] hover:bg-[#087BFF]/25 hover:text-[#F5FAFF] active:bg-[#087BFF]/35',
+  danger: 'bg-bad-600 text-white hover:bg-bad-700 shadow-[0_6px_16px_-6px_rgb(239_68_68/0.6)]',
+  success: 'bg-ok-600 text-white hover:bg-ok-700 shadow-[0_6px_16px_-6px_rgb(16_185_129/0.6)]',
 };
 
 const sizes: Record<Size, string> = {
