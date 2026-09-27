@@ -1,5 +1,6 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { motion, useScroll, useSpring } from 'motion/react';
 import { ArrowRight, ChevronDown, ShieldCheck, HeartPulse, Brain } from 'lucide-react';
 import { LandingNavbar } from './LandingNavbar';
 import { CapsuleHeroVisual } from './CapsuleHeroVisual';
@@ -12,18 +13,15 @@ import { ExplainabilitySection } from './ExplainabilitySection';
 import { ClinicalCollaborationSection } from './ClinicalCollaborationSection';
 import { BottomCtaBanner } from './BottomCtaBanner';
 import { LandingFooter } from './LandingFooter';
+import { RefillWalkthrough } from './RefillWalkthrough';
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-[#07111F] text-[#F8FAFC] selection:bg-teal-500/20 selection:text-teal-200 font-sans overflow-x-hidden">
-      {/* 1. Transparent / Frosted Navbar */}
+    <div className="relative min-h-screen overflow-x-hidden bg-[#F4F7F6] font-sans text-slate-900 selection:bg-teal-100 selection:text-teal-950">
+      <ScrollProgress />
       <LandingNavbar />
 
-      {/* 2. Fullscreen Hero (min-h-[100vh]) */}
-      <section className="relative min-h-[calc(100vh-80px)] flex flex-col justify-center pt-8 pb-16 lg:py-20 overflow-hidden bg-gradient-to-b from-[#07111F] via-[#0B1726] to-[#07111F]">
-        {/* Subtle Ambient Depth Lighting */}
-        <div className="absolute top-1/4 left-1/3 size-[500px] rounded-full bg-teal-500/10 blur-[130px] pointer-events-none" />
-        <div className="absolute top-1/2 right-1/4 size-[450px] rounded-full bg-cyan-500/10 blur-[140px] pointer-events-none" />
+      <section className="relative flex min-h-[calc(100vh-80px)] flex-col justify-center overflow-hidden bg-[radial-gradient(900px_420px_at_80%_0%,rgba(15,118,110,0.08),transparent_60%),linear-gradient(180deg,#ffffff_0%,#F4F7F6_100%)] pt-8 pb-16 lg:py-20">
 
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 relative z-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -34,7 +32,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide bg-white/5 text-teal-300 border border-white/10 mb-6"
+                className="mb-6 inline-flex items-center gap-2 rounded-full border border-teal-200 bg-white px-3.5 py-1.5 text-xs font-semibold tracking-wide text-teal-800 shadow-sm"
               >
                 <span className="size-2 rounded-full bg-teal-400" />
                 <span className="font-mono uppercase tracking-widest text-[11px]">
@@ -48,7 +46,7 @@ export default function LandingPage() {
                   <WordByWord
                     text="Keep Every Refill Moving."
                     as="h1"
-                    className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-tight text-white leading-[1.08] font-display"
+                    className="font-display text-4xl leading-[1.08] font-semibold tracking-tight text-slate-950 sm:text-6xl xl:text-7xl"
                     delay={0.1}
                     stagger={0.1}
                   />
@@ -58,7 +56,7 @@ export default function LandingPage() {
                   <WordByWord
                     text="AI that detects, resolves, and prevents medication refill delays."
                     as="p"
-                    className="text-2xl sm:text-4xl xl:text-5xl font-bold tracking-tight bg-gradient-to-r from-teal-300 via-cyan-300 to-blue-400 bg-clip-text text-transparent leading-[1.15]"
+                    className="text-2xl leading-[1.15] font-semibold tracking-tight text-teal-800 sm:text-4xl xl:text-5xl"
                     delay={0.55}
                     stagger={0.08}
                   />
@@ -70,7 +68,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-4 text-xs sm:text-sm font-mono uppercase tracking-wider text-teal-300/80"
+                className="mt-4 text-xs font-medium tracking-wide text-teal-800 sm:text-sm"
               >
                 From refill request to resolution — intelligently orchestrated.
               </motion.div>
@@ -80,7 +78,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.65, delay: 1.25, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-4 text-base sm:text-lg text-slate-300 max-w-[560px] leading-relaxed"
+                className="mt-4 max-w-[560px] text-base leading-relaxed text-slate-600 sm:text-lg"
               >
                 OushadhaSetu connects patients, pharmacies, providers, and insurers through intelligent refill orchestration — detecting blockers and preventing medication lapses before they happen.
               </motion.p>
@@ -94,17 +92,17 @@ export default function LandingPage() {
               >
                 <Link
                   to="/login"
-                  className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full text-base font-bold text-slate-950 bg-gradient-to-r from-teal-400 to-cyan-400 hover:from-teal-300 hover:to-cyan-300 shadow-md transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] min-w-[210px]"
+                  className="group inline-flex min-w-[210px] items-center justify-center gap-2.5 rounded-full bg-teal-800 px-8 py-4 text-base font-semibold text-white shadow-[0_12px_30px_-16px_rgba(15,118,110,0.8)] transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98]"
                 >
-                  <span>Start the Refill Flow</span>
+                  <span>Open the command center</span>
                   <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
 
                 <a
-                  href="#flow-works"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full text-base font-semibold text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-200"
+                  href="#platform"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-4 text-base font-semibold text-slate-700 transition-colors duration-200 hover:border-slate-300 hover:text-slate-950"
                 >
-                  <span>Explore the System</span>
+                  <span>Walk a stuck refill</span>
                   <ChevronDown className="size-4 text-slate-400" />
                 </a>
               </motion.div>
@@ -114,19 +112,19 @@ export default function LandingPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.55, duration: 0.5 }}
-                className="mt-10 pt-6 border-t border-white/10 flex flex-wrap items-center gap-6 text-xs text-slate-400 font-mono"
+                className="mt-10 flex flex-wrap items-center gap-6 border-t border-slate-200 pt-6 text-xs text-slate-500"
               >
-                <div className="flex items-center gap-1.5 text-teal-300/90">
+                <div className="flex items-center gap-1.5 text-teal-800">
                   <ShieldCheck className="size-4" />
-                  <span>HIPAA &amp; SOC2 Certified</span>
+                  <span>HIPAA &amp; SOC2 aligned</span>
                 </div>
-                <div className="flex items-center gap-1.5 text-slate-400">
-                  <Brain className="size-4 text-teal-400" />
-                  <span>Human-in-the-Loop AI</span>
+                <div className="flex items-center gap-1.5">
+                  <Brain className="size-4 text-teal-700" />
+                  <span>Human-in-the-loop AI</span>
                 </div>
-                <div className="flex items-center gap-1.5 text-slate-400">
-                  <HeartPulse className="size-4 text-cyan-400" />
-                  <span>Zero Unnoticed Gaps</span>
+                <div className="flex items-center gap-1.5">
+                  <HeartPulse className="size-4 text-sky-700" />
+                  <span>No unnoticed gaps</span>
                 </div>
               </motion.div>
             </div>
@@ -139,7 +137,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 3. Section 2: "One Refill. One Intelligent Flow." */}
+      <RefillWalkthrough />
+
       <EcosystemFlowSection />
 
       {/* 4. Section 3: "Every Refill Has a Digital Twin." */}
@@ -164,4 +163,21 @@ export default function LandingPage() {
       <LandingFooter />
     </div>
   );
+}
+
+function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 24, mass: 0.3 });
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  if (!visible) return null;
+
+  return <motion.div style={{ scaleX }} className="fixed inset-x-0 top-0 z-[70] h-0.5 origin-left bg-teal-700" aria-hidden />;
 }

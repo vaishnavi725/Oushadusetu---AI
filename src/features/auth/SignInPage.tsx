@@ -3,7 +3,7 @@ import { Link, Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ArrowRight, KeyRound, LogIn, Mail, UserRound, Zap } from 'lucide-react';
-import { ROLE_LABELS } from '@shared/domain/permissions.ts';
+import { ROLE_LABELS, homeRouteFor } from '@shared/domain/permissions.ts';
 import { signInSchema, type SignInInput } from '@shared/schemas/index.ts';
 import { MFA_REQUIRED_ROLES } from '@shared/types.ts';
 import { useAuth } from '@/app/auth-context';
@@ -47,13 +47,14 @@ export default function SignInPage() {
 
   // Already signed in (and past any required MFA) → go straight to destination.
   if (user && (!MFA_REQUIRED_ROLES.includes(user.role) || user.aal === 'aal2')) {
-    return <Navigate to={next ?? '/dashboard'} replace />;
+    return <Navigate to={next ?? homeRouteFor(user.role)} replace />;
   }
 
   const handleSuccessfulSignIn = () => {
     refresh();
-    const dest = next ?? '/dashboard';
-    navigate(dest, { replace: true });
+    const current = authService.currentUser();
+    const defaultHome = current ? homeRouteFor(current.role) : '/queue';
+    navigate(next ?? defaultHome, { replace: true });
   };
 
   const onSubmit = async (values: SignInInput) => {
@@ -113,16 +114,8 @@ export default function SignInPage() {
   return (
     <AuthLayout
       eyebrow="Clinical Portal"
-      title={
-        <div className="flex flex-col gap-1">
-          <div className="flex items-baseline justify-between gap-2">
-            <span className="font-bold text-brand-900 tracking-tight">OushadhaSetu</span>
-            <span className="text-[20px] font-bold text-teal-800">Sign in</span>
-          </div>
-          <span className="text-[13px] font-normal text-teal-700 tracking-normal">Autonomous Prescription Refill &amp; Lapse Prevention</span>
-        </div>
-      }
-      description="Sign in to your clinical workstation to review refill queues, monitor AI safety alerts, and manage prescription adherence."
+      title={<span className="font-semibold tracking-tight">Sign in</span>}
+      description="Open your workspace to see what is blocking each refill, who owns it, and what should happen next."
       footer={
         <>
           Need an enterprise deployment?{' '}
@@ -164,11 +157,11 @@ export default function SignInPage() {
           {...register('password')}
         />
         <div className="space-y-2 pt-1">
-          <Button 
-            type="submit" 
-            size="lg" 
-            className="w-full bg-teal-700 hover:bg-teal-800 text-white font-medium shadow-md shadow-teal-900/10" 
-            loading={isSubmitting} 
+          <Button
+            type="submit"
+            size="lg"
+            className="w-full"
+            loading={isSubmitting}
             icon={<LogIn className="size-4" aria-hidden />}
           >
             Sign In
@@ -178,11 +171,11 @@ export default function SignInPage() {
             type="button"
             size="lg"
             variant="secondary"
-            onClick={() => void instantDemoLogin('dr.kumar@valleyhealth.org')}
+            onClick={() => void instantDemoLogin('dr.rao@lakeside.example.com')}
             disabled={isDemoSigningIn}
             loading={isDemoSigningIn}
-            className="w-full border-teal-300 bg-teal-50/80 hover:bg-teal-100 text-teal-950 font-semibold shadow-xs"
-            icon={<Zap className="size-4 text-amber-500 fill-amber-500" aria-hidden />}
+            className="w-full border-slate-200 bg-slate-50 font-semibold text-slate-900 hover:bg-white"
+            icon={<Zap className="size-4 text-teal-700" aria-hidden />}
           >
             Demo Login
           </Button>
@@ -202,69 +195,65 @@ function DemoAccounts({
   isSubmitting: boolean;
 }) {
   return (
-    <section aria-labelledby="demo-accounts" className="rounded-2xl border border-teal-200/70 bg-gradient-to-br from-teal-50/70 via-white/80 to-blue-50/40 p-4.5 backdrop-blur-md sm:p-5 shadow-sm">
-      <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-teal-100/80 pb-3">
-        <div className="flex items-center gap-2">
-          <span className="flex size-6 items-center justify-center rounded-lg bg-teal-600 text-white text-[11px] font-bold shadow-xs">✦</span>
-          <h2 id="demo-accounts" className="text-[13px] font-bold tracking-wide text-teal-950 uppercase">
-            Demo Login
-          </h2>
-        </div>
-        <p className="flex items-center gap-1 text-[11.5px] text-ink-500 font-medium">
-          <KeyRound className="size-3.5 text-teal-600" aria-hidden />
-          MFA code: <span className="font-mono font-semibold text-teal-900 bg-teal-100/80 px-1.5 py-0.5 rounded text-[11px]">{DEMO_MFA_CODE}</span>
+    <section aria-labelledby="demo-accounts" className="rounded-3xl border border-slate-200 bg-white p-4 shadow-[0_16px_40px_-28px_rgba(15,23,42,0.4)] sm:p-5">
+      <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-slate-100 pb-3">
+        <h2 id="demo-accounts" className="text-[13px] font-semibold tracking-tight text-slate-950">
+          Open a workspace
+        </h2>
+        <p className="flex items-center gap-1 text-[11.5px] font-medium text-slate-500">
+          <KeyRound className="size-3.5 text-teal-700" aria-hidden />
+          MFA code: <span className="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[11px] font-semibold text-slate-800">{DEMO_MFA_CODE}</span>
         </p>
       </div>
 
-      <p className="mt-2.5 text-[12.5px] text-ink-600 leading-relaxed">
-        Click any role below for <strong className="text-teal-900">1-Click Instant Login</strong> into the OushadhaSetu clinical dashboard:
+      <p className="mt-2.5 text-[12.5px] leading-relaxed text-slate-600">
+        Jump into a live queue. These are the same accounts the rest of the demo uses.
       </p>
 
-      {/* Instant 1-Click Fast Actions */}
-      <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2">
+      <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3">
         <button
           type="button"
           disabled={isSubmitting}
-          onClick={() => onInstantLogin('dr.kumar@valleyhealth.org')}
-          className="flex flex-col items-start p-2.5 rounded-xl border border-teal-200 bg-white hover:bg-teal-50/80 hover:border-teal-400 text-left transition-all shadow-xs group"
+          onClick={() => onInstantLogin('dr.rao@lakeside.example.com')}
+          className="group flex flex-col items-start rounded-xl border border-slate-200 bg-slate-50 p-2.5 text-left transition-all hover:border-slate-300 hover:bg-white"
         >
-          <span className="flex items-center gap-1.5 text-[11px] font-bold text-teal-800 uppercase tracking-wider">
-            <Zap className="size-3 text-amber-500 fill-amber-500" /> Provider
+          <span className="flex items-center gap-1.5 text-[11px] font-semibold tracking-wider text-teal-800 uppercase">
+            <Zap className="size-3" /> Provider
           </span>
-          <span className="font-semibold text-ink-900 text-[13px] mt-1 group-hover:text-teal-900">Dr. Rajesh Kumar</span>
-          <span className="text-[11px] text-ink-500">Physician Reviewer</span>
+          <span className="mt-1 text-[13px] font-semibold text-slate-950">Dr. Anika Rao</span>
+          <span className="text-[11px] text-slate-500">Lakeside Family Medicine</span>
         </button>
 
         <button
           type="button"
           disabled={isSubmitting}
-          onClick={() => onInstantLogin('sarah.jenkins@valleyhealth.org')}
-          className="flex flex-col items-start p-2.5 rounded-xl border border-blue-200 bg-white hover:bg-blue-50/80 hover:border-blue-400 text-left transition-all shadow-xs group"
+          onClick={() => onInstantLogin('admin@lakeside.example.com')}
+          className="group flex flex-col items-start rounded-xl border border-slate-200 bg-slate-50 p-2.5 text-left transition-all hover:border-slate-300 hover:bg-white"
         >
-          <span className="flex items-center gap-1.5 text-[11px] font-bold text-blue-800 uppercase tracking-wider">
-            <Zap className="size-3 text-amber-500 fill-amber-500" /> Practice
+          <span className="flex items-center gap-1.5 text-[11px] font-semibold tracking-wider text-slate-700 uppercase">
+            <Zap className="size-3" /> Practice
           </span>
-          <span className="font-semibold text-ink-900 text-[13px] mt-1 group-hover:text-blue-900">Sarah Jenkins</span>
-          <span className="text-[11px] text-ink-500">Practice Admin</span>
+          <span className="mt-1 text-[13px] font-semibold text-slate-950">Priya Shah</span>
+          <span className="text-[11px] text-slate-500">Practice manager</span>
         </button>
 
         <button
           type="button"
           disabled={isSubmitting}
-          onClick={() => onInstantLogin('alex.rivera@highlandrx.org')}
-          className="flex flex-col items-start p-2.5 rounded-xl border border-emerald-200 bg-white hover:bg-emerald-50/80 hover:border-emerald-400 text-left transition-all shadow-xs group"
+          onClick={() => onInstantLogin('admin@citycare.example.com')}
+          className="group flex flex-col items-start rounded-xl border border-slate-200 bg-slate-50 p-2.5 text-left transition-all hover:border-slate-300 hover:bg-white"
         >
-          <span className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-800 uppercase tracking-wider">
-            <Zap className="size-3 text-amber-500 fill-amber-500" /> Pharmacy
+          <span className="flex items-center gap-1.5 text-[11px] font-semibold tracking-wider text-slate-700 uppercase">
+            <Zap className="size-3" /> Pharmacy
           </span>
-          <span className="font-semibold text-ink-900 text-[13px] mt-1 group-hover:text-emerald-900">Alex Rivera</span>
-          <span className="text-[11px] text-ink-500">Pharmacy Staff</span>
+          <span className="mt-1 text-[13px] font-semibold text-slate-950">Lena Novak</span>
+          <span className="text-[11px] text-slate-500">CityCare Pharmacy</span>
         </button>
       </div>
 
-      <div className="mt-3 pt-3 border-t border-teal-100 flex items-center justify-between text-[11.5px] text-ink-500">
-        <span>Or click to auto-fill form:</span>
-        <span className="font-mono text-[11px] text-ink-700 bg-slate-100 px-2 py-0.5 rounded">Pass: {DEMO_PASSWORD}</span>
+      <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3 text-[11.5px] text-slate-500">
+        <span>Or fill the form</span>
+        <span className="rounded bg-slate-100 px-2 py-0.5 font-mono text-[11px] text-slate-700">Pass: {DEMO_PASSWORD}</span>
       </div>
 
       <ul className="mt-2 grid gap-1">
@@ -273,9 +262,9 @@ function DemoAccounts({
             <button
               type="button"
               onClick={() => onPick(u.email)}
-              className="group flex w-full items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-left transition-colors hover:bg-white/90 border border-transparent hover:border-teal-200"
+              className="group flex w-full items-center gap-2.5 rounded-lg border border-transparent px-2.5 py-1.5 text-left transition-colors hover:border-slate-200 hover:bg-slate-50"
             >
-              <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-teal-100 text-[11px] font-semibold text-teal-800" aria-hidden>
+              <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-slate-100 text-[11px] font-semibold text-slate-700" aria-hidden>
                 {initials(u.name) || <UserRound className="size-3.5" />}
               </span>
               <span className="min-w-0 flex-1 flex items-baseline justify-between gap-2">
@@ -284,7 +273,7 @@ function DemoAccounts({
                   {ROLE_LABELS[u.role]}
                 </span>
               </span>
-              <ArrowRight className="size-3.5 shrink-0 text-ink-400 transition-transform group-hover:translate-x-0.5 group-hover:text-teal-700" aria-hidden />
+              <ArrowRight className="size-3.5 shrink-0 text-slate-400 transition-transform group-hover:translate-x-0.5 group-hover:text-slate-800" aria-hidden />
             </button>
           </li>
         ))}

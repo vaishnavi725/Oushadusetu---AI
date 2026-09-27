@@ -1,94 +1,103 @@
-import type { ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
-import { ArrowLeft, FileLock2, ShieldCheck, Users } from 'lucide-react';
-import { Logo } from '@/components/ui/Layout';
-
-const TRUST_POINTS = [
-  { icon: ShieldCheck, title: 'MFA on every clinical decision', text: 'Providers confirm the exact order before it is sent.' },
-  { icon: FileLock2, title: 'Append-only audit trail', text: 'Every change is recorded with who, what and when.' },
-  { icon: Users, title: 'Minimum-necessary sharing', text: 'Pharmacies see only what they need to fill.' },
-];
+import { AnimatePresence, motion } from 'motion/react';
+import { ArrowLeft, ShieldCheck } from 'lucide-react';
+import { OushadhaLogo } from '@/features/landing/OushadhaLogo';
+import { REFILL_SCENES } from '@/features/landing/refill-scenes';
 
 interface AuthLayoutProps {
   title: ReactNode;
   description?: ReactNode;
   eyebrow?: string;
   children: ReactNode;
-  /** Rendered under the form card (e.g. demo accounts). */
   below?: ReactNode;
   footer?: ReactNode;
 }
 
-/** Split-screen auth shell: brand panel (desktop) + form card. Mobile shows only the form with the logo on top. */
 export function AuthLayout({ title, description, eyebrow, children, below, footer }: AuthLayoutProps) {
-  return (
-    <div className="min-h-screen lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-      <aside className="relative hidden overflow-hidden bg-gradient-to-br from-brand-800 to-brand-950 text-white lg:flex lg:flex-col lg:justify-between lg:p-12 xl:p-14">
-        <div className="window-light pointer-events-none absolute inset-0 opacity-20" aria-hidden />
-        <div className="pointer-events-none absolute -right-24 -top-24 size-[420px] rounded-full bg-brand-400/25 blur-3xl" aria-hidden />
-        <div className="pointer-events-none absolute -bottom-32 -left-16 size-[360px] rounded-full bg-brand-300/15 blur-3xl" aria-hidden />
+  const [index, setIndex] = useState(1);
+  const scene = REFILL_SCENES[index];
 
-        <Link to="/" className="relative w-fit rounded-lg [&_span.font-display]:text-brand-50">
-          <Logo />
+  useEffect(() => {
+    const timer = window.setInterval(() => setIndex((current) => (current + 1) % REFILL_SCENES.length), 4200);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="min-h-screen lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
+      <aside className="auth-mesh relative hidden overflow-hidden text-slate-900 lg:flex lg:flex-col lg:justify-between lg:p-12 xl:p-14">
+        <Link to="/" className="relative w-fit rounded-lg">
+          <OushadhaLogo size="md" showSubtitle={false} />
         </Link>
 
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: 'easeOut' }} className="relative max-w-md">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-brand-200">Refill coordination</p>
-          <blockquote className="mt-4 font-display text-[34px] leading-[1.15] tracking-tight text-white xl:text-[40px]">
-            <span className="font-light">One shared case.</span> <span className="font-bold">One owner.</span> <span className="font-light">One next step.</span>
+        <div className="relative max-w-md">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-teal-800">One case. One owner. One next step.</p>
+          <blockquote className="mt-4 font-display text-[34px] font-semibold leading-[1.12] tracking-tight text-slate-950 xl:text-[40px]">
+            The refill keeps moving, even when the chart does not.
           </blockquote>
-          <p className="mt-4 text-[15px] leading-relaxed text-brand-100/85">The practice, the pharmacy and the patient finally look at the same thing — and nobody has to chase.</p>
-        </motion.div>
 
-        <ul className="relative space-y-4">
-          {TRUST_POINTS.map((p, i) => (
-            <motion.li
-              key={p.title}
-              initial={{ opacity: 0, x: -12 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.25 + i * 0.1, duration: 0.45 }}
-              className="flex items-start gap-3"
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={scene.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.35 }}
+              className="mt-8 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
             >
-              <span className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/15">
-                <p.icon className="size-[18px] text-brand-100" aria-hidden />
-              </span>
-              <span>
-                <span className="block text-sm font-semibold text-white">{p.title}</span>
-                <span className="block text-[13px] text-brand-100/75">{p.text}</span>
-              </span>
-            </motion.li>
-          ))}
-        </ul>
+              <div className="flex items-center justify-between gap-3">
+                <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-teal-800">{scene.caseId}</p>
+                <p className="text-[12px] text-slate-500">{scene.priority}</p>
+              </div>
+              <p className="mt-2 font-display text-xl font-semibold">{scene.state}</p>
+              <p className="mt-1 text-[13px] leading-relaxed text-slate-600">{scene.blocker}</p>
+              <p className="mt-3 text-[13px] text-teal-800">
+                Next: {scene.owner} · {scene.next}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        <p className="relative inline-flex items-center gap-2 text-[13px] text-slate-600">
+          <ShieldCheck className="size-4 text-teal-700" aria-hidden />
+          Clinical decisions stay with a person. Every change is audited.
+        </p>
       </aside>
 
-      <main className="hero-backdrop relative flex min-h-screen flex-col overflow-hidden px-4 py-6 sm:px-8 lg:py-10">
-        <div className="window-light pointer-events-none absolute inset-0 opacity-50" aria-hidden />
+      <main className="relative flex min-h-screen flex-col bg-[#f6f7f4] px-4 py-6 sm:px-8 lg:py-10">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(700px_320px_at_100%_0%,rgba(15,118,110,0.08),transparent_60%)]" aria-hidden />
         <div className="relative flex items-center justify-between gap-4">
           <Link to="/" className="rounded-lg lg:hidden">
-            <Logo />
+            <span className="font-display text-[17px] font-semibold tracking-tight text-slate-900">
+              Oushadha<span className="text-teal-700">Setu</span>
+            </span>
           </Link>
-          <Link to="/" className="ml-auto inline-flex items-center gap-1.5 rounded-md px-1 text-[13px] font-medium text-ink-600 transition-colors hover:text-brand-800">
+          <Link to="/" className="ml-auto inline-flex items-center gap-1.5 rounded-md px-1 text-[13px] font-medium text-slate-600 transition-colors hover:text-slate-950">
             <ArrowLeft className="size-3.5" aria-hidden />
             Back to home
           </Link>
         </div>
 
-        <div className="relative mx-auto flex w-full max-w-[440px] flex-1 flex-col justify-center py-8">
-          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease: 'easeOut' }} className="glass rounded-2xl p-6 shadow-[var(--shadow-lift)] sm:p-8">
-            {eyebrow && <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-brand-600">{eyebrow}</p>}
-            <h1 className="mt-1.5 text-[26px] leading-tight text-brand-900 sm:text-[28px]">{title}</h1>
-            {description && <p className="mt-2 text-sm leading-relaxed text-ink-600">{description}</p>}
+        <div className="relative mx-auto flex w-full max-w-[460px] flex-1 flex-col justify-center py-8">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="rounded-3xl border border-slate-200/80 bg-white p-6 shadow-[0_24px_60px_-36px_rgba(15,23,42,0.45)] sm:p-8"
+          >
+            {eyebrow && <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-teal-700">{eyebrow}</p>}
+            <h1 className="mt-1.5 text-[26px] leading-tight text-slate-950 sm:text-[28px]">{title}</h1>
+            {description && <p className="mt-2 text-sm leading-relaxed text-slate-600">{description}</p>}
             <div className="mt-6">{children}</div>
           </motion.div>
-          {footer && <div className="mt-5 text-center text-sm text-ink-600">{footer}</div>}
+          {footer && <div className="mt-5 text-center text-sm text-slate-600">{footer}</div>}
           {below && (
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.45 }} className="mt-6">
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12, duration: 0.45 }} className="mt-6">
               {below}
             </motion.div>
           )}
         </div>
-        <p className="relative text-center text-[12px] text-ink-500">Synthetic demo data only. Not for clinical use.</p>
+        <p className="relative text-center text-[12px] text-slate-500">Synthetic demo data only. Not for clinical use.</p>
       </main>
     </div>
   );

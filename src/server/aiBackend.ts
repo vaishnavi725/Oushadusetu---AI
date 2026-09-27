@@ -31,37 +31,78 @@ const supabaseUrl = process.env.VITE_SUPABASE_URL || fileEnv.VITE_SUPABASE_URL |
 const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || fileEnv.VITE_SUPABASE_ANON_KEY || '';
 const serverSupabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
-// Read AI API Key securely on the server
+// Read AI API keys securely on the server (Grok preferred over OpenAI)
+const GROK_API_KEY =
+  process.env.GROK_API_KEY ||
+  process.env.XAI_API_KEY ||
+  fileEnv.GROK_API_KEY ||
+  fileEnv.XAI_API_KEY ||
+  '';
+const GROK_MODEL =
+  process.env.GROK_MODEL ||
+  process.env.XAI_MODEL ||
+  fileEnv.GROK_MODEL ||
+  fileEnv.XAI_MODEL ||
+  'grok-3-mini';
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY || fileEnv.OPENAI_API_KEY || '';
 
-export async function callOpenAiIfConfigured(prompt: string, fallback: string): Promise<string> {
-  if (!OPENAI_API_KEY) return fallback;
+const OUSHADHA_SYSTEM_PROMPT =
+  'You are Oushadha AI, an autonomous healthcare refill intelligence assistant. Provide clinically accurate, explainable insights with root causes, evidence, and next actions. Do not make autonomous medication changes.';
+
+async function callChatCompletions(
+  endpoint: string,
+  apiKey: string,
+  model: string,
+  prompt: string,
+  fallback: string,
+  providerLabel: string
+): Promise<string> {
   try {
-    const res = await fetch('https://api.openai.com/v1/chat/completions', {
+    const res = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${OPENAI_API_KEY}`,
+        Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
+        model,
         messages: [
-          {
-            role: 'system',
-            content:
-              'You are Oushadha AI, an autonomous healthcare refill intelligence assistant. Provide clinically accurate, explainable insights with root causes, evidence, and next actions. Do not make autonomous medication changes.',
-          },
+          { role: 'system', content: OUSHADHA_SYSTEM_PROMPT },
           { role: 'user', content: prompt },
         ],
         temperature: 0.2,
       }),
     });
     if (res.ok) {
-      const data = (await res.json()) as any;
+      const data = (await res.json()) as { choices?: { message?: { content?: string } }[] };
       return data?.choices?.[0]?.message?.content || fallback;
     }
   } catch (err) {
-    console.warn('OpenAI completion failed, using deterministic clinical reasoning:', err);
+    console.warn(`${providerLabel} completion failed, using deterministic clinical reasoning:`, err);
+  }
+  return fallback;
+}
+
+export async function callOpenAiIfConfigured(prompt: string, fallback: string): Promise<string> {
+  if (GROK_API_KEY) {
+    return callChatCompletions(
+      'https://api.x.ai/v1/chat/completions',
+      GROK_API_KEY,
+      GROK_MODEL,
+      prompt,
+      fallback,
+      'xAI Grok'
+    );
+  }
+  if (OPENAI_API_KEY) {
+    return callChatCompletions(
+      'https://api.openai.com/v1/chat/completions',
+      OPENAI_API_KEY,
+      'gpt-4o-mini',
+      prompt,
+      fallback,
+      'OpenAI'
+    );
   }
   return fallback;
 }
