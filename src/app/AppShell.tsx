@@ -4,24 +4,29 @@ import { AnimatePresence, motion } from 'motion/react';
 import { useQuery } from '@tanstack/react-query';
 import {
   BarChart3,
+  Bot,
   ClipboardList,
   FlaskRound,
   Inbox,
+  LayoutDashboard,
   LogOut,
   Menu,
   PhoneIncoming,
   PlusCircle,
+  Radio,
   Settings,
   ShieldCheck,
   Stethoscope,
   WifiOff,
   AlertTriangle,
+  Gauge,
 } from 'lucide-react';
 import { can, ROLE_LABELS } from '@shared/domain/permissions.ts';
 import type { Role } from '@shared/types.ts';
 import { refillService } from '@/services';
 import { Logo } from '@/components/ui/Layout';
 import { Drawer } from '@/components/ui/Modal';
+import { OushadhaAIHelper } from '@/components/ai/OushadhaAIHelper';
 import { cn } from '@/lib/format';
 import { useOnline } from '@/lib/hooks';
 import { useAuth } from './auth-context';
@@ -38,8 +43,12 @@ interface NavItem {
 
 const I = 'size-[18px]';
 const NAV: NavItem[] = [
+  { to: '/dashboard', label: 'Dashboard', icon: <LayoutDashboard className={I} />, roles: ['practice_admin', 'practice_staff', 'provider', 'pharmacy_admin', 'pharmacy_staff'], end: true },
+  { to: '/command-center', label: 'Command Center', icon: <Gauge className={I} />, roles: ['practice_admin', 'practice_staff', 'provider', 'pharmacy_admin', 'pharmacy_staff'] },
   { to: '/provider/inbox', label: 'Provider inbox', icon: <Stethoscope className={I} />, roles: ['provider'] },
   { to: '/queue', label: 'Refill queue', icon: <ClipboardList className={I} />, roles: ['practice_admin', 'practice_staff', 'provider'] },
+  { to: '/proactive-risk', label: 'Proactive Risk', icon: <Radio className={I} />, roles: ['practice_admin', 'practice_staff', 'provider', 'pharmacy_admin'] },
+  { to: '/agents', label: 'AI Agents', icon: <Bot className={I} />, roles: ['practice_admin', 'provider', 'pharmacy_admin'] },
   { to: '/cases/new', label: 'Phone request', icon: <PhoneIncoming className={I} />, roles: ['practice_admin', 'practice_staff'] },
   { to: '/pharmacy/requests', label: 'Requests', icon: <Inbox className={I} />, roles: ['pharmacy_admin', 'pharmacy_staff'], end: true },
   { to: '/pharmacy/requests/new', label: 'New request', icon: <PlusCircle className={I} />, roles: ['pharmacy_admin', 'pharmacy_staff'] },
@@ -147,6 +156,7 @@ export function AppShell() {
         </button>
       </Drawer>
       <SimulatorDrawer open={simOpen} onClose={() => setSimOpen(false)} />
+      <OushadhaAIHelper />
       {import.meta.env.VITE_APP_ENV !== 'production' && <DevRoleSwitcher />}
     </div>
   );

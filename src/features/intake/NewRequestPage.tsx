@@ -99,7 +99,7 @@ export default function NewRequestPage() {
             <span className="font-light">Send a</span> <span className="font-bold">refill request</span>
           </>
         }
-        description="Paste or upload the fax you'd normally send — RefillBridge reads it, you check it, and the practice gets a case that's already triaged."
+        description="Paste or upload the fax you'd normally send — OushadhaSetu reads it, you check it, and the practice gets a case that's already triaged."
       />
       <AnimatePresence mode="wait">
         {stage.kind === 'input' && (

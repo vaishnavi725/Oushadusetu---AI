@@ -155,7 +155,7 @@ function EnrollFlow({ target }: { target: string }) {
       description={
         step === 1
           ? 'Your role approves clinical or admin actions, so we protect it with a code from an app like Google Authenticator or 1Password.'
-          : 'Enter the 6-digit code your app shows for RefillBridge.'
+          : 'Enter the 6-digit code your app shows for OushadhaSetu.'
       }
       footer={<SwitchAccount />}
     >

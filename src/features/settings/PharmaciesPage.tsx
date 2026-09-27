@@ -95,7 +95,7 @@ export default function PharmaciesPage() {
         isPractice ? (
           <EmptyState icon={<Building2 className="size-6" aria-hidden />} title="No linked pharmacies yet" description="Invite the pharmacies you work with most. They'll appear here as pending until they accept." action={inviteButton} />
         ) : (
-          <EmptyState icon={<Stethoscope className="size-6" aria-hidden />} title="No practices linked yet" description="Ask the practices you work with to invite your pharmacy from their RefillBridge settings." />
+          <EmptyState icon={<Stethoscope className="size-6" aria-hidden />} title="No practices linked yet" description="Ask the practices you work with to invite your pharmacy from their OushadhaSetu settings." />
         )
       ) : (
         <ul className="grid gap-4 md:grid-cols-2 xl:grid-cols-3" aria-label={isPractice ? 'Linked pharmacies' : 'Linked practices'}>
@@ -194,7 +194,7 @@ function InvitePharmacyModal({ open, onClose }: { open: boolean; onClose: () => 
       open={open}
       onClose={onClose}
       title="Invite a pharmacy"
-      description="We'll invite their admin to join RefillBridge free and link with your practice."
+      description="We'll invite their admin to join OushadhaSetu free and link with your practice."
       icon={<Building2 className="size-5" aria-hidden />}
       footer={
         <>

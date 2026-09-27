@@ -78,7 +78,7 @@ export const mockAuthService: AuthService = {
   async startMfaEnrollment() {
     if (!IS_TEST) await sleep(300);
     const secret = 'JBSWY3DPEHPK3PXP';
-    return { secret, otpauthUri: `otpauth://totp/RefillBridge?secret=${secret}&issuer=RefillBridge` };
+    return { secret, otpauthUri: `otpauth://totp/OushadhaSetu?secret=${secret}&issuer=OushadhaSetu` };
   },
 
   async confirmMfaEnrollment(code) {

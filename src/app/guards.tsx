@@ -13,7 +13,7 @@ export function RequireAuth({ children }: { children: ReactNode }) {
   const location = useLocation();
   if (!user) {
     const next = encodeURIComponent(location.pathname + location.search);
-    return <Navigate to={`/sign-in?next=${next}`} replace />;
+    return <Navigate to={`/login?next=${next}`} replace />;
   }
   // H3: roles that require MFA must finish it before using the app (dev switcher can bypass to demo step-up).
   const s = sessionStore.get();

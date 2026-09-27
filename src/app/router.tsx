@@ -10,6 +10,7 @@ import { CrashScreen } from './ErrorBoundary';
 import { RequireAuth, RequireRole } from './guards';
 import { setUnauthenticatedHandler } from './query-client';
 
+const DashboardPage = lazy(() => import('@/features/dashboard/DashboardPage'));
 const LandingPage = lazy(() => import('@/features/landing/LandingPage'));
 const SignInPage = lazy(() => import('@/features/auth/SignInPage'));
 const SignUpPage = lazy(() => import('@/features/auth/SignUpPage'));
@@ -33,6 +34,9 @@ const PharmaciesPage = lazy(() => import('@/features/settings/PharmaciesPage'));
 const PoliciesPage = lazy(() => import('@/features/settings/PoliciesPage'));
 const AuditLogPage = lazy(() => import('@/features/settings/AuditLogPage'));
 const NotFoundPage = lazy(() => import('@/features/errors/NotFoundPage'));
+const CommandCenterPage = lazy(() => import('@/features/command-center/CommandCenterPage'));
+const ProactiveRiskPage = lazy(() => import('@/features/proactive/ProactiveRiskPage'));
+const AgentActivityPage = lazy(() => import('@/features/agents/AgentActivityPage'));
 
 function PageFallback() {
   return (
@@ -88,7 +92,9 @@ export const router = createBrowserRouter([
     errorElement: <RouteError />,
     children: [
       { path: '/', element: <LandingPage /> },
+      { path: '/login', element: <SignInPage /> },
       { path: '/sign-in', element: <SignInPage /> },
+      { path: '/landing', element: <LandingPage /> },
       { path: '/sign-up', element: <SignUpPage /> },
       { path: '/verify-email', element: <VerifyEmailPage /> },
       { path: '/accept-invite', element: <AcceptInvitePage /> },
@@ -103,7 +109,11 @@ export const router = createBrowserRouter([
           </RequireAuth>
         ),
         children: [
+          { path: '/dashboard', element: <DashboardPage /> },
           { path: '/queue', element: guard(practice, <QueuePage />) },
+          { path: '/command-center', element: <CommandCenterPage /> },
+          { path: '/proactive-risk', element: <ProactiveRiskPage /> },
+          { path: '/agents', element: <AgentActivityPage /> },
           { path: '/cases/new', element: guard(['practice_admin', 'practice_staff', 'provider'], <PhoneIntakePage />) },
           { path: '/cases/:caseId', element: <CaseDetailPage /> },
           { path: '/provider/inbox', element: guard(['provider'], <ProviderInboxPage />) },

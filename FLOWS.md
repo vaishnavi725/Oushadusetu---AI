@@ -1,4 +1,4 @@
-# RefillBridge — Step-by-Step Flows (every login)
+# OushadhaSetu — Step-by-Step Flows (every login)
 
 ## Before you start
 1. Open a terminal in the project folder and run: `npm run dev`

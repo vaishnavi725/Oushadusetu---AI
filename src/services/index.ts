@@ -1,11 +1,19 @@
-// The ONE place that picks mock vs real. Switching to the real back end (Phase 5) changes only this file.
+// The ONE place that picks mock vs real.
 import { mockAuthService } from './mock/mock-auth';
-import { mockRefillService } from './mock/mock-service';
-import type { AuthService, RefillService } from './refill-service';
+import { refillService } from './refillService';
+import type { AuthService } from './refill-service';
 
-export const refillService: RefillService = mockRefillService;
+export const USING_MOCKS = import.meta.env.VITE_USE_MOCKS !== 'false';
+export { refillService };
 export const authService: AuthService = mockAuthService;
-export const USING_MOCKS = true;
 
 export { ApiError, friendlyMessage, newRequestId } from './errors';
 export type { RefillService, AuthService } from './refill-service';
+export { supabase, isSupabaseConfigured, testSupabaseConnection } from './supabase';
+export { patientService } from './patientService';
+export { prescriptionService } from './prescriptionService';
+export { proactiveRiskService } from './proactiveRiskService';
+export { aiDecisionService } from './aiDecisionService';
+export { agentActionService } from './agentActionService';
+export { timelineService } from './timelineService';
+export { auditService } from './auditService';

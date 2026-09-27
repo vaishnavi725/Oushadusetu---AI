@@ -79,7 +79,7 @@ export function RoiCalculator() {
     { label: 'Staff hours saved / month', value: r.hoursSaved, format: (v: number) => `${num(v)} h` },
     { label: 'Monthly value', value: r.monthlyValue, format: usd },
     { label: 'Annual value', value: r.annualValue, format: usd },
-    { label: `RefillBridge cost / month`, value: r.monthlyCost, format: usd, note: `${inputs.providers} × $${PRICE_PER_PROVIDER}` },
+    { label: `OushadhaSetu cost / month`, value: r.monthlyCost, format: usd, note: `${inputs.providers} × $${PRICE_PER_PROVIDER}` },
   ];
 
   return (

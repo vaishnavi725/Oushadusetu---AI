@@ -1,56 +1,76 @@
 @import 'tailwindcss';
 
-/* RefillBridge design tokens — calm, clinical, trustworthy.
-   Ice-blue surfaces + deep teal ink, inspired by an airy operating-room palette. */
+/* OushadhaSetu design tokens — Indigo & Violet Modern Health.
+   Contemporary digital health & wellness aesthetic with vibrant Indigo (#4F46E5)
+   and Violet (#8B5CF6) accents on clean modern surfaces. */
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-display: 'Manrope', 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --color-brand-50: #f2f9fb;
-  --color-brand-100: #e4f2f6;
-  --color-brand-200: #c9e5ec;
-  --color-brand-300: #9fcfdb;
-  --color-brand-400: #67b0c2;
-  --color-brand-500: #3a91a6;
-  --color-brand-600: #2a768a;
-  --color-brand-700: #215f70;
-  --color-brand-800: #1b4d5b;
-  --color-brand-900: #143b46;
-  --color-brand-950: #0c2830;
+  /* Primary: Indigo */
+  --color-brand-50: #eef2ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-200: #c7d2fe;
+  --color-brand-300: #a5b4fc;
+  --color-brand-400: #818cf8;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5; /* Primary */
+  --color-brand-700: #4338ca;
+  --color-brand-800: #3730a3;
+  --color-brand-900: #312e81;
+  --color-brand-950: #1e1b4b;
 
-  --color-ice-50: #f7fbfc;
-  --color-ice-100: #eef6f8;
-  --color-ice-200: #e1eef2;
-  --color-ice-300: #cfe2e8;
+  /* Secondary: Violet & Purple */
+  --color-secondary-50: #f5f3ff;
+  --color-secondary-100: #ede9fe;
+  --color-secondary-200: #ddd6fe;
+  --color-secondary-300: #c4b5fd;
+  --color-secondary-400: #a78bfa;
+  --color-secondary-500: #8b5cf6; /* Violet */
+  --color-secondary-600: #7c3aed;
+  --color-secondary-700: #6d28d9;
+  --color-secondary-800: #5b21b6;
+  --color-secondary-900: #4c1d95;
 
-  --color-ink-900: #0f2a33;
-  --color-ink-700: #2c4852;
-  --color-ink-600: #45616b;
-  --color-ink-500: #647c85;
-  --color-ink-400: #8a9ea5;
-  --color-line: #d7e5ea;
-  --color-line-strong: #bcd3db;
+  /* Surfaces & Clean Backgrounds */
+  --color-ice-50: #fafafa;
+  --color-ice-100: #f3f4f6;
+  --color-ice-200: #e5e7eb;
+  --color-ice-300: #d1d5db;
 
-  --color-ok-50: #ecf8f1;
-  --color-ok-600: #1b7f50;
-  --color-ok-700: #166a43;
-  --color-warn-50: #fff6e6;
-  --color-warn-600: #a86411;
-  --color-warn-700: #8a520e;
-  --color-bad-50: #fdeeed;
-  --color-bad-600: #bb3a33;
-  --color-bad-700: #9c2f29;
-  --color-info-50: #edf4fc;
-  --color-info-600: #2d67a8;
-  --color-info-700: #24558c;
+  /* Typography: Slate text */
+  --color-ink-900: #0f172a;
+  --color-ink-700: #1e293b;
+  --color-ink-600: #334155;
+  --color-ink-500: #64748b;
+  --color-ink-400: #94a3b8;
+  --color-line: #e2e8f0;
+  --color-line-strong: #cbd5e1;
+
+  /* Status Colors */
+  --color-ok-50: #f0fdf4;
+  --color-ok-600: #16a34a;
+  --color-ok-700: #15803d;
+
+  --color-warn-50: #fffbeb;
+  --color-warn-600: #f59e0b;
+  --color-warn-700: #d97706;
+
+  --color-bad-50: #fef2f2;
+  --color-bad-600: #ef4444;
+  --color-bad-700: #dc2626;
+
+  --color-info-50: #eef2ff;
+  --color-info-600: #4f46e5;
+  --color-info-700: #4338ca;
 
   --radius-card: 0.75rem;
   --radius-input: 0.5rem;
 
-  --shadow-soft: 0 1px 2px rgb(15 42 51 / 0.04), 0 4px 16px -4px rgb(15 42 51 / 0.08);
-  --shadow-lift: 0 2px 4px rgb(15 42 51 / 0.05), 0 16px 40px -12px rgb(20 59 70 / 0.22);
-  --shadow-glow: 0 0 0 1px rgb(58 145 166 / 0.18), 0 12px 32px -8px rgb(58 145 166 / 0.35);
+  --shadow-soft: 0 1px 2px rgb(15 23 42 / 0.04), 0 4px 16px -4px rgb(15 23 42 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(15 23 42 / 0.05), 0 16px 40px -12px rgb(79 70 229 / 0.22);
+  --shadow-glow: 0 0 0 1px rgb(99 102 241 / 0.25), 0 12px 32px -8px rgb(99 102 241 / 0.35);
 
   --animate-float: float 7s ease-in-out infinite;
   --animate-pulse-ring: pulse-ring 2.4s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
@@ -70,14 +90,30 @@
   }
 }
 
+:root {
+  --font-heading: 'Plus Jakarta Sans', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* OushadhaSetu Primary Healthcare Palette */
+  --color-primary: #0F766E;
+  --color-accent: #14B8A6;
+  --color-secondary-blue: #2563EB;
+  --color-dark-bg: #0F172A;
+  --color-light-bg: #F8FAFC;
+  --color-status-success: #16A34A;
+  --color-status-warning: #F59E0B;
+  --color-status-danger: #DC2626;
+}
+
 @layer base {
   html {
+    font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
   body {
-    @apply bg-ice-100 font-sans text-ink-900;
+    @apply bg-ice-50 font-sans text-ink-900;
   }
   h1, h2, h3, h4 {
     @apply font-display tracking-tight;
@@ -109,15 +145,15 @@
   }
   .app-backdrop {
     background:
-      radial-gradient(1200px 600px at 100% -10%, rgb(201 229 236 / 0.55), transparent 60%),
-      radial-gradient(900px 500px at -10% 110%, rgb(228 242 246 / 0.9), transparent 60%),
-      var(--color-ice-100);
+      radial-gradient(1200px 600px at 100% -10%, rgb(199 210 254 / 0.35), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgb(221 214 254 / 0.45), transparent 60%),
+      var(--color-ice-50);
   }
   .hero-backdrop {
     background:
       radial-gradient(900px 520px at 78% 18%, rgb(255 255 255 / 0.95), transparent 60%),
-      radial-gradient(700px 480px at 12% 80%, rgb(159 207 219 / 0.35), transparent 65%),
-      linear-gradient(180deg, #eaf5f8 0%, #f4fafb 55%, #eef6f8 100%);
+      radial-gradient(700px 480px at 12% 80%, rgb(165 180 252 / 0.25), transparent 65%),
+      linear-gradient(180deg, #f5f3ff 0%, #fafafa 55%, #f3f4f6 100%);
   }
   .window-light {
     background-image:

@@ -44,7 +44,7 @@ export default function PhoneIntakePage() {
             <span className="font-light">Log a</span> <span className="font-bold">phone request</span>
           </>
         }
-        description="A patient called asking for a refill. Capture it once — RefillBridge matches the patient, runs the rules and routes it."
+        description="A patient called asking for a refill. Capture it once — OushadhaSetu matches the patient, runs the rules and routes it."
       />
       {orgs.isLoading ? (
         <SkeletonRows rows={3} />

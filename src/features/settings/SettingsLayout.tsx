@@ -47,7 +47,7 @@ export default function SettingsLayout() {
             <span className="font-bold">Settings</span>
           </>
         }
-        description="Your account, your organisation and how RefillBridge behaves for your team."
+        description="Your account, your organisation and how OushadhaSetu behaves for your team."
       />
       <nav aria-label="Settings" className="-mx-4 mb-6 overflow-x-auto border-b border-line px-4 [scrollbar-width:none] sm:mx-0 sm:px-0">
         <ul className="flex min-w-max gap-1">

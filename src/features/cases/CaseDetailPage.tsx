@@ -38,6 +38,7 @@ import { DiagnosisPanel } from './DiagnosisPanel';
 import { useCase, useInvalidateCase, useTransition } from './hooks';
 import { PatientMatchPanel } from './PatientMatchPanel';
 import { PharmacyCaseView } from './PharmacyCaseView';
+import { RefillDigitalTwin } from './RefillDigitalTwin';
 import { Timeline } from './Timeline';
 
 export default function CaseDetailPage() {
@@ -113,6 +114,11 @@ function PracticeCaseView({ detail }: { detail: PracticeCaseDetail }) {
           )}
         </div>
       </motion.header>
+
+      {/* Refill Digital Twin with Visual State Machine */}
+      <div className="mb-5">
+        <RefillDigitalTwin detail={detail} />
+      </div>
 
       {/* Safety banners */}
       <div className="space-y-3">
@@ -357,7 +363,7 @@ function ActionsCard({ detail }: { detail: PracticeCaseDetail }) {
             })}
           </div>
         ) : (
-          !isTerminal && <p className="text-sm text-ink-500">{c.status === 'WAITING_ON_PROVIDER' ? (user?.role === 'provider' ? 'Open the decision panel to decide.' : 'Waiting for the provider. Only providers can make clinical decisions.') : 'No manual action needed right now — RefillBridge is handling the next step.'}</p>
+          !isTerminal && <p className="text-sm text-ink-500">{c.status === 'WAITING_ON_PROVIDER' ? (user?.role === 'provider' ? 'Open the decision panel to decide.' : 'Waiting for the provider. Only providers can make clinical decisions.') : 'No manual action needed right now — OushadhaSetu is handling the next step.'}</p>
         )}
       </div>
       {dialog === 'REQUEST_INFO' ? (

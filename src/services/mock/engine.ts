@@ -169,7 +169,7 @@ export interface ActorCtx {
   requestId: string;
 }
 
-export const SYSTEM: ActorCtx = { actor: { kind: 'system' }, userId: null, name: 'RefillBridge', actorType: 'system', requestId: 'system' };
+export const SYSTEM: ActorCtx = { actor: { kind: 'system' }, userId: null, name: 'OushadhaSetu', actorType: 'system', requestId: 'system' };
 
 let idCounter = 0;
 export const uid = (prefix: string) => `${prefix}-${Date.now().toString(36)}${(idCounter++).toString(36)}`;

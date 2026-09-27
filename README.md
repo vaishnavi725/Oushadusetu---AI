@@ -1,9 +1,8 @@
-# RefillBridge — Project README & Hand-off
+# OushadhaSetu — Project README & Hand-off
 
 > **If you are a new developer or AI picking this up, read this whole file first.**
 > It explains what we are building, what is done, how it is built, what is missing, and exactly how to continue.
 > Companion files: [FLOWS.md](FLOWS.md) (step-by-step click-through per login) and [TESTING.md](TESTING.md) (test guide).
-> The original brief is `REFILLBRIDGE_MASTER_PROMPT.md`, owned by the team and **not stored in this repo**. Ask the team for it and add it to the repo root; it is the source of truth for every rule and design decision.
 
 **Last updated:** 27 Sep 2026 · **Current phase:** Phase 4 complete (front end on mock data) · **Next phase:** Phase 5 (real back end) + GTM pack
 
@@ -11,10 +10,10 @@
 
 ## 1. What this project is
 
-**Hackathon challenge:** "Closing the Prescription Refill Gap" (24-hour, B2B).
+**Challenge:** "Closing the Prescription Refill Gap" (B2B Healthcare).
 A patient needs a refill. When a **provider must intervene** (no refills left, visit needed, labs overdue, missing info, insurance block), the refill bounces between **pharmacy → provider → practice staff → patient** over phone, fax and portals. Nobody owns it, nobody sees its status, and the patient hears nothing.
 
-**Our product: RefillBridge.** A B2B web app for **physician practices (buyer and main user)** and their **pharmacies (free users)**. Patients have no login; they get SMS/email plus a secure status page.
+**Our product: OushadhaSetu.** (Oushadha = Medicine, Setu = Bridge). A B2B healthcare platform for **physician practices (buyer and main user)** and their **pharmacies (free users)**. Patients have no login; they get SMS/email plus a secure status page.
 
 **Tagline:** *One shared case. One owner. One next step. The patient always knows.*
 

@@ -486,7 +486,7 @@ export const mockRefillService: RefillService = {
     const m = me();
     const c = scopedCase(m, caseId);
     const owner = m.eng.user(c.ownerUserId);
-    const ownerLabel = owner ? `${owner.name} (${ROLE_LABELS[owner.role]})` : c.ownerRole === 'system' ? 'RefillBridge (automatic)' : `${ROLE_LABELS[c.ownerRole]} team queue`;
+    const ownerLabel = owner ? `${owner.name} (${ROLE_LABELS[owner.role]})` : c.ownerRole === 'system' ? 'OushadhaSetu (automatic)' : `${ROLE_LABELS[c.ownerRole]} team queue`;
     const diag = buildDiagnosis({
       status: c.status,
       statusSince: c.statusSince,
@@ -584,7 +584,7 @@ export const mockRefillService: RefillService = {
           if (!Number.isNaN(n)) c.requestedPayload = { ...c.requestedPayload, quantity: n };
         }
       }
-      m.eng.apply(c, 'INFO_RECEIVED', { ...ctx, actor: { kind: 'system' }, actorType: 'system', name: 'RefillBridge' }, { reason: 'All questions answered.' });
+      m.eng.apply(c, 'INFO_RECEIVED', { ...ctx, actor: { kind: 'system' }, actorType: 'system', name: 'OushadhaSetu' }, { reason: 'All questions answered.' });
     }
     notifyChange();
     return stripIr(ir);

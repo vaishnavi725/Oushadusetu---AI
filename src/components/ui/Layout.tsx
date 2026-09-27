@@ -102,23 +102,32 @@ export function Logo({ className, compact }: { className?: string; compact?: boo
     <span className={cn('inline-flex items-center gap-2.5', className)}>
       <svg viewBox="0 0 32 32" className="size-8 shrink-0" aria-hidden>
         <defs>
-          <linearGradient id="rb-g" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#2a768a" />
-            <stop offset="1" stopColor="#143b46" />
+          <linearGradient id="oushadha-g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#4f46e5" />
+            <stop offset="60%" stopColor="#6366f1" />
+            <stop offset="100%" stopColor="#8b5cf6" />
           </linearGradient>
         </defs>
-        <rect width="32" height="32" rx="9" fill="url(#rb-g)" />
-        <path d="M7.5 20.5c0-4.7 3.8-8.5 8.5-8.5s8.5 3.8 8.5 8.5" fill="none" stroke="#e4f2f6" strokeWidth="2.4" strokeLinecap="round" />
-        <circle cx="7.5" cy="21.5" r="2.6" fill="#9fcfdb" />
-        <circle cx="24.5" cy="21.5" r="2.6" fill="#9fcfdb" />
-        <path d="M14.5 16h3M16 14.5v3" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" />
+        <rect width="32" height="32" rx="9" fill="url(#oushadha-g)" />
+        {/* Bridge arch */}
+        <path d="M5 24 Q16 13 27 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" opacity="0.95" />
+        {/* Bridge suspension cables / pillars */}
+        <path d="M10 21 v-4 M22 21 v-4" stroke="#ffffff" strokeWidth="1.2" strokeLinecap="round" opacity="0.75" />
+        {/* Medical care cross on top */}
+        <path d="M16 6 v7 M12.5 9.5 h7" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round" />
       </svg>
       {!compact && (
-        <span className="font-display text-[17px] tracking-tight text-brand-900">
-          <span className="font-light">Refill</span>
-          <span className="font-bold">Bridge</span>
+        <span className="flex flex-col">
+          <span className="font-display text-[17px] font-bold tracking-tight text-ink-900 leading-tight">
+            <span>Oushadha</span>
+            <span className="text-brand-700">Setu</span>
+          </span>
+          <span className="text-[10px] font-medium tracking-wide text-ink-500 uppercase leading-none">
+            Prescription Bridge
+          </span>
         </span>
       )}
     </span>
   );
 }
+

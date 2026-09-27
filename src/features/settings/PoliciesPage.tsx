@@ -48,7 +48,7 @@ export default function PoliciesPage() {
   const policies = useQuery({ queryKey: ['policies'], queryFn: () => refillService.getPolicies() });
   return (
     <div>
-      <SectionHeader title="Practice policies" description="The limits RefillBridge applies to every refill at your practice — deadlines, bridge supplies and when a visit is due." />
+      <SectionHeader title="Practice policies" description="The limits OushadhaSetu applies to every refill at your practice — deadlines, bridge supplies and when a visit is due." />
       <motion.div {...fadeUp(1)}>
         <Callout icon={<AlertTriangle className="size-4" />} tone="warn" className="mb-5">
           <p className="font-semibold">These defaults are placeholders set by your practice, not clinical advice.</p>
