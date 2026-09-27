@@ -13,6 +13,7 @@ import { ExplainabilitySection } from './ExplainabilitySection';
 import { ClinicalCollaborationSection } from './ClinicalCollaborationSection';
 import { BottomCtaBanner } from './BottomCtaBanner';
 import { LandingFooter } from './LandingFooter';
+import { ParticleBackground } from '@/components/pharma';
 import { RefillWalkthrough } from './RefillWalkthrough';
 import { AboutSection } from './AboutSection';
 import { PyramidSolutionSection } from './PyramidSolutionSection';
@@ -25,6 +26,8 @@ export default function LandingPage() {
       <LandingNavbar />
 
       <section className="relative flex min-h-[calc(100vh-80px)] flex-col justify-center overflow-hidden bg-[radial-gradient(1100px_500px_at_75%_10%,rgba(247,228,215,0.65),transparent_70%),radial-gradient(600px_350px_at_20%_80%,rgba(238,219,204,0.4),transparent_60%),linear-gradient(180deg,#FFFDFB_0%,#FAF6F0_100%)] pt-8 pb-16 lg:py-20">
+        {/* Subtle Ambient Particle System */}
+        <ParticleBackground className="opacity-35" />
 
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 relative z-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">

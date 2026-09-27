@@ -75,23 +75,23 @@ export function AppShell() {
         Skip to content
       </a>
       {/* Desktop sidebar */}
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-line bg-white/80 backdrop-blur-xl lg:flex">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-[var(--pharmalink-border-soft)] bg-white/85 backdrop-blur-xl lg:flex shadow-[4px_0_24px_rgba(15,23,42,0.02)]">
         <div className="flex h-16 items-center px-5">
           <Logo />
         </div>
-        <div className="mx-4 mb-3 rounded-xl border border-line bg-gradient-to-br from-brand-50 to-white px-3 py-2.5">
-          <p className="truncate text-[13px] font-semibold text-brand-900">{user.orgName}</p>
-          <p className="text-[12px] text-ink-500">{user.orgType === 'practice' ? 'Physician practice' : 'Pharmacy'}</p>
+        <div className="mx-4 mb-3 rounded-2xl border border-[var(--pharmalink-border)] bg-gradient-to-br from-teal-50/70 via-white/80 to-white px-3.5 py-3 shadow-sm">
+          <p className="truncate text-xs font-bold text-slate-900 tracking-tight">{user.orgName}</p>
+          <p className="text-[11px] text-slate-500 font-medium mt-0.5">{user.orgType === 'practice' ? 'Physician practice' : 'Pharmacy'}</p>
         </div>
-        <nav className="flex-1 space-y-0.5 px-3" aria-label="Main">
+        <nav className="flex-1 space-y-1 px-3" aria-label="Main">
           {items.map((item, i) => (
-            <motion.div key={item.to} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.04 * i }}>
+            <motion.div key={item.to} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.03 * i }}>
               <SideLink item={item} />
             </motion.div>
           ))}
         </nav>
         {can(user.role, 'simulator.use') && import.meta.env.VITE_APP_ENV !== 'production' && (
-          <button type="button" onClick={() => setSimOpen(true)} className="mx-3 mb-2 flex items-center gap-2.5 rounded-lg border border-dashed border-brand-300 px-3 py-2 text-[13px] font-medium text-brand-700 transition hover:bg-brand-50">
+          <button type="button" onClick={() => setSimOpen(true)} className="mx-3 mb-2 flex items-center gap-2.5 rounded-xl border border-dashed border-teal-300/80 px-3 py-2 text-xs font-semibold text-[var(--pharmalink-primary)] transition hover:bg-[var(--pharmalink-primary-soft)]">
             <FlaskRound className="size-4" /> Failure simulator
           </button>
         )}
@@ -169,12 +169,14 @@ function SideLink({ item }: { item: NavItem }) {
       end={item.end}
       className={({ isActive }) =>
         cn(
-          'group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200',
-          isActive ? 'bg-brand-700 text-white shadow-[0_8px_20px_-10px_rgb(15_118_110/0.5)]' : 'text-ink-600 hover:bg-brand-50 hover:text-brand-800',
+          'group relative flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-xs font-semibold tracking-wide transition-all duration-200 select-none',
+          isActive
+            ? 'bg-brand-700 text-white shadow-[0_4px_14px_rgba(15,118,110,0.35)]'
+            : 'text-slate-600 hover:bg-brand-50 hover:text-brand-800',
         )
       }
     >
-      <span className="transition-transform duration-200 group-hover:scale-110">{item.icon}</span>
+      <span className="transition-transform duration-200 group-hover:scale-105">{item.icon}</span>
       {item.label}
     </NavLink>
   );
@@ -185,21 +187,21 @@ function UserCard({ onSignOut }: { onSignOut: () => void }) {
   if (!user) return null;
   const initials = user.name.replace(/^Dr\.\s*/, '').split(/\s+/).map((p) => p[0]).slice(0, 2).join('');
   return (
-    <div className="border-t border-line p-3">
-      <div className="flex items-center gap-3 rounded-xl p-2">
-        <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-brand-800 text-[13px] font-semibold text-white">{initials}</div>
+    <div className="border-t border-[var(--pharmalink-border-soft)] p-3">
+      <div className="flex items-center gap-3 rounded-xl p-2 hover:bg-white/60 transition">
+        <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-teal-500 to-teal-800 text-[13px] font-bold text-white shadow-sm">{initials}</div>
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-medium text-ink-900">{user.name}</p>
-          <p className="flex items-center gap-1 text-[12px] text-ink-500">
+          <p className="truncate text-xs font-bold text-slate-900">{user.name}</p>
+          <p className="flex items-center gap-1 text-[11px] text-slate-500 font-mono">
             {ROLE_LABELS[user.role]}
             {user.aal === 'aal2' && (
-              <span className="inline-flex items-center gap-0.5 text-ok-700" title="MFA verified this session">
+              <span className="inline-flex items-center gap-0.5 text-emerald-600 font-bold" title="MFA verified this session">
                 <ShieldCheck className="size-3" /> MFA
               </span>
             )}
           </p>
         </div>
-        <button type="button" onClick={onSignOut} className="rounded-md p-2 text-ink-500 transition hover:bg-bad-50 hover:text-bad-600" aria-label="Sign out" title="Sign out">
+        <button type="button" onClick={onSignOut} className="rounded-lg p-2 text-slate-400 transition hover:bg-rose-50 hover:text-rose-600 cursor-pointer" aria-label="Sign out" title="Sign out">
           <LogOut className="size-4" />
         </button>
       </div>
