@@ -8,4 +8,4 @@ export { MedicineVisual } from './MedicineVisual';
 export { AnimatedNumber } from './AnimatedNumber';
 export { ScrollReveal, StaggerContainer, StaggerItem } from './ScrollReveal';
 export { ParticleBackground } from './ParticleBackground';
-export { RefillWorkflowVisual, WORKFLOW_NODES, type WorkflowStepId } from './RefillWorkflowVisual';
+export { RefillWorkflowVisual, CIRCULAR_NODES, type CircularStepId } from './RefillWorkflowVisual';

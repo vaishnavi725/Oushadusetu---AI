@@ -196,8 +196,8 @@ export function CapsuleHeroVisual() {
           </div>
 
           {viewMode === 'workflow' ? (
-            <div className="relative z-10 w-full flex items-center justify-center -my-6 scale-[0.78]">
-              <RefillWorkflowVisual mode="network" activeStep="all" interactive={true} />
+            <div className="relative z-10 w-full flex items-center justify-center py-2">
+              <RefillWorkflowVisual mode="circular" size="sm" activeStep="all" interactive={true} />
             </div>
           ) : (
             /* Floating High-Res 3D Capsule Image with Organic Bobbing Animation */
