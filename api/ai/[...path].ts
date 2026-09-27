@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { handleAiApiRequest } from '../../src/server/aiBackend';
+import { handleAiApiRequest } from '../../src/server/aiBackend.js';
 
 /** Let handleAiApiRequest read the raw request body (same as Vite dev middleware). */
 export const config = {
