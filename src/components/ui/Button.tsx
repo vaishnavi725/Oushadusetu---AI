@@ -17,10 +17,10 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variants: Record<Variant, string> = {
   primary:
-    'bg-brand-700 text-white shadow-[0_1px_0_rgb(255_255_255/0.15)_inset,0_6px_16px_-6px_rgb(27_77_91/0.6)] hover:bg-brand-800 hover:shadow-[0_1px_0_rgb(255_255_255/0.15)_inset,0_10px_22px_-8px_rgb(27_77_91/0.7)] active:bg-brand-900',
-  secondary: 'border border-line-strong bg-white text-ink-900 hover:border-brand-300 hover:bg-brand-50 active:bg-brand-100',
+    'bg-brand-700 text-white shadow-[0_1px_0_rgb(255_255_255/0.15)_inset,0_6px_16px_-6px_rgb(15_118_110/0.45)] hover:bg-brand-800 hover:shadow-[0_1px_0_rgb(255_255_255/0.15)_inset,0_10px_22px_-8px_rgb(15_118_110/0.55)] active:bg-brand-900',
+  secondary: 'border border-slate-200 bg-white text-ink-900 hover:border-brand-400 hover:bg-brand-50 active:bg-brand-100',
   ghost: 'text-ink-700 hover:bg-brand-50 hover:text-brand-800 active:bg-brand-100',
-  subtle: 'bg-brand-100 text-brand-800 hover:bg-brand-200 active:bg-brand-300',
+  subtle: 'bg-brand-50 text-brand-800 hover:bg-brand-100 active:bg-brand-200 border border-brand-200/60',
   danger: 'bg-bad-600 text-white hover:bg-bad-700 shadow-[0_6px_16px_-6px_rgb(187_58_51/0.55)]',
   success: 'bg-ok-600 text-white hover:bg-ok-700 shadow-[0_6px_16px_-6px_rgb(27_127_80/0.5)]',
 };

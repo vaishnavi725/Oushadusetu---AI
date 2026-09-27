@@ -390,22 +390,22 @@ export function ProjectFactCard({ className }: { className?: string }) {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -8, scale: 0.96 }}
           transition={{ duration: 0.35, ease: 'easeOut' }}
-          className="relative flex flex-col items-center rounded-2xl border border-stone-200/90 bg-white/90 px-6 py-4 text-center shadow-[0_12px_36px_-12px_rgba(15,118,110,0.14)] backdrop-blur-md"
+          className="relative flex flex-col items-center rounded-2xl border border-white/15 bg-slate-900/90 px-6 py-4 text-center shadow-[0_16px_40px_rgba(0,0,0,0.45)] backdrop-blur-md"
         >
           {/* Subtle top pill badge */}
-          <div className="flex items-center gap-1.5 rounded-full bg-teal-50 border border-teal-200/80 px-2.5 py-0.5 text-[10.5px] font-mono font-semibold uppercase tracking-wider text-teal-800">
-            <Sparkles className="size-3 text-teal-600 animate-pulse" />
+          <div className="flex items-center gap-1.5 rounded-full bg-teal-500/15 border border-teal-500/30 px-3 py-0.5 text-[10.5px] font-mono font-semibold uppercase tracking-wider text-teal-300">
+            <Sparkles className="size-3 text-teal-400 animate-pulse" />
             <span>Project Insight · {current.tag}</span>
           </div>
 
           {/* Fact content */}
-          <p className="mt-2.5 text-[12.5px] sm:text-[13px] font-medium text-slate-800 leading-relaxed max-w-sm">
+          <p className="mt-2.5 text-[12.5px] sm:text-[13px] font-medium text-slate-100 leading-relaxed max-w-sm">
             "{current.fact}"
           </p>
 
           {/* Clinical indicator footer */}
-          <div className="mt-2.5 flex items-center gap-1.5 text-[10px] font-mono text-stone-500">
-            <span className="size-1.5 rounded-full bg-emerald-500 animate-ping" />
+          <div className="mt-2.5 flex items-center gap-1.5 text-[10px] font-mono text-slate-400">
+            <span className="size-1.5 rounded-full bg-emerald-400 animate-ping" />
             <span>OushadhaSetu Clinical AI Engine</span>
           </div>
         </motion.div>
@@ -430,8 +430,8 @@ export function PillLoadingScreen({
     <div
       className={cn(
         fullScreen
-          ? 'fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#FAF6F0] p-4 select-none'
-          : 'flex min-h-[60vh] w-full flex-col items-center justify-center bg-[#FAF6F0] p-4 select-none',
+          ? 'fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-slate-950/85 backdrop-blur-md p-4 select-none'
+          : 'flex min-h-[60vh] w-full flex-col items-center justify-center bg-slate-950/85 backdrop-blur-md p-4 select-none',
         className,
       )}
       role="status"

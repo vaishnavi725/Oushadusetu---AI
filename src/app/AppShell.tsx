@@ -170,7 +170,7 @@ function SideLink({ item }: { item: NavItem }) {
       className={({ isActive }) =>
         cn(
           'group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200',
-          isActive ? 'bg-brand-700 text-white shadow-[0_8px_20px_-10px_rgb(27_77_91/0.8)]' : 'text-ink-600 hover:bg-brand-50 hover:text-brand-800',
+          isActive ? 'bg-brand-700 text-white shadow-[0_8px_20px_-10px_rgb(15_118_110/0.5)]' : 'text-ink-600 hover:bg-brand-50 hover:text-brand-800',
         )
       }
     >

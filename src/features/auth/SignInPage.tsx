@@ -199,7 +199,7 @@ export default function SignInPage() {
 
       {/* Pill Loading Overlay during instant persona authorization */}
       {isDemoSigningIn && (
-        <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#FAF6F0]/95 backdrop-blur-md p-4 animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-slate-950/85 backdrop-blur-md p-4 animate-in fade-in duration-200">
           <div className="flex flex-col items-center justify-center">
             <PillLoader size="2xl" showRings />
             <ProjectFactCard />
@@ -222,17 +222,17 @@ function DemoAccounts({
   const [showAllUsers, setShowAllUsers] = useState(false);
 
   return (
-    <section aria-labelledby="demo-accounts" className="rounded-3xl border border-[#EDE4D8] bg-white p-5 shadow-[0_16px_40px_-28px_rgba(28,25,23,0.15)] sm:p-6">
-      <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-[#F2E8DC] pb-3.5">
+    <section aria-labelledby="demo-accounts" className="rounded-3xl border border-slate-200/90 bg-white p-5 shadow-[0_16px_40px_-28px_rgba(15,23,42,0.08)] sm:p-6">
+      <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-slate-100 pb-3.5">
         <div>
           <h2 id="demo-accounts" className="text-sm font-display font-bold tracking-tight text-slate-950">
             One-Click Workspace Access
           </h2>
-          <p className="text-[11.5px] text-stone-500 mt-0.5">Instant sign-in for evaluator testing</p>
+          <p className="text-[11.5px] text-slate-500 mt-0.5">Instant sign-in for evaluator testing</p>
         </div>
-        <p className="flex items-center gap-1.5 text-[11px] font-mono font-medium text-stone-600 bg-[#FAF4ED] px-2.5 py-1 rounded-full border border-[#E9DFD3]">
-          <KeyRound className="size-3 text-teal-800" aria-hidden />
-          MFA Code: <span className="font-bold text-teal-950">{DEMO_MFA_CODE}</span>
+        <p className="flex items-center gap-1.5 text-[11px] font-mono font-medium text-slate-700 bg-slate-50 px-2.5 py-1 rounded-full border border-slate-200">
+          <KeyRound className="size-3 text-teal-700" aria-hidden />
+          MFA Code: <span className="font-bold text-teal-900">{DEMO_MFA_CODE}</span>
         </p>
       </div>
 
@@ -241,43 +241,43 @@ function DemoAccounts({
           type="button"
           disabled={isSubmitting}
           onClick={() => onInstantLogin('dr.rao@lakeside.example.com')}
-          className="group flex flex-col items-start rounded-2xl border border-teal-200/80 bg-gradient-to-b from-teal-50/60 to-white p-3 text-left transition-all hover:border-teal-400 hover:shadow-md hover:scale-[1.02] active:scale-[0.98]"
+          className="group flex flex-col items-start rounded-2xl border border-teal-200/80 bg-gradient-to-b from-teal-50/50 to-white p-3 text-left transition-all hover:border-teal-500 hover:shadow-md hover:scale-[1.02] active:scale-[0.98]"
         >
           <span className="flex items-center gap-1 text-[10px] font-mono font-bold tracking-wider text-teal-900 uppercase bg-teal-100/80 px-1.5 py-0.5 rounded">
             <Zap className="size-2.5 text-teal-700" /> Provider (MD)
           </span>
           <span className="mt-2 text-[13px] font-bold text-slate-950">Dr. Anika Rao</span>
-          <span className="text-[11px] text-stone-500 truncate w-full">Approvals & Inbox</span>
+          <span className="text-[11px] text-slate-500 truncate w-full">Approvals & Inbox</span>
         </button>
 
         <button
           type="button"
           disabled={isSubmitting}
           onClick={() => onInstantLogin('admin@lakeside.example.com')}
-          className="group flex flex-col items-start rounded-2xl border border-stone-200 bg-gradient-to-b from-stone-50/80 to-white p-3 text-left transition-all hover:border-stone-400 hover:shadow-md hover:scale-[1.02] active:scale-[0.98]"
+          className="group flex flex-col items-start rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/70 to-white p-3 text-left transition-all hover:border-slate-400 hover:shadow-md hover:scale-[1.02] active:scale-[0.98]"
         >
-          <span className="flex items-center gap-1 text-[10px] font-mono font-bold tracking-wider text-stone-800 uppercase bg-stone-100 px-1.5 py-0.5 rounded">
-            <Zap className="size-2.5 text-stone-600" /> Practice Admin
+          <span className="flex items-center gap-1 text-[10px] font-mono font-bold tracking-wider text-slate-800 uppercase bg-slate-100 px-1.5 py-0.5 rounded">
+            <Zap className="size-2.5 text-slate-600" /> Practice Admin
           </span>
           <span className="mt-2 text-[13px] font-bold text-slate-950">Priya Shah</span>
-          <span className="text-[11px] text-stone-500 truncate w-full">Queue & Triage</span>
+          <span className="text-[11px] text-slate-500 truncate w-full">Queue & Triage</span>
         </button>
 
         <button
           type="button"
           disabled={isSubmitting}
           onClick={() => onInstantLogin('admin@citycare.example.com')}
-          className="group flex flex-col items-start rounded-2xl border border-cyan-200/80 bg-gradient-to-b from-cyan-50/60 to-white p-3 text-left transition-all hover:border-cyan-400 hover:shadow-md hover:scale-[1.02] active:scale-[0.98]"
+          className="group flex flex-col items-start rounded-2xl border border-cyan-200/80 bg-gradient-to-b from-cyan-50/50 to-white p-3 text-left transition-all hover:border-cyan-500 hover:shadow-md hover:scale-[1.02] active:scale-[0.98]"
         >
           <span className="flex items-center gap-1 text-[10px] font-mono font-bold tracking-wider text-cyan-900 uppercase bg-cyan-100/80 px-1.5 py-0.5 rounded">
             <Zap className="size-2.5 text-cyan-700" /> Pharmacy
           </span>
           <span className="mt-2 text-[13px] font-bold text-slate-950">Lena Novak</span>
-          <span className="text-[11px] text-stone-500 truncate w-full">Fulfillment Outbox</span>
+          <span className="text-[11px] text-slate-500 truncate w-full">Fulfillment Outbox</span>
         </button>
       </div>
 
-      <div className="mt-4 flex items-center justify-between border-t border-[#F2E8DC] pt-3 text-[11.5px] text-stone-500">
+      <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3 text-[11.5px] text-slate-500">
         <button
           type="button"
           onClick={() => setShowAllUsers(!showAllUsers)}
@@ -286,7 +286,7 @@ function DemoAccounts({
           <span>{showAllUsers ? 'Hide team list' : 'View all 8 demo personas'}</span>
           <ArrowRight className={`size-3 transition-transform ${showAllUsers ? '-rotate-90' : 'rotate-90'}`} />
         </button>
-        <span className="font-mono text-[10.5px] text-stone-500">All passwords: <strong className="text-slate-800">{DEMO_PASSWORD}</strong></span>
+        <span className="font-mono text-[10.5px] text-slate-500">All passwords: <strong className="text-slate-800">{DEMO_PASSWORD}</strong></span>
       </div>
 
       {showAllUsers && (
@@ -296,18 +296,18 @@ function DemoAccounts({
               <button
                 type="button"
                 onClick={() => onPick(u.email)}
-                className="group flex w-full items-center gap-2.5 rounded-xl border border-stone-200/60 bg-[#FAF7F2] px-3 py-2 text-left transition-colors hover:border-teal-300 hover:bg-white"
+                className="group flex w-full items-center gap-2.5 rounded-xl border border-slate-200/70 bg-slate-50 px-3 py-2 text-left transition-colors hover:border-teal-400 hover:bg-white"
               >
-                <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-white text-[11px] font-bold text-teal-800 border border-stone-200" aria-hidden>
+                <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-white text-[11px] font-bold text-teal-800 border border-slate-200" aria-hidden>
                   {initials(u.name) || <UserRound className="size-3.5" />}
                 </span>
                 <span className="min-w-0 flex-1 flex items-baseline justify-between gap-2">
                   <span className="truncate text-xs font-semibold text-slate-900">{u.name}</span>
-                  <span className="text-[10.5px] font-mono text-stone-500">
+                  <span className="text-[10.5px] font-mono text-slate-500">
                     {ROLE_LABELS[u.role]}
                   </span>
                 </span>
-                <ArrowRight className="size-3 shrink-0 text-stone-400 group-hover:text-teal-700 transition-colors" />
+                <ArrowRight className="size-3 shrink-0 text-slate-400 group-hover:text-teal-700 transition-colors" />
               </button>
             </li>
           ))}
