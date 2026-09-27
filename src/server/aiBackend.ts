@@ -31,37 +31,68 @@ const supabaseUrl = process.env.VITE_SUPABASE_URL || fileEnv.VITE_SUPABASE_URL |
 const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || fileEnv.VITE_SUPABASE_ANON_KEY || '';
 const serverSupabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
-// Read AI API Key securely on the server
+// Server-side LLM: Groq (console.groq.com) first. OpenAI is optional. No key = fallback text.
+const GROQ_API_KEY = process.env.GROQ_API_KEY || fileEnv.GROQ_API_KEY || '';
+const GROQ_MODEL = process.env.GROQ_MODEL || fileEnv.GROQ_MODEL || 'llama-3.1-8b-instant';
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY || fileEnv.OPENAI_API_KEY || '';
 
-export async function callOpenAiIfConfigured(prompt: string, fallback: string): Promise<string> {
-  if (!OPENAI_API_KEY) return fallback;
+const OUSHADHA_SYSTEM_PROMPT =
+  'You are Oushadha AI, an autonomous healthcare refill intelligence assistant. Provide clinically accurate, explainable insights with root causes, evidence, and next actions. Do not make autonomous medication changes.';
+
+async function callChatCompletions(
+  endpoint: string,
+  apiKey: string,
+  model: string,
+  prompt: string,
+  fallback: string,
+  providerLabel: string
+): Promise<string> {
   try {
-    const res = await fetch('https://api.openai.com/v1/chat/completions', {
+    const res = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${OPENAI_API_KEY}`,
+        Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
+        model,
         messages: [
-          {
-            role: 'system',
-            content:
-              'You are Oushadha AI, an autonomous healthcare refill intelligence assistant. Provide clinically accurate, explainable insights with root causes, evidence, and next actions. Do not make autonomous medication changes.',
-          },
+          { role: 'system', content: OUSHADHA_SYSTEM_PROMPT },
           { role: 'user', content: prompt },
         ],
         temperature: 0.2,
       }),
     });
     if (res.ok) {
-      const data = (await res.json()) as any;
+      const data = (await res.json()) as { choices?: { message?: { content?: string } }[] };
       return data?.choices?.[0]?.message?.content || fallback;
     }
   } catch (err) {
-    console.warn('OpenAI completion failed, using deterministic clinical reasoning:', err);
+    console.warn(`${providerLabel} completion failed, using deterministic clinical reasoning:`, err);
+  }
+  return fallback;
+}
+
+export async function callOpenAiIfConfigured(prompt: string, fallback: string): Promise<string> {
+  if (GROQ_API_KEY) {
+    return callChatCompletions(
+      'https://api.groq.com/openai/v1/chat/completions',
+      GROQ_API_KEY,
+      GROQ_MODEL,
+      prompt,
+      fallback,
+      'Groq',
+    );
+  }
+  if (OPENAI_API_KEY) {
+    return callChatCompletions(
+      'https://api.openai.com/v1/chat/completions',
+      OPENAI_API_KEY,
+      'gpt-4o-mini',
+      prompt,
+      fallback,
+      'OpenAI',
+    );
   }
   return fallback;
 }

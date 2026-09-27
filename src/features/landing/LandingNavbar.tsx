@@ -5,6 +5,8 @@ import { Menu, X, ArrowRight } from 'lucide-react';
 import { OushadhaLogo } from './OushadhaLogo';
 
 const NAV_LINKS = [
+  { label: 'About', href: '#about' },
+  { label: 'Hierarchy', href: '#pyramid-solution' },
   { label: 'Platform', href: '#platform' },
   { label: 'How It Works', href: '#flow-works' },
   { label: 'AI Intelligence', href: '#ai-agents' },
@@ -15,6 +17,7 @@ const NAV_LINKS = [
 export function LandingNavbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [active, setActive] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +25,20 @@ export function LandingNavbar() {
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const sections = NAV_LINKS.map((link) => document.getElementById(link.href.slice(1))).filter((node): node is HTMLElement => Boolean(node));
+    if (!sections.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible?.target.id) setActive(`#${visible.target.id}`);
+      },
+      { rootMargin: '-20% 0px -55% 0px', threshold: [0.15, 0.4] },
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -40,8 +57,8 @@ export function LandingNavbar() {
       <header
         className={`sticky top-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-[#07111F]/95 backdrop-blur-md shadow-2xl border-b border-white/10 py-3.5'
-            : 'bg-[#07111F]/60 backdrop-blur-sm border-b border-white/5 py-4'
+            ? 'border-b border-slate-200/80 bg-white/90 py-3.5 shadow-sm backdrop-blur-md'
+            : 'border-b border-transparent bg-white/70 py-4 backdrop-blur-sm'
         }`}
       >
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -51,12 +68,14 @@ export function LandingNavbar() {
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1.5 bg-[#0B1726]/80 p-1.5 rounded-full border border-white/10" aria-label="Main Navigation">
+          <nav className="hidden items-center gap-1 rounded-full border border-slate-200 bg-white p-1 md:flex" aria-label="Main Navigation">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="px-4 py-1.5 text-xs font-semibold text-slate-300 hover:text-teal-300 hover:bg-white/5 rounded-full transition-all duration-200"
+                className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all duration-200 ${
+                  active === link.href ? 'bg-teal-800 text-white' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-950'
+                }`}
               >
                 {link.label}
               </a>
@@ -67,15 +86,15 @@ export function LandingNavbar() {
           <div className="hidden md:flex items-center gap-3">
             <Link
               to="/login"
-              className="text-xs font-semibold text-slate-300 hover:text-white px-4 py-2 rounded-full transition hover:bg-white/5"
+              className="rounded-full px-4 py-2 text-xs font-semibold text-slate-600 transition hover:bg-slate-50 hover:text-slate-950"
             >
               Sign In
             </Link>
             <Link
-              to="/login"
-              className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-slate-950 bg-gradient-to-r from-teal-400 to-cyan-400 hover:from-teal-300 hover:to-cyan-300 shadow-md transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]"
+              to="/sign-up"
+              className="group inline-flex items-center gap-2 rounded-full bg-teal-800 px-5 py-2.5 text-xs font-semibold text-white transition-transform duration-300 hover:scale-[1.03] active:scale-[0.97]"
             >
-              <span>Get Started</span>
+              <span>Request access</span>
               <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
             </Link>
           </div>
@@ -85,7 +104,7 @@ export function LandingNavbar() {
             type="button"
             onClick={() => setMobileMenuOpen(true)}
             aria-label="Open mobile navigation menu"
-            className="md:hidden p-2 text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition"
+            className="rounded-lg p-2 text-slate-600 transition hover:bg-slate-100 hover:text-slate-950 md:hidden"
           >
             <Menu className="size-6" />
           </button>
@@ -102,7 +121,7 @@ export function LandingNavbar() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="absolute inset-0 bg-black/70 backdrop-blur-md"
+              className="absolute inset-0 bg-slate-900/20 backdrop-blur-sm"
               aria-hidden="true"
             />
 
@@ -111,17 +130,17 @@ export function LandingNavbar() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 28, stiffness: 280 }}
-              className="absolute top-0 right-0 bottom-0 w-[85%] max-w-sm bg-[#07111F] border-l border-white/10 shadow-2xl flex flex-col p-6 overflow-y-auto text-white"
+              className="absolute top-0 right-0 bottom-0 flex w-[85%] max-w-sm flex-col overflow-y-auto border-l border-slate-200 bg-white p-6 text-slate-900 shadow-2xl"
               role="dialog"
               aria-label="Mobile navigation"
             >
-              <div className="flex items-center justify-between pb-6 border-b border-white/10">
+              <div className="flex items-center justify-between border-b border-slate-200 pb-6">
                 <OushadhaLogo size="sm" showSubtitle={false} />
                 <button
                   type="button"
                   onClick={() => setMobileMenuOpen(false)}
                   aria-label="Close menu"
-                  className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/5"
+                  className="rounded-lg p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-950"
                 >
                   <X className="size-5" />
                 </button>
@@ -133,7 +152,7 @@ export function LandingNavbar() {
                     key={link.label}
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-between px-3 py-3 rounded-xl text-sm font-medium text-slate-300 hover:text-teal-300 hover:bg-white/5 transition"
+                    className="flex items-center justify-between rounded-xl px-3 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-teal-800"
                   >
                     <span>{link.label}</span>
                     <span className="text-slate-500 text-xs">→</span>
@@ -141,19 +160,19 @@ export function LandingNavbar() {
                 ))}
               </nav>
 
-              <div className="mt-auto pt-6 border-t border-white/10 flex flex-col gap-3">
+              <div className="mt-auto flex flex-col gap-3 border-t border-slate-200 pt-6">
                 <Link
-                  to="/login"
+                  to="/sign-up"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl text-sm font-bold text-slate-950 bg-gradient-to-r from-teal-400 to-cyan-400 shadow-md"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-teal-800 px-4 py-3.5 text-sm font-semibold text-white"
                 >
-                  <span>Start the Refill Flow</span>
+                  <span>Request access</span>
                   <ArrowRight className="size-4" />
                 </Link>
                 <Link
                   to="/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full flex items-center justify-center py-3 px-4 rounded-xl text-sm font-medium text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition"
+                  className="flex w-full items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
                 >
                   Sign In
                 </Link>

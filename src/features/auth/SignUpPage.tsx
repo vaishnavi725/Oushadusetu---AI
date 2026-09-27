@@ -38,7 +38,8 @@ export default function SignUpPage() {
     mode: 'onBlur',
     defaultValues: { orgName: '', orgType: 'practice', fullName: '', email: '', password: '', website: '' },
   });
-  const [password, email, fullName, orgType] = watch(['password', 'email', 'fullName', 'orgType']);
+  const [password, email, fullName, orgType, orgName] = watch(['password', 'email', 'fullName', 'orgType', 'orgName']);
+  const step = orgName && orgType ? (fullName && email ? (password ? 3 : 2) : 2) : 1;
 
   const onSubmit = async (values: FormValues) => {
     setFormError(null);
@@ -84,6 +85,12 @@ export default function SignUpPage() {
         </ResultPanel>
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} noValidate className="relative space-y-4">
+          <div className="grid grid-cols-3 gap-1.5" aria-hidden>
+            {[1, 2, 3].map((n) => (
+              <span key={n} className={cn('h-1 rounded-full transition-colors', n <= step ? 'bg-teal-700' : 'bg-slate-200')} />
+            ))}
+          </div>
+          <p className="text-[12px] text-slate-500">{step === 1 ? 'Organisation' : step === 2 ? 'Your details' : 'Secure the account'}</p>
           {formError && <FormAlert tone="error">{formError}</FormAlert>}
           <Input label="Organisation name" autoComplete="organization" leading={<Building2 className="size-4" />} error={errors.orgName?.message} {...register('orgName')} />
 

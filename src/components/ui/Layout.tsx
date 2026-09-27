@@ -122,22 +122,11 @@ export function KeyValue({ label, children, mono }: { label: string; children: R
 export function Logo({ className, compact }: { className?: string; compact?: boolean }) {
   return (
     <span className={cn('inline-flex items-center gap-2.5', className)}>
-      <svg viewBox="0 0 32 32" className="size-8 shrink-0" aria-hidden>
-        <defs>
-          <linearGradient id="oushadha-g" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#4f46e5" />
-            <stop offset="60%" stopColor="#6366f1" />
-            <stop offset="100%" stopColor="#8b5cf6" />
-          </linearGradient>
-        </defs>
-        <rect width="32" height="32" rx="9" fill="url(#oushadha-g)" />
-        {/* Bridge arch */}
-        <path d="M5 24 Q16 13 27 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" opacity="0.95" />
-        {/* Bridge suspension cables / pillars */}
-        <path d="M10 21 v-4 M22 21 v-4" stroke="#ffffff" strokeWidth="1.2" strokeLinecap="round" opacity="0.75" />
-        {/* Medical care cross on top */}
-        <path d="M16 6 v7 M12.5 9.5 h7" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round" />
-      </svg>
+      <img
+        src="/images/oushadha-icon.png"
+        alt="OushadhaSetu"
+        className="size-8 shrink-0 object-contain rounded-lg"
+      />
       {!compact && (
         <span className="flex flex-col">
           <span className="font-display text-[17px] font-bold tracking-tight text-ink-900 leading-tight">

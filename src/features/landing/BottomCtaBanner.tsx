@@ -1,60 +1,42 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { ArrowRight, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowRight, ShieldCheck } from 'lucide-react';
 
 export function BottomCtaBanner() {
   return (
-    <section className="py-24 bg-gradient-to-b from-[#090D16] via-[#06080E] to-[#04060A] text-white relative overflow-hidden border-t border-slate-800/80">
-      {/* Background radial glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[650px] rounded-full bg-cyan-500/10 blur-[130px] pointer-events-none" />
-
-      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="max-w-3xl mx-auto"
-        >
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase bg-teal-950/80 text-teal-300 border border-teal-800/60 mb-5">
-            <Zap className="size-3.5 text-teal-400 fill-current" />
-            Resolution Engine
+    <section className="relative overflow-hidden border-t border-slate-200 bg-white py-24">
+      <div className="pointer-events-none absolute top-0 left-1/2 size-[520px] -translate-x-1/2 rounded-full bg-teal-100/70 blur-3xl" />
+      <div className="relative z-10 mx-auto max-w-[1280px] px-4 text-center sm:px-6 lg:px-8">
+        <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }} className="mx-auto max-w-3xl">
+          <span className="mb-5 inline-flex items-center gap-1.5 rounded-full border border-teal-200 bg-teal-50 px-3.5 py-1.5 text-xs font-semibold tracking-wider text-teal-800 uppercase">
+            Resolution engine
           </span>
-
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-display text-slate-100 leading-tight">
-            Keep Every Refill Moving.
-          </h2>
-
-          <p className="mt-5 text-base sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Turn fragmented refill workflows into one intelligent resolution flow.
+          <h2 className="font-display text-3xl font-semibold tracking-tight text-slate-950 sm:text-5xl">Keep every refill moving.</h2>
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
+            Turn a fragmented refill workflow into one visible path, with a named owner and a next action.
           </p>
-
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link
               to="/login"
-              className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full text-base font-bold text-slate-950 bg-gradient-to-r from-teal-400 via-cyan-300 to-teal-400 hover:from-teal-300 hover:to-cyan-200 shadow-[0_0_25px_rgba(20,184,166,0.35)] transition-all duration-300 hover:scale-[1.04] active:scale-[0.96] min-w-[220px]"
+              className="inline-flex min-w-[220px] items-center justify-center gap-2.5 rounded-full bg-teal-800 px-8 py-4 text-base font-semibold text-white transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98]"
             >
-              <span>Start the Refill Flow</span>
+              <span>Open the command center</span>
               <ArrowRight className="size-5" />
             </Link>
-
             <Link
-              to="/login"
-              className="inline-flex items-center justify-center px-7 py-4 rounded-full text-base font-semibold text-slate-300 hover:text-white bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 transition-all duration-200"
+              to="/sign-up"
+              className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-7 py-4 text-base font-semibold text-slate-700 transition-colors hover:border-slate-300 hover:text-slate-950"
             >
-              Sign In to Practice Portal
+              Request clinic access
             </Link>
           </div>
-
-          <div className="mt-10 flex items-center justify-center gap-6 text-xs text-slate-500 font-mono">
-            <span className="flex items-center gap-1.5 text-cyan-400/90">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-500">
+            <span className="inline-flex items-center gap-1.5 text-teal-800">
               <ShieldCheck className="size-4" />
-              HIPAA Certified &amp; BAA Guaranteed
+              Built for HIPAA workflows
             </span>
-            <span>•</span>
-            <span>Zero EHR Migration Required</span>
-            <span>•</span>
-            <span>Real-time FHIR Ingestion</span>
+            <span>No EHR migration required</span>
+            <span>Human approval on clinical decisions</span>
           </div>
         </motion.div>
       </div>

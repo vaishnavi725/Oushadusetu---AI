@@ -7,7 +7,6 @@ import {
   Users,
 } from 'lucide-react';
 import { WordByWord } from './WordByWord';
-
 import { AnimatedNumber } from '@/components/pharma';
 
 const METRICS = [
@@ -62,20 +61,20 @@ const METRICS = [
 
 export function ClinicalCollaborationSection() {
   return (
-    <section id="analytics" className="py-24 bg-[#0B1726] text-white border-t border-white/10 relative overflow-hidden">
+    <section id="analytics" className="py-24 bg-[#FAF6F1] text-slate-900 border-t border-[#EFE7DE] relative overflow-hidden">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-teal-500/10 text-teal-300 border border-teal-500/20 mb-3">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-teal-50 text-teal-800 border border-teal-200 mb-3">
             Operational Metrics
           </div>
 
           <WordByWord
             text="Refill Operations, At a Glance."
             as="h2"
-            className="text-3xl sm:text-5xl font-extrabold tracking-tight font-display text-slate-100 justify-center text-center"
+            className="text-3xl sm:text-5xl font-extrabold tracking-tight font-display text-slate-900 justify-center text-center"
           />
 
-          <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">
+          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
             Operational outcomes measured across connected clinics and pharmacies over 180 days of active refill orchestration.
           </p>
         </div>
@@ -89,18 +88,18 @@ export function ClinicalCollaborationSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="p-6 rounded-2xl bg-[#07111F] border border-white/10 flex flex-col justify-between hover:border-teal-400/50 hover:shadow-[0_12px_32px_rgba(20,184,166,0.15)] transition-all duration-300"
+              className="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-[0_4px_20px_-2px_rgba(15,23,42,0.03)] flex flex-col justify-between hover:border-teal-400 hover:shadow-[0_12px_32px_rgba(20,184,166,0.12)] hover:-translate-y-1 transition-all duration-300"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
+                  <span className="text-[11px] font-mono text-slate-500 uppercase tracking-wider font-semibold">
                     {metric.label}
                   </span>
-                  <div className="size-8 rounded-lg bg-teal-500/10 text-teal-300 flex items-center justify-center">
+                  <div className="size-8 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center">
                     <metric.icon className="size-4" />
                   </div>
                 </div>
-                <div className="text-3xl font-extrabold text-slate-100 font-display tracking-tight">
+                <div className="text-3xl font-extrabold text-slate-900 font-display tracking-tight">
                   <AnimatedNumber
                     value={metric.num}
                     prefix={metric.prefix}
@@ -109,18 +108,18 @@ export function ClinicalCollaborationSection() {
                   />
                 </div>
 
-                <div className="mt-3 h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                <div className="mt-3 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: `${metric.progress}%` }}
                     viewport={{ once: true }}
                     transition={{ duration: 1.2, delay: idx * 0.1, ease: 'easeOut' }}
-                    className="h-full bg-gradient-to-r from-teal-400 to-cyan-300 rounded-full"
+                    className="h-full bg-gradient-to-r from-teal-600 to-teal-400 rounded-full"
                   />
                 </div>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-white/10 text-xs text-teal-300/80 font-mono leading-relaxed">
+              <div className="mt-4 pt-3 border-t border-slate-200 text-xs text-teal-700/80 font-mono leading-relaxed">
                 {metric.delta}
               </div>
             </motion.div>

@@ -14,6 +14,7 @@ import {
   AlertTriangle,
 } from 'lucide-react';
 import { cn } from '@/lib/format';
+import { PillSpinner } from '@/components/ui/PillLoader';
 import { aiOrchestrator } from '@/ai/orchestrator';
 import type { AIDecision, AIMessage, DecisionStatus } from '@/ai/types';
 
@@ -230,9 +231,9 @@ export function OushadhaAIHelper() {
                   ))}
 
                   {loading && (
-                    <div className="flex items-center gap-2 rounded-2xl bg-white border border-slate-200 p-3 text-xs text-slate-600 w-fit shadow-xs">
-                      <Sparkles className="size-4 animate-spin text-teal-600" />
-                      <span>Oushadha AI is orchestrating specialized agents…</span>
+                    <div className="flex items-center gap-2.5 rounded-2xl bg-white border border-teal-200/80 px-3.5 py-3 text-xs text-slate-700 w-fit shadow-xs">
+                      <PillSpinner size="xs" />
+                      <span className="font-medium text-slate-800">Oushadha AI is orchestrating specialized agents…</span>
                     </div>
                   )}
 

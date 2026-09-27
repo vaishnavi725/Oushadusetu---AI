@@ -17,7 +17,7 @@ const PROGRESSION = [
     label: '4 DAYS LEFT',
     icon: Clock,
     sub: '4 pills remaining in patient bottle (Metformin 500 mg).',
-    color: 'text-amber-400 bg-amber-500/10 border-amber-500/30',
+    color: 'text-amber-700 bg-amber-500/10 border-amber-500/30',
   },
   {
     stage: '02',
@@ -31,21 +31,21 @@ const PROGRESSION = [
     label: 'No Refill Request Detected',
     icon: AlertTriangle,
     sub: 'Zero inbound portal messages, faxes, or calls logged across channels.',
-    color: 'text-amber-300 bg-amber-500/10 border-amber-500/30',
+    color: 'text-amber-800 bg-amber-500/10 border-amber-500/30',
   },
   {
     stage: '04',
     label: 'AI Detects Silent-Lapse Risk',
     icon: Brain,
     sub: 'Oushadha Risk Engine flags 89% probability of treatment discontinuation.',
-    color: 'text-cyan-400 bg-cyan-500/10 border-cyan-500/30',
+    color: 'text-sky-700 bg-cyan-500/10 border-cyan-500/30',
   },
   {
     stage: '05',
     label: 'Proactive Outreach Recommended',
     icon: MessageSquare,
     sub: 'Pre-assembled clinical re-authorization packet pushed to Dr. Rao.',
-    color: 'text-teal-400 bg-teal-500/10 border-teal-500/30',
+    color: 'text-teal-700 bg-teal-500/10 border-teal-500/30',
   },
   {
     stage: '06',
@@ -59,10 +59,10 @@ const PROGRESSION = [
 
 export function SilentLapseSection() {
   return (
-    <section id="silent-lapse" className="py-24 bg-[#0B1726] text-white border-t border-white/10 relative overflow-hidden">
+    <section id="silent-lapse" className="py-24 bg-[#FAF6F1] text-slate-900 border-t border-[#EFE7DE] relative overflow-hidden">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-teal-500/10 text-teal-300 border border-teal-500/20 mb-3">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-teal-50 text-teal-800 border border-teal-200 mb-3">
             <Zap className="size-3.5" />
             Predictive Intervention
           </div>
@@ -70,10 +70,10 @@ export function SilentLapseSection() {
           <WordByWord
             text="Don't Wait for the Refill Request."
             as="h2"
-            className="text-3xl sm:text-5xl font-extrabold tracking-tight font-display text-slate-100 justify-center text-center"
+            className="text-3xl sm:text-5xl font-extrabold tracking-tight font-display text-slate-900 justify-center text-center"
           />
 
-          <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">
+          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
             Traditional health systems wait for patients to run out and panic. OushadhaSetu tracks refill lag trajectories and acts before the gap occurs.
           </p>
         </div>
@@ -89,8 +89,8 @@ export function SilentLapseSection() {
                 transition={{ duration: 0.55, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 className={`p-5 rounded-2xl border transition-all flex items-center justify-between gap-4 ${
                   step.highlight
-                    ? 'bg-[#07111F] border-emerald-500/60 shadow-[0_0_30px_rgba(34,197,94,0.15)]'
-                    : 'bg-[#07111F]/80 border-white/10'
+                    ? 'bg-white border-emerald-500 shadow-[0_18px_40px_-28px_rgba(5,150,105,0.45)]'
+                    : 'bg-slate-50 border-slate-200'
                 }`}
               >
                 <div className="flex items-center gap-4">
@@ -102,7 +102,7 @@ export function SilentLapseSection() {
                       <span className="font-mono text-[10px] text-slate-500 font-bold">
                         STEP {step.stage}
                       </span>
-                      <h3 className="text-sm sm:text-base font-bold text-slate-100">
+                      <h3 className="text-sm sm:text-base font-bold text-slate-900">
                         {step.label}
                       </h3>
                     </div>

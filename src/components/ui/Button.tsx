@@ -1,6 +1,7 @@
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/format';
+import { PillSpinner } from './PillLoader';
 
 type Variant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'subtle' | 'success';
 type Size = 'sm' | 'md' | 'lg';
@@ -9,6 +10,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
   size?: Size;
   loading?: boolean;
+  loaderType?: 'pill' | 'spinner';
   icon?: ReactNode;
   iconRight?: ReactNode;
 }
@@ -30,7 +32,7 @@ const sizes: Record<Size, string> = {
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  { variant = 'primary', size = 'md', loading, icon, iconRight, className, children, disabled, type = 'button', ...rest },
+  { variant = 'primary', size = 'md', loading, loaderType = 'pill', icon, iconRight, className, children, disabled, type = 'button', ...rest },
   ref,
 ) {
   return (
@@ -48,7 +50,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       )}
       {...rest}
     >
-      {loading ? <Loader2 className="size-4 animate-spin" aria-hidden /> : icon}
+      {loading ? (
+        loaderType === 'pill' ? (
+          <PillSpinner size={size === 'lg' ? 'sm' : 'xs'} />
+        ) : (
+          <Loader2 className="size-4 animate-spin" aria-hidden />
+        )
+      ) : (
+        icon
+      )}
       {children}
       {!loading && iconRight}
     </button>

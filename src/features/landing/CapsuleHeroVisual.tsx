@@ -1,320 +1,295 @@
-import { useEffect, useState } from 'react';
-import { motion, useReducedMotion } from 'motion/react';
-import { Sparkles } from 'lucide-react';
-
-const AI_STATUS_STEPS = [
-  { text: 'Analyzing refill...', status: 'INTAKE' },
-  { text: 'Checking blocker...', status: 'AUDIT' },
-  { text: 'Identifying responsible party...', status: 'ROUTING' },
-  { text: 'Finding next action...', status: 'PREPARE' },
-  { text: 'Flow restored ✓', status: 'RESOLVED' },
-];
-
-const GRANULES = Array.from({ length: 26 }, (_, index) => ({
-  left: 15 + ((index * 17) % 70),
-  top: 18 + ((index * 23) % 52),
-  size: 4 + (index % 5),
-  opacity: 0.45 + (index % 4) * 0.16,
-  delay: (index * 0.18) % 1.5,
-  duration: 2.2 + (index % 5) * 0.5,
-  drift: -18 + (index % 7) * 7,
-  hue: index % 3 === 0 ? '#ff5d77' : index % 3 === 1 ? '#4adeff' : '#4f9bff',
-}));
-
-const FLOW_PATHS = [
-  'M 18 64 C 46 32, 90 44, 120 72 S 180 110, 222 92',
-  'M 42 110 C 88 88, 140 96, 172 68 S 230 44, 270 80',
-  'M 64 142 C 116 124, 158 128, 188 108 S 250 78, 298 120',
-];
+import { useEffect, useRef, useState } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
+import { Play, Pause, Activity, ShieldCheck, RotateCcw } from 'lucide-react';
+import { REFILL_SCENES } from './refill-scenes';
 
 export function CapsuleHeroVisual() {
-  const reduceMotion = useReducedMotion();
-  const [stepIndex, setStepIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [progress, setProgress] = useState(24);
+  const [activeSceneIdx, setActiveSceneIdx] = useState(1);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), { damping: 24, stiffness: 140 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-9, 9]), { damping: 24, stiffness: 140 });
+
+  const activeScene = REFILL_SCENES[activeSceneIdx];
+
+  // Scrubber / Progress loop
   useEffect(() => {
-    if (reduceMotion) return;
-    const timer = window.setInterval(() => {
-      setStepIndex((prev) => (prev + 1) % AI_STATUS_STEPS.length);
-    }, 4200);
-    return () => window.clearInterval(timer);
-  }, [reduceMotion]);
+    if (!isPlaying) return;
+    const interval = window.setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          setActiveSceneIdx((s) => (s + 1) % REFILL_SCENES.length);
+          return 0;
+        }
+        return prev + 0.4;
+      });
+    }, 80);
+    return () => clearInterval(interval);
+  }, [isPlaying]);
 
-  const activeStatus = AI_STATUS_STEPS[stepIndex];
+  // Particle flow animation in background of capsule
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animId: number;
+    let width = (canvas.width = 540);
+    let height = (canvas.height = 420);
+
+    const particles: { x: number; y: number; vx: number; vy: number; radius: number; alpha: number; hue: number }[] = [];
+    for (let i = 0; i < 45; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.8 + 0.4,
+        vy: (Math.random() - 0.5) * 0.8 - 0.3,
+        radius: Math.random() * 2.2 + 1,
+        alpha: Math.random() * 0.7 + 0.3,
+        hue: Math.random() > 0.5 ? 175 : 195, // Teal & Cyan
+      });
+    }
+
+    const render = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      // Draw subtle connecting neural grid
+      for (let i = 0; i < particles.length; i++) {
+        const p1 = particles[i];
+        p1.x += p1.vx;
+        p1.y += p1.vy;
+
+        if (p1.x < 0) p1.x = width;
+        if (p1.x > width) p1.x = 0;
+        if (p1.y < 0) p1.y = height;
+        if (p1.y > height) p1.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p1.x, p1.y, p1.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${p1.hue}, 85%, 65%, ${p1.alpha * (isPlaying ? 1 : 0.4)})`;
+        ctx.fill();
+
+        // Connect nearby particles
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+          if (dist < 75) {
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = `rgba(13, 148, 136, ${(1 - dist / 75) * 0.25})`;
+            ctx.lineWidth = 0.75;
+            ctx.stroke();
+          }
+        }
+      }
+
+      animId = requestAnimationFrame(render);
+    };
+
+    render();
+    return () => cancelAnimationFrame(animId);
+  }, [isPlaying]);
+
+  const formatTime = (pct: number) => {
+    const totalSecs = 120; // 2 min loop
+    const curSecs = Math.floor((pct / 100) * totalSecs);
+    const m = Math.floor(curSecs / 60);
+    const s = curSecs % 60;
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+  };
 
   return (
-    <>
-      <style>{`
-        @keyframes capsuleFill {
-          0%, 10% { opacity: 0.15; transform: scaleY(0.68) translateY(12%); }
-          18%, 38% { opacity: 0.7; transform: scaleY(0.92) translateY(6%); }
-          46%, 64% { opacity: 1; transform: scaleY(1.04) translateY(0%); }
-          72%, 82% { opacity: 1; transform: scaleY(1.14) translateY(-2%); }
-          88%, 100% { opacity: 0.7; transform: scaleY(0.9) translateY(7%); }
-        }
+    <div
+      className="relative mx-auto w-full max-w-[560px] select-none"
+      onMouseMove={(event) => {
+        const rect = event.currentTarget.getBoundingClientRect();
+        mouseX.set((event.clientX - rect.left) / rect.width - 0.5);
+        mouseY.set((event.clientY - rect.top) / rect.height - 0.5);
+      }}
+      onMouseLeave={() => {
+        mouseX.set(0);
+        mouseY.set(0);
+      }}
+    >
+      {/* Bioluminescent Backlight Glows */}
+      <div className="pointer-events-none absolute -left-10 -top-8 h-56 w-56 rounded-full bg-teal-400/25 blur-3xl animate-pulse" />
+      <div className="pointer-events-none absolute -right-8 -bottom-6 h-60 w-60 rounded-full bg-cyan-400/20 blur-3xl" />
+      <div className="pointer-events-none absolute left-1/3 top-1/4 h-48 w-48 rounded-full bg-amber-200/20 blur-2xl" />
 
-        @keyframes particleDrift {
-          0% {
-            transform: translate3d(0, -8px, 0) scale(0.86);
-            opacity: 0.2;
-          }
-          14% {
-            opacity: 0.95;
-          }
-          55% {
-            transform: translate3d(var(--drift), 28px, 0) scale(1.12);
-            opacity: 1;
-          }
-          100% {
-            transform: translate3d(calc(var(--drift) * 1.25), 56px, 0) scale(0.9);
-            opacity: 0.15;
-          }
-        }
+      {/* 3D Tilted Cinematic Video Player Container */}
+      <motion.div
+        style={{ rotateX, rotateY, transformPerspective: 1200 }}
+        className="relative overflow-hidden rounded-[32px] border border-[#EDE4D8] bg-slate-950 shadow-[0_25px_60px_-15px_rgba(15,23,42,0.45)]"
+      >
+        {/* Top Video Header Bar */}
+        <div className="relative z-20 flex items-center justify-between border-b border-white/10 bg-slate-900/80 px-5 py-3 backdrop-blur-md">
+          <div className="flex items-center gap-2">
+            <span className="relative flex size-2.5">
+              {isPlaying && <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />}
+              <span className="relative inline-flex size-2.5 rounded-full bg-emerald-500" />
+            </span>
+            <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-emerald-400">
+              4K Telemetry Loop
+            </span>
+            <span className="hidden sm:inline-block font-mono text-[10px] text-slate-400">
+              · 60 FPS Digital Twin
+            </span>
+          </div>
 
-        @keyframes sealGlow {
-          0%, 52% { opacity: 0; }
-          68%, 80% { opacity: 0.9; }
-          100% { opacity: 0.45; }
-        }
+          <div className="flex items-center gap-2">
+            <span className="rounded-full bg-white/10 px-2.5 py-0.5 font-mono text-[10.5px] font-medium text-teal-300 border border-teal-500/30">
+              RX-{activeScene.id.toUpperCase()}
+            </span>
+            <button
+              type="button"
+              onClick={() => setIsPlaying(!isPlaying)}
+              className="rounded-lg p-1 text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+              title={isPlaying ? 'Pause simulation' : 'Play simulation'}
+            >
+              {isPlaying ? <Pause className="size-3.5" /> : <Play className="size-3.5" />}
+            </button>
+          </div>
+        </div>
 
-        @keyframes flowPulse {
-          0%, 100% { opacity: 0.2; }
-          30%, 70% { opacity: 1; }
-        }
+        {/* Video Viewport: 3D Capsule Visual + Live Canvas Particle Stream */}
+        <div className="relative flex h-[350px] w-full items-center justify-center overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-[#0A161E]">
+          {/* Canvas Neural Particle Stream */}
+          <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 z-0 h-full w-full opacity-80" />
 
-        @keyframes orbitDot {
-          0% { transform: translate(-12px, -24px) scale(0.7); opacity: 0; }
-          18% { opacity: 1; }
-          60% { transform: translate(18px, 8px) scale(1); opacity: 1; }
-          100% { transform: translate(32px, 30px) scale(0.8); opacity: 0; }
-        }
+          {/* Glowing Radial Spotlight behind Capsule */}
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <div className="size-64 rounded-full bg-gradient-to-tr from-teal-500/25 to-cyan-400/35 blur-2xl" />
+          </div>
 
-        .capsule-stage {
-          position: relative;
-          width: min(78vw, 560px);
-          height: min(46vw, 360px);
-          max-height: 360px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          perspective: 1200px;
-        }
-
-        .capsule-flow {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          pointer-events: none;
-          opacity: 0.65;
-        }
-
-        .capsule-flow path {
-          fill: none;
-          stroke-linecap: round;
-          stroke-linejoin: round;
-          stroke-width: 1.2;
-          stroke: rgba(94, 234, 212, 0.65);
-          filter: drop-shadow(0 0 12px rgba(45, 212, 191, 0.2));
-          animation: flowPulse 4.8s ease-in-out infinite;
-        }
-
-        .capsule-flow path:nth-child(2) { animation-delay: 0.6s; }
-        .capsule-flow path:nth-child(3) { animation-delay: 1.1s; }
-
-        .capsule-network-dot {
-          position: absolute;
-          width: 6px;
-          height: 6px;
-          border-radius: 9999px;
-          background: rgba(125, 211, 252, 0.95);
-          box-shadow: 0 0 12px rgba(34, 211, 238, 0.8);
-          animation: orbitDot 4.3s ease-in-out infinite;
-        }
-
-        .capsule-shell {
-          position: relative;
-          width: 75%;
-          max-width: 500px;
-          aspect-ratio: 2.15 / 1;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transform-style: preserve-3d;
-          filter: drop-shadow(0 38px 52px rgba(6, 12, 24, 0.8));
-        }
-
-        .capsule-shadow {
-          position: absolute;
-          left: 10%;
-          right: 10%;
-          bottom: -22px;
-          height: 48px;
-          border-radius: 9999px;
-          background: radial-gradient(ellipse at center, rgba(34, 211, 238, 0.22), rgba(15, 23, 42, 0));
-          filter: blur(18px);
-          transform: translateY(12px) scaleX(1.08);
-          animation: shadowShift 7.2s ease-in-out infinite;
-        }
-
-        @keyframes shadowShift {
-          0%, 16% { opacity: 0.32; transform: translateY(12px) scaleX(0.92); }
-          38%, 58% { opacity: 0.7; transform: translateY(16px) scaleX(1.12); }
-          74%, 100% { opacity: 0.38; transform: translateY(12px) scaleX(0.94); }
-        }
-
-        .capsule-visual {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          display: block;
-          transform-style: preserve-3d;
-        }
-
-        .capsule-image {
-          position: relative;
-          z-index: 3;
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
-          display: block;
-          filter: drop-shadow(0 0 28px rgba(103, 232, 249, 0.24));
-        }
-
-        .capsule-fill-layer {
-          position: absolute;
-          z-index: 2;
-          inset: 11% 11% 14% 11%;
-          border-radius: 9999px;
-          overflow: hidden;
-          background: linear-gradient(180deg, rgba(56, 189, 248, 0.15), rgba(20, 184, 166, 0.28));
-          border: 1.5px solid rgba(146, 230, 255, 0.25);
-          box-shadow: inset 0 0 18px rgba(12, 227, 255, 0.22), inset 0 0 26px rgba(34, 211, 238, 0.12);
-          animation: capsuleFill 7.2s ease-in-out infinite;
-        }
-
-        .capsule-fill-layer::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(90deg, rgba(255,255,255,0.18), rgba(255,255,255,0) 26%, rgba(5, 233, 255, 0.2) 52%, rgba(250,255,255,0.12) 72%, rgba(255,255,255,0.06));
-          opacity: 0.9;
-        }
-
-        .capsule-granule {
-          position: absolute;
-          left: var(--left);
-          top: var(--top);
-          width: var(--size);
-          height: var(--size);
-          border-radius: 9999px;
-          background: var(--hue);
-          box-shadow: 0 0 10px color-mix(in srgb, var(--hue) 72%, white 28%);
-          opacity: var(--opacity);
-          animation: particleDrift var(--duration) ease-in-out infinite;
-          animation-delay: var(--delay);
-        }
-
-        .capsule-seam {
-          position: absolute;
-          inset: 0;
-          z-index: 4;
-          pointer-events: none;
-          border-radius: 9999px;
-          background: linear-gradient(90deg, rgba(255,255,255,0.72), rgba(255,255,255,0.1) 18%, rgba(255,255,255,0.18) 48%, rgba(255,255,255,0.08));
-          box-shadow: inset 0 0 0 1px rgba(255,255,255,0.3), inset 0 0 18px rgba(255,255,255,0.18);
-          mix-blend-mode: screen;
-          animation: sealGlow 7.2s ease-in-out infinite;
-        }
-
-        .capsule-halo {
-          position: absolute;
-          inset: 12% 14% 10% 14%;
-          border-radius: 9999px;
-          background: radial-gradient(circle at 50% 50%, rgba(103, 232, 249, 0.18), rgba(34, 211, 238, 0.04) 60%, transparent 80%);
-          z-index: 1;
-          filter: blur(14px);
-          animation: sealGlow 7.2s ease-in-out infinite;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .capsule-fill-layer,
-          .capsule-granule,
-          .capsule-seam,
-          .capsule-shadow,
-          .capsule-flow path,
-          .capsule-network-dot {
-            animation: none !important;
-          }
-        }
-      `}</style>
-
-      <div className="capsule-stage">
-        <svg className="capsule-flow" viewBox="0 0 320 180" aria-hidden="true">
-          {FLOW_PATHS.map((path, index) => (
-            <path key={path} d={path} style={{ animationDelay: `${index * 0.55}s` }} />
-          ))}
-        </svg>
-
-        <span className="capsule-network-dot" style={{ left: '15%', top: '62%', animationDelay: '0.8s' }} />
-        <span className="capsule-network-dot" style={{ left: '58%', top: '28%', animationDelay: '1.4s' }} />
-        <span className="capsule-network-dot" style={{ left: '72%', top: '70%', animationDelay: '2.2s' }} />
-
-        <motion.div
-          className="capsule-shell"
-          animate={reduceMotion ? { rotateX: 4, rotateY: -8, y: 0 } : { rotateX: [0, 5, 10, 8, 4, 0], rotateY: [-10, 4, 12, 8, -2, -6], y: [0, -4, 0, 2, 0, -2], x: [0, 4, 0, -2, 0, 2] }}
-          transition={{ duration: 7.2, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ transformPerspective: 1200 }}
-        >
-          <div className="capsule-shadow" />
-          <div className="capsule-visual">
-            <div className="capsule-halo" />
-            <div className="capsule-fill-layer">
-              {GRANULES.map((particle, index) => (
-                <span
-                  key={`${particle.left}-${particle.top}-${index}`}
-                  className="capsule-granule"
-                  style={
-                    {
-                      ['--left' as string]: `${particle.left}%`,
-                      ['--top' as string]: `${particle.top}%`,
-                      ['--size' as string]: `${particle.size}px`,
-                      ['--delay' as string]: `${particle.delay}s`,
-                      ['--duration' as string]: `${particle.duration}s`,
-                      ['--drift' as string]: `${particle.drift}px`,
-                      ['--hue' as string]: particle.hue,
-                      ['--opacity' as string]: particle.opacity.toString(),
-                    } as React.CSSProperties
+          {/* Floating High-Res 3D Capsule Image with Organic Bobbing Animation */}
+          <motion.div
+            animate={
+              isPlaying
+                ? {
+                    y: [0, -10, 0],
+                    rotate: [-1, 2, -1],
+                    scale: [1, 1.015, 1],
                   }
-                />
-              ))}
+                : {}
+            }
+            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+            className="relative z-10 flex items-center justify-center max-w-[340px]"
+          >
+            <img
+              src="/images/capsule-hero.png"
+              alt="Intelligent OushadhaSetu Refill Capsule"
+              className="w-full h-auto object-contain drop-shadow-[0_20px_45px_rgba(20,184,166,0.4)]"
+            />
+
+            {/* Glowing Laser Scanline Effect */}
+            {isPlaying && (
+              <motion.div
+                animate={{ top: ['10%', '85%', '10%'] }}
+                transition={{ duration: 4.2, repeat: Infinity, ease: 'linear' }}
+                className="pointer-events-none absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-cyan-400/80 to-transparent shadow-[0_0_15px_rgba(34,211,238,0.9)]"
+              />
+            )}
+          </motion.div>
+
+          {/* Floating In-Video Telemetry Badges */}
+          <motion.div
+            initial={{ opacity: 0, x: -15 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="absolute left-4 top-4 z-20 rounded-2xl border border-white/10 bg-slate-900/85 p-3 backdrop-blur-md shadow-lg max-w-[190px]"
+          >
+            <p className="text-[9.5px] font-mono uppercase tracking-widest text-teal-400">Target Molecule</p>
+            <p className="font-display text-[13px] font-bold text-white">Metformin 500mg</p>
+            <p className="mt-0.5 text-[10px] text-slate-400">ER Oral Tablet · 30 Days</p>
+          </motion.div>
+
+          <motion.div
+            key={activeScene.id}
+            initial={{ opacity: 0, x: 15 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="absolute right-4 bottom-14 z-20 rounded-2xl border border-teal-500/30 bg-teal-950/80 p-3 backdrop-blur-md shadow-lg max-w-[210px] text-right"
+          >
+            <span className="inline-block px-1.5 py-0.5 text-[9px] font-mono font-semibold uppercase bg-teal-500/20 text-teal-300 rounded border border-teal-500/30">
+              {activeScene.state}
+            </span>
+            <p className="mt-1 text-[11px] font-medium text-slate-200 truncate">{activeScene.blocker}</p>
+            <p className="mt-0.5 text-[10px] font-mono text-cyan-300">Next: {activeScene.owner}</p>
+          </motion.div>
+        </div>
+
+        {/* Video Scrubber & Playback Controls Bar */}
+        <div className="relative z-20 border-t border-white/10 bg-slate-900/90 px-5 py-3.5 backdrop-blur-md">
+          {/* Progress Timeline Scrubber */}
+          <div className="group relative flex items-center mb-2.5 cursor-pointer">
+            <div className="h-1.5 w-full rounded-full bg-slate-800 overflow-hidden">
+              <motion.div
+                className="h-full bg-gradient-to-r from-teal-500 via-cyan-400 to-emerald-400 shadow-[0_0_10px_rgba(20,184,166,0.8)]"
+                style={{ width: `${progress}%` }}
+              />
             </div>
-            <div className="capsule-seam" />
-            <img src="/images/capsule-hero.png" alt="Pharmaceutical capsule" className="capsule-image" draggable={false} />
+            <div
+              className="absolute size-3 rounded-full bg-white shadow-md border-2 border-teal-500 -translate-x-1.5"
+              style={{ left: `${progress}%` }}
+            />
           </div>
-        </motion.div>
-      </div>
 
-      <div className="absolute bottom-3 right-2 sm:bottom-6 sm:right-4 z-30 bg-[#0B1726]/90 border border-white/10 rounded-2xl p-3.5 shadow-xl backdrop-blur-md max-w-[240px]">
-        <div className="flex items-center gap-2">
-          <div className="size-6 rounded-lg bg-teal-500/15 text-teal-300 flex items-center justify-center font-bold">
-            <Sparkles className="size-3.5" />
-          </div>
-          <div>
-            <div className="text-[10.5px] font-bold uppercase tracking-wider text-slate-200">Oushadha AI</div>
-            <div className="text-[9.5px] text-teal-400 font-mono">Telemetry Active</div>
+          <div className="flex items-center justify-between text-xs text-slate-400">
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setIsPlaying(!isPlaying)}
+                className="flex items-center gap-1.5 text-slate-200 hover:text-teal-400 transition-colors"
+              >
+                {isPlaying ? <Pause className="size-3.5" /> : <Play className="size-3.5" />}
+                <span className="font-mono text-[11px]">{isPlaying ? 'Live Stream' : 'Paused'}</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setProgress(0);
+                  setActiveSceneIdx((s) => (s + 1) % REFILL_SCENES.length);
+                }}
+                className="text-slate-400 hover:text-white transition-colors"
+                title="Restart cycle"
+              >
+                <RotateCcw className="size-3" />
+              </button>
+            </div>
+
+            <div className="flex items-center gap-2 font-mono text-[11px] text-slate-300">
+              <span className="text-teal-400">{formatTime(progress)}</span>
+              <span className="text-slate-600">/</span>
+              <span>02:00</span>
+            </div>
           </div>
         </div>
+      </motion.div>
 
-        <div className="mt-2.5 pt-2 border-t border-white/10">
-          <div className="text-[11px] font-medium text-slate-100 leading-snug min-h-[32px] flex items-center">
-            {activeStatus.text}
+      {/* Sub-Card Analytics Pills */}
+      <div className="mt-4 grid grid-cols-2 gap-3.5">
+        <div className="rounded-2xl border border-[#EDE4D8] bg-white/95 p-3.5 shadow-sm backdrop-blur-sm">
+          <div className="flex items-center justify-between">
+            <p className="text-[10px] font-mono font-semibold uppercase tracking-[0.14em] text-stone-500">Live Intake</p>
+            <Activity className="size-3.5 text-emerald-600" />
           </div>
-          <div className="mt-1 text-[9px] font-mono text-slate-400 flex items-center justify-between">
-            <span>Cycle Protocol:</span>
-            <span className="text-cyan-300 font-semibold">{activeStatus.status}</span>
+          <p className="mt-1 font-display text-2xl font-bold text-slate-950">1,420+</p>
+          <p className="text-[11.5px] text-stone-600">Prescriptions synchronized</p>
+        </div>
+
+        <div className="rounded-2xl border border-[#EDE4D8] bg-white/95 p-3.5 shadow-sm backdrop-blur-sm">
+          <div className="flex items-center justify-between">
+            <p className="text-[10px] font-mono font-semibold uppercase tracking-[0.14em] text-teal-800">Human Gate</p>
+            <ShieldCheck className="size-3.5 text-teal-700" />
           </div>
+          <p className="mt-1 font-display text-2xl font-bold text-teal-900">100%</p>
+          <p className="text-[11.5px] text-stone-600">Clinician MFA verified</p>
         </div>
       </div>
-    </>
+    </div>
   );
 }

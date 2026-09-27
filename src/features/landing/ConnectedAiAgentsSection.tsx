@@ -61,10 +61,10 @@ export function ConnectedAiAgentsSection() {
   }, []);
 
   return (
-    <section id="ai-agents" className="py-24 bg-[#07111F] text-white border-t border-white/10 relative overflow-hidden">
+    <section id="ai-agents" className="py-24 bg-white text-slate-900 border-t border-slate-200 relative overflow-hidden">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-teal-500/10 text-teal-300 border border-teal-500/20 mb-3">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-teal-50 text-teal-800 border border-teal-200 mb-3">
             <Cpu className="size-3.5" />
             Autonomous Orchestration
           </div>
@@ -72,10 +72,10 @@ export function ConnectedAiAgentsSection() {
           <WordByWord
             text="An AI Team Working Behind Every Refill."
             as="h2"
-            className="text-3xl sm:text-5xl font-extrabold tracking-tight font-display text-slate-100 justify-center text-center"
+            className="text-3xl sm:text-5xl font-extrabold tracking-tight font-display text-slate-900 justify-center text-center"
           />
 
-          <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">
+          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
             Six specialized agents operate sequentially under strict clinical protocols, providing transparent decision support at every stage.
           </p>
         </div>
@@ -90,34 +90,34 @@ export function ConnectedAiAgentsSection() {
                 onClick={() => setActiveAgent(idx)}
                 className={`cursor-pointer rounded-2xl p-6 transition-all duration-300 border flex flex-col justify-between ${
                   isActive
-                    ? 'bg-[#0B1726] border-teal-400/60 shadow-[0_0_30px_rgba(20,184,166,0.18)] scale-[1.02]'
-                    : 'bg-[#0B1726]/60 border-white/10 hover:border-white/20'
+                    ? 'bg-[#F6F8F7] border-teal-600 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.55)] scale-[1.02]'
+                    : 'bg-white border-slate-200 hover:border-slate-300'
                 }`}
               >
                 <div>
-                  <div className="flex items-center justify-between pb-3 border-b border-white/10">
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-200">
                     <div className="flex items-center gap-2">
                       <span className={`size-2 rounded-full ${isActive ? 'bg-teal-400 animate-pulse' : 'bg-slate-600'}`} />
                       <span className="font-mono text-[11px] font-bold text-slate-400">
                         AGENT-0{idx + 1}
                       </span>
                     </div>
-                    <span className={`text-[10px] font-mono uppercase tracking-wider ${isActive ? 'text-teal-300 font-bold' : 'text-slate-500'}`}>
+                    <span className={`text-[10px] font-mono uppercase tracking-wider ${isActive ? 'text-teal-700 font-bold' : 'text-slate-500'}`}>
                       {isActive ? '● Active Task' : 'Standby'}
                     </span>
                   </div>
 
                   <div className="mt-4 flex items-center gap-3.5">
                     <div className={`size-11 rounded-xl flex items-center justify-center border ${
-                      isActive ? 'bg-teal-500/20 text-teal-300 border-teal-500/40' : 'bg-white/5 text-slate-400 border-white/5'
+                      isActive ? 'bg-teal-50 text-teal-800 border-teal-200' : 'bg-slate-50 text-slate-400 border-slate-100'
                     }`}>
                       <agent.icon className="size-5" />
                     </div>
                     <div>
-                      <h3 className="text-base font-bold text-slate-100 font-display">
+                      <h3 className="text-base font-bold text-slate-900 font-display">
                         {agent.name}
                       </h3>
-                      <p className="text-xs font-semibold text-teal-400 mt-0.5 font-mono">
+                      <p className="text-xs font-semibold text-teal-700 mt-0.5 font-mono">
                         {agent.role}
                       </p>
                     </div>
@@ -128,7 +128,7 @@ export function ConnectedAiAgentsSection() {
                   </p>
                 </div>
 
-                <div className="mt-6 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-slate-500 font-mono">
+                <div className="mt-6 pt-3 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500 font-mono">
                   <span>Protocol Active</span>
                   {idx < AGENTS.length - 1 ? (
                     <span className="flex items-center gap-1 text-slate-400">
@@ -136,7 +136,7 @@ export function ConnectedAiAgentsSection() {
                       <ArrowRight className="size-3" />
                     </span>
                   ) : (
-                    <span className="text-teal-300 font-semibold">Closed Loop ✓</span>
+                    <span className="text-teal-700 font-semibold">Closed Loop ✓</span>
                   )}
                 </div>
               </div>
