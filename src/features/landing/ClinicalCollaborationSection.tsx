@@ -8,34 +8,53 @@ import {
 } from 'lucide-react';
 import { WordByWord } from './WordByWord';
 
+import { AnimatedNumber } from '@/components/pharma';
+
 const METRICS = [
   {
     label: 'Resolution Time',
-    value: '< 4 Hours',
+    num: 4,
+    prefix: '< ',
+    suffix: ' Hours',
+    decimals: 0,
+    progress: 88,
     delta: '89% faster than legacy faxes',
     icon: Clock,
   },
   {
     label: 'AI Automation Rate',
-    value: '88.4%',
+    num: 88.4,
+    suffix: '%',
+    decimals: 1,
+    progress: 88.4,
     delta: 'Low-risk cases auto-drafted',
     icon: Zap,
   },
   {
     label: 'Prevented Lapses',
-    value: '1,420+',
+    num: 1420,
+    suffix: '+',
+    decimals: 0,
+    progress: 95,
     delta: 'Zero treatment gaps across cohort',
     icon: ShieldCheck,
   },
   {
     label: 'Escalations Rate',
-    value: '< 1.2%',
+    num: 1.2,
+    prefix: '< ',
+    suffix: '%',
+    decimals: 1,
+    progress: 12,
     delta: 'Down from 18.5% industry baseline',
     icon: TrendingDown,
   },
   {
     label: 'Patient Response Rate',
-    value: '96.8%',
+    num: 96.8,
+    suffix: '%',
+    decimals: 1,
+    progress: 96.8,
     delta: 'Within 2 hours via secure SMS',
     icon: Users,
   },
@@ -70,17 +89,34 @@ export function ClinicalCollaborationSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="p-6 rounded-2xl bg-[#07111F] border border-white/10 flex flex-col justify-between hover:border-teal-400/40 transition-colors"
+              className="p-6 rounded-2xl bg-[#07111F] border border-white/10 flex flex-col justify-between hover:border-teal-400/50 hover:shadow-[0_12px_32px_rgba(20,184,166,0.15)] transition-all duration-300"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
                     {metric.label}
                   </span>
-                  <metric.icon className="size-4 text-teal-400" />
+                  <div className="size-8 rounded-lg bg-teal-500/10 text-teal-300 flex items-center justify-center">
+                    <metric.icon className="size-4" />
+                  </div>
                 </div>
                 <div className="text-3xl font-extrabold text-slate-100 font-display tracking-tight">
-                  {metric.value}
+                  <AnimatedNumber
+                    value={metric.num}
+                    prefix={metric.prefix}
+                    suffix={metric.suffix}
+                    decimals={metric.decimals}
+                  />
+                </div>
+
+                <div className="mt-3 h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${metric.progress}%` }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.2, delay: idx * 0.1, ease: 'easeOut' }}
+                    className="h-full bg-gradient-to-r from-teal-400 to-cyan-300 rounded-full"
+                  />
                 </div>
               </div>
 

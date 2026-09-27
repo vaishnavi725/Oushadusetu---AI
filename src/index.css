@@ -94,12 +94,31 @@
   --font-heading: 'Plus Jakarta Sans', 'Manrope', ui-sans-serif, system-ui, sans-serif;
   --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
 
+  /* Global PharmaLink Design Tokens — Pinterest-inspired Premium Healthcare */
+  --pharmalink-primary: #0d9488;
+  --pharmalink-primary-hover: #0f766e;
+  --pharmalink-primary-soft: rgba(13, 148, 136, 0.12);
+  --pharmalink-background: #faf8f5; /* Light cream & soft warm neutral */
+  --pharmalink-surface: rgba(255, 255, 255, 0.82);
+  --pharmalink-surface-elevated: #ffffff;
+  --pharmalink-border: rgba(13, 148, 136, 0.15);
+  --pharmalink-border-soft: rgba(226, 232, 240, 0.8);
+  --pharmalink-text-primary: #0f172a;
+  --pharmalink-text-secondary: #64748b;
+  --pharmalink-glow: rgba(20, 184, 166, 0.28);
+  --pharmalink-warm-blush: rgba(254, 243, 238, 0.6);
+
+  /* Cinematic / Deep Tone Tokens */
+  --pharmalink-dark-background: #07111f;
+  --pharmalink-dark-surface: rgba(11, 23, 38, 0.78);
+  --pharmalink-dark-border: rgba(255, 255, 255, 0.1);
+
   /* OushadhaSetu Primary Healthcare Palette */
   --color-primary: #0F766E;
   --color-accent: #14B8A6;
   --color-secondary-blue: #2563EB;
   --color-dark-bg: #0F172A;
-  --color-light-bg: #F8FAFC;
+  --color-light-bg: #FAF8F5;
   --color-status-success: #16A34A;
   --color-status-warning: #F59E0B;
   --color-status-danger: #DC2626;
@@ -130,30 +149,106 @@
 
 @layer components {
   .surface {
-    @apply rounded-[var(--radius-card)] border border-line bg-white shadow-[var(--shadow-soft)];
+    background-color: var(--pharmalink-surface);
+    border-color: var(--pharmalink-border-soft);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+    backdrop-filter: blur(12px);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+  }
+  .surface:hover {
+    box-shadow: 0 12px 30px -4px rgba(13, 148, 136, 0.1), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
   }
   .glass {
-    @apply border border-white/60 bg-white/70 backdrop-blur-xl;
+    background-color: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.04);
   }
   .skeleton {
-    background: linear-gradient(90deg, var(--color-ice-200) 0px, var(--color-ice-50) 120px, var(--color-ice-200) 240px);
+    background: linear-gradient(90deg, #f1f5f9 0px, #faf8f5 120px, #f1f5f9 240px);
     background-size: 800px 100%;
-    @apply animate-shimmer rounded-md;
+    @apply animate-shimmer rounded-xl;
   }
   .text-balance {
     text-wrap: balance;
   }
   .app-backdrop {
     background:
-      radial-gradient(1200px 600px at 100% -10%, rgb(199 210 254 / 0.35), transparent 60%),
-      radial-gradient(900px 500px at -10% 110%, rgb(221 214 254 / 0.45), transparent 60%),
-      var(--color-ice-50);
+      radial-gradient(1200px 600px at 85% -5%, rgba(20, 184, 166, 0.08), transparent 60%),
+      radial-gradient(1000px 500px at 15% 105%, rgba(254, 243, 238, 0.8), transparent 60%),
+      radial-gradient(800px 400px at 50% 40%, rgba(240, 253, 250, 0.4), transparent 70%),
+      var(--pharmalink-background);
   }
   .hero-backdrop {
     background:
-      radial-gradient(900px 520px at 78% 18%, rgb(255 255 255 / 0.95), transparent 60%),
-      radial-gradient(700px 480px at 12% 80%, rgb(165 180 252 / 0.25), transparent 65%),
-      linear-gradient(180deg, #f5f3ff 0%, #fafafa 55%, #f3f4f6 100%);
+      radial-gradient(900px 520px at 78% 18%, rgba(255, 255, 255, 0.95), transparent 60%),
+      radial-gradient(700px 480px at 12% 80%, rgba(20, 184, 166, 0.08), transparent 65%),
+      linear-gradient(180deg, #fbf9f6 0%, #faf8f5 55%, #f4f1ec 100%);
+  }
+
+  /* PharmaLink Reusable System Styles */
+  .pharma-card {
+    background: var(--pharmalink-surface);
+    border: 1px solid var(--pharmalink-border-soft);
+    border-radius: 18px;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+    backdrop-filter: blur(14px);
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+  }
+  .pharma-card:hover {
+    transform: translateY(-4px) scale(1.008);
+    box-shadow: 0 16px 36px -6px var(--pharmalink-glow), 0 6px 16px -2px rgba(15, 23, 42, 0.04);
+    border-color: var(--pharmalink-border);
+  }
+  .pharma-button-primary {
+    background-color: var(--pharmalink-primary);
+    color: #ffffff;
+    border-radius: 9999px;
+    font-weight: 600;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 14px 0 var(--pharmalink-glow);
+  }
+  .pharma-button-primary:hover {
+    background-color: var(--pharmalink-primary-hover);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 24px 0 rgba(13, 148, 136, 0.38);
+  }
+  .pharma-button-primary:active {
+    transform: translateY(0) scale(0.98);
+  }
+  .pharma-button-secondary {
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--pharmalink-text-primary);
+    border: 1px solid var(--pharmalink-border);
+    border-radius: 9999px;
+    font-weight: 600;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .pharma-button-secondary:hover {
+    background: #ffffff;
+    border-color: var(--pharmalink-primary);
+    color: var(--pharmalink-primary);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 20px -2px rgba(13, 148, 136, 0.15);
+  }
+  .pharma-input {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 12px;
+    transition: all 0.2s ease;
+  }
+  .pharma-input:focus {
+    border-color: var(--pharmalink-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px var(--pharmalink-primary-soft);
+  }
+  .pharma-badge {
+    background: var(--pharmalink-primary-soft);
+    color: var(--pharmalink-primary);
+    border: 1px solid var(--pharmalink-border);
+    border-radius: 9999px;
+    font-weight: 600;
   }
   .window-light {
     background-image:

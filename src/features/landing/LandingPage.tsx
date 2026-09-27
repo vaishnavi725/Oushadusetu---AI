@@ -12,6 +12,7 @@ import { ExplainabilitySection } from './ExplainabilitySection';
 import { ClinicalCollaborationSection } from './ClinicalCollaborationSection';
 import { BottomCtaBanner } from './BottomCtaBanner';
 import { LandingFooter } from './LandingFooter';
+import { ParticleBackground } from '@/components/pharma';
 
 export default function LandingPage() {
   return (
@@ -21,6 +22,9 @@ export default function LandingPage() {
 
       {/* 2. Fullscreen Hero (min-h-[100vh]) */}
       <section className="relative min-h-[calc(100vh-80px)] flex flex-col justify-center pt-8 pb-16 lg:py-20 overflow-hidden bg-gradient-to-b from-[#07111F] via-[#0B1726] to-[#07111F]">
+        {/* Subtle Ambient Particle System */}
+        <ParticleBackground className="opacity-40" />
+
         {/* Subtle Ambient Depth Lighting */}
         <div className="absolute top-1/4 left-1/3 size-[500px] rounded-full bg-teal-500/10 blur-[130px] pointer-events-none" />
         <div className="absolute top-1/2 right-1/4 size-[450px] rounded-full bg-cyan-500/10 blur-[140px] pointer-events-none" />

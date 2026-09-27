@@ -5,7 +5,7 @@ import { cn } from '@/lib/format';
 
 export function Card({ children, className, as: As = 'section', ...rest }: { children: ReactNode; className?: string; as?: 'section' | 'div' | 'article' } & Record<string, unknown>) {
   return (
-    <As className={cn('surface', className)} {...rest}>
+    <As className={cn('pharma-card', className)} {...rest}>
       {children}
     </As>
   );
@@ -13,12 +13,12 @@ export function Card({ children, className, as: As = 'section', ...rest }: { chi
 
 export function CardHeader({ title, description, action, icon }: { title: ReactNode; description?: ReactNode; action?: ReactNode; icon?: ReactNode }) {
   return (
-    <div className="flex items-start justify-between gap-3 border-b border-line px-5 py-3.5">
-      <div className="flex min-w-0 items-start gap-2.5">
-        {icon && <span className="mt-0.5 text-brand-600">{icon}</span>}
+    <div className="flex items-start justify-between gap-3 border-b border-slate-100 px-6 py-4">
+      <div className="flex min-w-0 items-start gap-3">
+        {icon && <span className="mt-0.5 text-[var(--pharmalink-primary)]">{icon}</span>}
         <div className="min-w-0">
-          <h3 className="text-[15px] font-semibold text-ink-900">{title}</h3>
-          {description && <p className="mt-0.5 text-[13px] text-ink-500">{description}</p>}
+          <h3 className="text-base font-semibold text-slate-900 tracking-tight">{title}</h3>
+          {description && <p className="mt-0.5 text-xs text-slate-500">{description}</p>}
         </div>
       </div>
       {action}
@@ -28,13 +28,22 @@ export function CardHeader({ title, description, action, icon }: { title: ReactN
 
 export function PageHeader({ title, description, actions, eyebrow }: { title: ReactNode; description?: ReactNode; actions?: ReactNode; eyebrow?: ReactNode }) {
   return (
-    <motion.header initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, ease: 'easeOut' }} className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <motion.header
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
+    >
       <div className="min-w-0">
-        {eyebrow && <div className="mb-1.5 text-[12px] font-semibold uppercase tracking-[0.14em] text-brand-600">{eyebrow}</div>}
-        <h1 className="text-[26px] font-light leading-tight text-brand-900 sm:text-[30px]">{title}</h1>
-        {description && <p className="mt-1.5 max-w-2xl text-sm text-ink-500">{description}</p>}
+        {eyebrow && (
+          <div className="mb-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[var(--pharmalink-primary-soft)] text-[var(--pharmalink-primary)] border border-[var(--pharmalink-border)]">
+            {eyebrow}
+          </div>
+        )}
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl font-display">{title}</h1>
+        {description && <p className="mt-1.5 max-w-2xl text-sm text-slate-500 leading-relaxed">{description}</p>}
       </div>
-      {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
+      {actions && <div className="flex flex-wrap items-center gap-3">{actions}</div>}
     </motion.header>
   );
 }
@@ -64,7 +73,7 @@ export function Pagination({ page, limit, total, onPage }: { page: number; limit
 
 export function Tabs<T extends string>({ tabs, value, onChange, label }: { tabs: { value: T; label: ReactNode; count?: number }[]; value: T; onChange: (v: T) => void; label: string }) {
   return (
-    <div role="tablist" aria-label={label} className="flex gap-1 overflow-x-auto border-b border-line [scrollbar-width:none]">
+    <div role="tablist" aria-label={label} className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none]">
       {tabs.map((t) => {
         const active = t.value === value;
         return (
@@ -74,13 +83,26 @@ export function Tabs<T extends string>({ tabs, value, onChange, label }: { tabs:
             type="button"
             aria-selected={active}
             onClick={() => onChange(t.value)}
-            className={cn('relative whitespace-nowrap px-3 py-2.5 text-sm font-medium transition-colors', active ? 'text-brand-800' : 'text-ink-500 hover:text-ink-900')}
+            className={cn(
+              'relative whitespace-nowrap px-4 py-2 text-xs font-semibold rounded-full transition-all duration-200 cursor-pointer',
+              active
+                ? 'bg-[var(--pharmalink-primary)] text-white shadow-[0_4px_12px_var(--pharmalink-glow)]'
+                : 'text-slate-500 hover:text-slate-900 hover:bg-white/80 bg-white/40 border border-slate-200/60'
+            )}
           >
             <span className="flex items-center gap-1.5">
               {t.label}
-              {t.count !== undefined && <span className={cn('rounded-full px-1.5 text-[11px]', active ? 'bg-brand-100 text-brand-800' : 'bg-ice-200 text-ink-600')}>{t.count}</span>}
+              {t.count !== undefined && (
+                <span
+                  className={cn(
+                    'rounded-full px-1.5 py-0.2 text-[10px] font-mono',
+                    active ? 'bg-white/20 text-white' : 'bg-slate-200/80 text-slate-700'
+                  )}
+                >
+                  {t.count}
+                </span>
+              )}
             </span>
-            {active && <motion.span layoutId={`tab-${label}`} className="absolute inset-x-2 -bottom-px h-0.5 rounded-full bg-brand-600" />}
           </button>
         );
       })}
