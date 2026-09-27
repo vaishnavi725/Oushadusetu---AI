@@ -5,6 +5,7 @@ import { Menu, X, ArrowRight } from 'lucide-react';
 import { OushadhaLogo } from './OushadhaLogo';
 
 const NAV_LINKS = [
+  { label: 'About', href: '#about' },
   { label: 'Platform', href: '#platform' },
   { label: 'How It Works', href: '#flow-works' },
   { label: 'AI Intelligence', href: '#ai-agents' },

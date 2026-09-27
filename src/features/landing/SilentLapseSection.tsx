@@ -59,7 +59,7 @@ const PROGRESSION = [
 
 export function SilentLapseSection() {
   return (
-    <section id="silent-lapse" className="py-24 bg-[#F6F8F7] text-slate-900 border-t border-slate-200 relative overflow-hidden">
+    <section id="silent-lapse" className="py-24 bg-[#FAF6F1] text-slate-900 border-t border-[#EFE7DE] relative overflow-hidden">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-teal-50 text-teal-800 border border-teal-200 mb-3">

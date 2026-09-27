@@ -14,32 +14,20 @@ import { ClinicalCollaborationSection } from './ClinicalCollaborationSection';
 import { BottomCtaBanner } from './BottomCtaBanner';
 import { LandingFooter } from './LandingFooter';
 import { RefillWalkthrough } from './RefillWalkthrough';
+import { AboutSection } from './AboutSection';
 
 export default function LandingPage() {
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-[#F4F7F6] font-sans text-slate-900 selection:bg-teal-100 selection:text-teal-950">
+    <div className="relative min-h-screen overflow-x-hidden bg-[#FAF6F0] font-sans text-slate-900 selection:bg-teal-100 selection:text-teal-950">
       <ScrollProgress />
       <LandingNavbar />
 
-      <section className="relative flex min-h-[calc(100vh-80px)] flex-col justify-center overflow-hidden bg-[radial-gradient(900px_420px_at_80%_0%,rgba(15,118,110,0.08),transparent_60%),linear-gradient(180deg,#ffffff_0%,#F4F7F6_100%)] pt-8 pb-16 lg:py-20">
+      <section className="relative flex min-h-[calc(100vh-80px)] flex-col justify-center overflow-hidden bg-[radial-gradient(1100px_500px_at_75%_10%,rgba(247,228,215,0.65),transparent_70%),radial-gradient(600px_350px_at_20%_80%,rgba(238,219,204,0.4),transparent_60%),linear-gradient(180deg,#FFFDFB_0%,#FAF6F0_100%)] pt-8 pb-16 lg:py-20">
 
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 relative z-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             {/* Left Column: Word-by-Word Headline & Micro-Copy (col-span-7) */}
             <div className="lg:col-span-7 flex flex-col items-start text-left">
-              {/* Eyebrow */}
-              <motion.div
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="mb-6 inline-flex items-center gap-2 rounded-full border border-teal-200 bg-white px-3.5 py-1.5 text-xs font-semibold tracking-wide text-teal-800 shadow-sm"
-              >
-                <span className="size-2 rounded-full bg-teal-400" />
-                <span className="font-mono uppercase tracking-widest text-[11px]">
-                  AI-POWERED REFILL INTELLIGENCE
-                </span>
-              </motion.div>
-
               {/* Main Headline: Animated WORD BY WORD */}
               <div className="space-y-2">
                 <div>
@@ -136,6 +124,9 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* 2. Section: About OushadhaSetu */}
+      <AboutSection />
 
       <RefillWalkthrough />
 

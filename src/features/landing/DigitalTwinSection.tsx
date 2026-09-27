@@ -57,7 +57,7 @@ export function DigitalTwinSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-3xl mx-auto rounded-3xl bg-[#F6F8F7] border border-slate-200 p-6 sm:p-10 shadow-2xl"
+          className="max-w-3xl mx-auto rounded-3xl bg-[#FAF6F1] border border-[#EDE4D8] p-6 sm:p-10 shadow-xl"
         >
           {/* Top Metadata */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-200 gap-4">

@@ -18,6 +18,7 @@ export function LandingFooter() {
             <div>
               <div className="mb-3 text-xs font-semibold tracking-wide text-slate-900 uppercase">Navigation</div>
               <ul className="space-y-2">
+                <li><a href="#about" className="transition hover:text-teal-800">About</a></li>
                 <li><a href="#platform" className="transition hover:text-teal-800">Platform</a></li>
                 <li><a href="#ai-agents" className="transition hover:text-teal-800">AI intelligence</a></li>
                 <li><a href="#digital-twin" className="transition hover:text-teal-800">Digital twin</a></li>
