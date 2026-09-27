@@ -9,3 +9,4 @@ export { AnimatedNumber } from './AnimatedNumber';
 export { ScrollReveal, StaggerContainer, StaggerItem } from './ScrollReveal';
 export { ParticleBackground } from './ParticleBackground';
 export { RefillWorkflowVisual, CIRCULAR_NODES, type CircularStepId } from './RefillWorkflowVisual';
+export { PhysicalCapsuleLoop } from './PhysicalCapsuleLoop';

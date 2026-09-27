@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { Play, Pause, Activity, ShieldCheck, RotateCcw } from 'lucide-react';
 import { REFILL_SCENES } from './refill-scenes';
-import { RefillWorkflowVisual } from '@/components/pharma';
+import { RefillWorkflowVisual, PhysicalCapsuleLoop } from '@/components/pharma';
 
 export function CapsuleHeroVisual() {
   const [isPlaying, setIsPlaying] = useState(true);
@@ -186,13 +186,13 @@ export function CapsuleHeroVisual() {
         </div>
 
         {/* Video Viewport: 3D Capsule Visual OR Refill Workflow Network */}
-        <div className="relative flex h-[360px] w-full items-center justify-center overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-[#0A161E]">
+        <div className="relative flex min-h-[460px] h-[460px] w-full items-center justify-center overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-[#0A161E]">
           {/* Canvas Neural Particle Stream */}
           <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 z-0 h-full w-full opacity-80" />
 
           {/* Glowing Radial Spotlight */}
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <div className="size-64 rounded-full bg-gradient-to-tr from-teal-500/25 to-cyan-400/35 blur-2xl" />
+            <div className="size-80 rounded-full bg-gradient-to-tr from-teal-500/20 via-cyan-400/25 to-blue-600/20 blur-3xl" />
           </div>
 
           {viewMode === 'workflow' ? (
@@ -200,35 +200,10 @@ export function CapsuleHeroVisual() {
               <RefillWorkflowVisual mode="circular" size="sm" activeStep="all" interactive={true} />
             </div>
           ) : (
-            /* Floating High-Res 3D Capsule Image with Organic Bobbing Animation */
-            <motion.div
-              animate={
-                isPlaying
-                  ? {
-                      y: [0, -10, 0],
-                      rotate: [-1, 2, -1],
-                      scale: [1, 1.015, 1],
-                    }
-                  : {}
-              }
-              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-              className="relative z-10 flex items-center justify-center max-w-[340px]"
-            >
-              <img
-                src="/images/capsule-hero.png"
-                alt="Intelligent OushadhaSetu Refill Capsule"
-                className="w-full h-auto object-contain drop-shadow-[0_20px_45px_rgba(20,184,166,0.4)]"
-              />
-
-              {/* Glowing Laser Scanline Effect */}
-              {isPlaying && (
-                <motion.div
-                  animate={{ top: ['10%', '85%', '10%'] }}
-                  transition={{ duration: 4.2, repeat: Infinity, ease: 'linear' }}
-                  className="pointer-events-none absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-cyan-400/80 to-transparent shadow-[0_0_15px_rgba(34,211,238,0.9)]"
-                />
-              )}
-            </motion.div>
+            /* Continuous Physical OPEN -> FILL -> CLOSE -> ROTATE Capsule Loop */
+            <div className="relative z-10 flex flex-col items-center justify-center py-4">
+              <PhysicalCapsuleLoop size="md" showWorkflowStream={true} showTelemetryHUD={true} />
+            </div>
           )}
 
           {/* Floating In-Video Telemetry Badges */}
