@@ -17,6 +17,7 @@ import { useToast } from '@/components/ui/Toast';
 import { cn } from '@/lib/format';
 import { useDebounced, useNow } from '@/lib/hooks';
 import { useCases } from '@/features/cases/hooks';
+import { RefillWorkflowVisual } from '@/components/pharma';
 
 type StatusTab = 'OPEN' | 'NEEDS_PATIENT_MATCH' | 'TRIAGE' | 'WAITING_ON_INFO' | 'WAITING_ON_PROVIDER' | 'WAITING_ON_PATIENT_VISIT' | 'WAITING_ON_INSURANCE' | 'SENT_TO_PHARMACY' | 'ALL';
 const STATUS_TABS: { value: StatusTab; label: string }[] = [
@@ -86,6 +87,11 @@ export default function QueuePage() {
           </Link>
         }
       />
+
+      {/* ── Visual Refill Workflow Pipeline ────────────────────── */}
+      <div className="mb-5">
+        <RefillWorkflowVisual mode="ribbon" className="shadow-md border-cyan-500/25" />
+      </div>
 
       <div className="mb-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
         <Kpi label="Open cases" value={kpis.open} icon={<ClipboardList className="size-5" />} onClick={() => update({ status: undefined, priority: undefined, sla: undefined, owner: undefined })} />

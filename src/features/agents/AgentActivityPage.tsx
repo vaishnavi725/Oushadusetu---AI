@@ -21,6 +21,7 @@ import { cn } from '@/lib/format';
 import { Card, PageHeader, Tabs } from '@/components/ui/Layout';
 import { aiDecisionService, type AiDecisionRecord } from '@/services/aiDecisionService';
 import { aiApiClient } from '@/services/aiApiClient';
+import { RefillWorkflowVisual } from '@/components/pharma';
 
 const fadeUp = (i = 0) => ({
   initial: { opacity: 0, y: 12 },
@@ -147,6 +148,11 @@ export default function AgentActivityPage() {
           </Link>
         }
       />
+
+      {/* ── Refill Workflow Visual Pipeline (AI Intervention Layer) ── */}
+      <div className="mb-5">
+        <RefillWorkflowVisual mode="ribbon" activeStep="ai" className="shadow-lg border-cyan-500/30" />
+      </div>
 
       <Tabs
         label="Agent views"

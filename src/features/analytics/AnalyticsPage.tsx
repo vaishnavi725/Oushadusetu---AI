@@ -48,6 +48,7 @@ import { Card, CardHeader, PageHeader } from '@/components/ui/Layout';
 import { EmptyState, ErrorState, Skeleton } from '@/components/ui/States';
 import { cn } from '@/lib/format';
 import { HBarChart, WeeklyColumnChart, fadeUp } from './charts';
+import { RefillWorkflowVisual } from '@/components/pharma';
 
 const RANGES = [
   { days: 7, label: 'Last 7 days' },
@@ -163,6 +164,11 @@ export default function AnalyticsPage() {
           </div>
         }
       />
+
+      {/* ── Refill Workflow Visual Pipeline (Performance Analytics) ── */}
+      <div className="mb-6">
+        <RefillWorkflowVisual mode="ribbon" className="shadow-lg border-cyan-500/30" />
+      </div>
 
       {query.isPending ? (
         <AnalyticsSkeleton />

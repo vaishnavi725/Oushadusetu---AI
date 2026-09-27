@@ -16,6 +16,7 @@ import { refillService } from '@/services';
 import { cn } from '@/lib/format';
 import { Card, PageHeader } from '@/components/ui/Layout';
 import { Skeleton, ErrorState } from '@/components/ui/States';
+import { RefillWorkflowVisual } from '@/components/pharma';
 
 const fadeUp = (i = 0) => ({
   initial: { opacity: 0, y: 12 },
@@ -110,6 +111,11 @@ export default function CommandCenterPage() {
           </Link>
         }
       />
+
+      {/* ── Refill Workflow Visual Pipeline ────────────────────── */}
+      <div className="mb-5">
+        <RefillWorkflowVisual mode="ribbon" className="shadow-lg border-cyan-500/30" />
+      </div>
 
       {/* ── KPI Tiles ──────────────────────────────────────────── */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-8">

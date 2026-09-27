@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { Cpu, Sparkles, CheckCircle2 } from 'lucide-react';
 import { WordByWord } from './WordByWord';
+import { RefillWorkflowVisual } from '@/components/pharma';
 
 export function DigitalTwinSection() {
   return (
@@ -23,32 +24,13 @@ export function DigitalTwinSection() {
           </p>
         </div>
 
-        {/* 5-Stage Refill Progression Timeline */}
-        <div className="mt-12 max-w-4xl mx-auto">
-          <div className="p-4 sm:p-6 rounded-2xl bg-white border border-slate-200 mb-8">
-            <div className="text-xs font-mono uppercase text-teal-700 tracking-wider mb-4 flex items-center justify-between">
-              <span>Refill Progression Timeline</span>
-              <span className="text-slate-400">Step 3 of 5 In Progress</span>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-              {[
-                { stage: 'Requested', status: 'Completed', color: 'bg-emerald-50 text-emerald-800 border-emerald-200' },
-                { stage: 'Pharmacy Review', status: 'Completed', color: 'bg-emerald-50 text-emerald-800 border-emerald-200' },
-                { stage: 'Provider Approval', status: 'Active (Current)', color: 'bg-teal-50 text-teal-800 border-teal-300 ring-1 ring-teal-200' },
-                { stage: 'Patient Action', status: 'Pending Approval', color: 'bg-slate-50 text-slate-400 border-slate-200' },
-                { stage: 'Resolved', status: 'Final Stage', color: 'bg-slate-50 text-slate-400 border-slate-200' },
-              ].map((step, idx) => (
-                <div key={step.stage} className={`p-3 rounded-xl border text-center flex flex-col justify-between ${step.color}`}>
-                  <span className="text-[10px] font-mono uppercase tracking-wider block opacity-75">
-                    0{idx + 1}
-                  </span>
-                  <div className="text-xs font-bold font-display my-1">{step.stage}</div>
-                  <div className="text-[9.5px] font-mono opacity-80">{step.status}</div>
-                </div>
-              ))}
-            </div>
+        {/* 7-Stage Refill Progression Pipeline (OushadhaSetu Workflow) */}
+        <div className="mt-12 max-w-4xl mx-auto mb-8">
+          <div className="mb-2 flex items-center justify-between text-xs font-mono uppercase text-teal-800 tracking-wider px-2">
+            <span>Synchronized Refill Pipeline</span>
+            <span className="text-slate-500">Autonomous Orchestration Stream</span>
           </div>
+          <RefillWorkflowVisual mode="ribbon" activeStep="ai" className="shadow-lg border-teal-500/20" />
         </div>
 
         {/* Large Interactive Digital Twin Card */}

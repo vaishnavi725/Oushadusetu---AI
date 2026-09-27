@@ -2,9 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { Play, Pause, Activity, ShieldCheck, RotateCcw } from 'lucide-react';
 import { REFILL_SCENES } from './refill-scenes';
+import { RefillWorkflowVisual } from '@/components/pharma';
 
 export function CapsuleHeroVisual() {
   const [isPlaying, setIsPlaying] = useState(true);
+  const [viewMode, setViewMode] = useState<'capsule' | 'workflow'>('capsule');
   const [progress, setProgress] = useState(24);
   const [activeSceneIdx, setActiveSceneIdx] = useState(1);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -143,7 +145,33 @@ export function CapsuleHeroVisual() {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="rounded-full bg-white/10 px-2.5 py-0.5 font-mono text-[10.5px] font-medium text-teal-300 border border-teal-500/30">
+            {/* View Mode Toggle: Capsule vs Workflow */}
+            <div className="flex items-center rounded-lg bg-black/40 p-0.5 border border-white/10">
+              <button
+                type="button"
+                onClick={() => setViewMode('capsule')}
+                className={`rounded-md px-2 py-0.5 font-mono text-[10px] font-medium transition-colors ${
+                  viewMode === 'capsule'
+                    ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                Capsule
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode('workflow')}
+                className={`rounded-md px-2 py-0.5 font-mono text-[10px] font-medium transition-colors ${
+                  viewMode === 'workflow'
+                    ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                Workflow
+              </button>
+            </div>
+
+            <span className="hidden sm:inline-block rounded-full bg-white/10 px-2 py-0.5 font-mono text-[10px] font-medium text-teal-300 border border-teal-500/30">
               RX-{activeScene.id.toUpperCase()}
             </span>
             <button
@@ -157,45 +185,51 @@ export function CapsuleHeroVisual() {
           </div>
         </div>
 
-        {/* Video Viewport: 3D Capsule Visual + Live Canvas Particle Stream */}
-        <div className="relative flex h-[350px] w-full items-center justify-center overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-[#0A161E]">
+        {/* Video Viewport: 3D Capsule Visual OR Refill Workflow Network */}
+        <div className="relative flex h-[360px] w-full items-center justify-center overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-[#0A161E]">
           {/* Canvas Neural Particle Stream */}
           <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 z-0 h-full w-full opacity-80" />
 
-          {/* Glowing Radial Spotlight behind Capsule */}
+          {/* Glowing Radial Spotlight */}
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
             <div className="size-64 rounded-full bg-gradient-to-tr from-teal-500/25 to-cyan-400/35 blur-2xl" />
           </div>
 
-          {/* Floating High-Res 3D Capsule Image with Organic Bobbing Animation */}
-          <motion.div
-            animate={
-              isPlaying
-                ? {
-                    y: [0, -10, 0],
-                    rotate: [-1, 2, -1],
-                    scale: [1, 1.015, 1],
-                  }
-                : {}
-            }
-            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-            className="relative z-10 flex items-center justify-center max-w-[340px]"
-          >
-            <img
-              src="/images/capsule-hero.png"
-              alt="Intelligent OushadhaSetu Refill Capsule"
-              className="w-full h-auto object-contain drop-shadow-[0_20px_45px_rgba(20,184,166,0.4)]"
-            />
-
-            {/* Glowing Laser Scanline Effect */}
-            {isPlaying && (
-              <motion.div
-                animate={{ top: ['10%', '85%', '10%'] }}
-                transition={{ duration: 4.2, repeat: Infinity, ease: 'linear' }}
-                className="pointer-events-none absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-cyan-400/80 to-transparent shadow-[0_0_15px_rgba(34,211,238,0.9)]"
+          {viewMode === 'workflow' ? (
+            <div className="relative z-10 w-full flex items-center justify-center -my-6 scale-[0.78]">
+              <RefillWorkflowVisual mode="network" activeStep="all" interactive={true} />
+            </div>
+          ) : (
+            /* Floating High-Res 3D Capsule Image with Organic Bobbing Animation */
+            <motion.div
+              animate={
+                isPlaying
+                  ? {
+                      y: [0, -10, 0],
+                      rotate: [-1, 2, -1],
+                      scale: [1, 1.015, 1],
+                    }
+                  : {}
+              }
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+              className="relative z-10 flex items-center justify-center max-w-[340px]"
+            >
+              <img
+                src="/images/capsule-hero.png"
+                alt="Intelligent OushadhaSetu Refill Capsule"
+                className="w-full h-auto object-contain drop-shadow-[0_20px_45px_rgba(20,184,166,0.4)]"
               />
-            )}
-          </motion.div>
+
+              {/* Glowing Laser Scanline Effect */}
+              {isPlaying && (
+                <motion.div
+                  animate={{ top: ['10%', '85%', '10%'] }}
+                  transition={{ duration: 4.2, repeat: Infinity, ease: 'linear' }}
+                  className="pointer-events-none absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-cyan-400/80 to-transparent shadow-[0_0_15px_rgba(34,211,238,0.9)]"
+                />
+              )}
+            </motion.div>
+          )}
 
           {/* Floating In-Video Telemetry Badges */}
           <motion.div
