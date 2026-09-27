@@ -32,7 +32,7 @@ CSP `connect-src` allows `'self'` and `https://*.supabase.co` so the browser can
 |---------|-------------|
 | Vercel `/api/ai/*` | Deploy with `api/ai/[...path].ts` (uses Node `IncomingMessage` handler) |
 | Supabase reads in AI routes | `VITE_SUPABASE_URL` + `VITE_SUPABASE_ANON_KEY` available to the serverless function environment (and optionally `.env` locally) |
-| LLM completions (optional) | `GROK_API_KEY` on server (xAI Grok, preferred); `OPENAI_API_KEY` if no Grok key. App works with **no** AI key via deterministic fallbacks |
+| LLM completions (optional) | `GROQ_API_KEY` on the server (Groq Cloud). `OPENAI_API_KEY` only if you are not using Groq. The app works with **no** AI key via built-in replies |
 | Live refill data | `VITE_USE_MOCKS=false` at build time + valid Supabase project — **partial** implementation; not the default demo path |
 
 ## Environment variables
@@ -49,9 +49,15 @@ From `.env.example` (copy to `.env` for local dev). **Never** commit secrets.
 | `VITE_APP_ENV` | `development` \| `staging` \| `production` |
 | `VITE_USE_MOCKS` | If omitted or any value except `"false"`, mocks stay **on** (`src/services/index.ts`) |
 
-### Server-only (Phase 5 / Edge Functions)
+### Server-only (optional for demo)
 
-`SUPABASE_SERVICE_ROLE_KEY`, `ANTHROPIC_API_KEY`, `PHI_ENCRYPTION_KEY`, webhook secrets, `STATUS_TOKEN_PEPPER`, etc. — documented in `.env.example` for future backend work; not needed for the in-browser demo.
+| Variable | Fill this? | Purpose |
+|----------|------------|---------|
+| `GROQ_API_KEY` | Optional | Groq Cloud key from [console.groq.com](https://console.groq.com). Not xAI Grok. |
+| `GROQ_MODEL` | Optional | Default `llama-3.1-8b-instant` |
+| `OPENAI_API_KEY` | Skip if using Groq | Only used when `GROQ_API_KEY` is empty |
+
+`SUPABASE_SERVICE_ROLE_KEY`, `ANTHROPIC_API_KEY`, `PHI_ENCRYPTION_KEY`, webhook secrets, `STATUS_TOKEN_PEPPER`, etc. — listed in `.env.example` for a future backend. **Leave them empty** for this demo.
 
 ## Local AI routes
 

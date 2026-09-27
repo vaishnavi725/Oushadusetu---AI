@@ -19,7 +19,7 @@ The browser client is `src/services/aiApiClient.ts`. It uses `window.location.or
 | `POST` | `/api/ai/approve` | Body: `decisionId`, `action` (`approved` \| `rejected` \| `overridden`), optional `note`, `caseId`, `agentName`, `recommendation`, `risk`. If Supabase configured, updates `ai_decisions`, inserts `agent_actions`, `audit_logs`, optional `case_timeline`, may touch `proactive_risks` / `refill_cases`. Response: `{ success, decisionId, status, message }` |
 | `OPTIONS` | any above | CORS preflight (204) |
 
-`callOpenAiIfConfigured` optionally calls **xAI Grok** (`GROK_API_KEY` or `XAI_API_KEY`, default model `grok-3-mini`, override via `GROK_MODEL` / `XAI_MODEL`) or **OpenAI** (`OPENAI_API_KEY`, `gpt-4o-mini`) when no Grok key is set. Server-side only; with no keys, it returns the fallback string. Chat routing in the demo is primarily **deterministic** unless extended.
+`callOpenAiIfConfigured` optionally calls **Groq** (`GROQ_API_KEY`, default model `llama-3.1-8b-instant`, override via `GROQ_MODEL`) or **OpenAI** (`OPENAI_API_KEY`, `gpt-4o-mini`) when no Groq key is set. Groq is [console.groq.com](https://console.groq.com), not xAI Grok. Server-side only; with no keys, it returns the fallback string. Chat routing in the demo is primarily **deterministic** unless a key is set.
 
 ### Client fallback (`aiApiClient`)
 

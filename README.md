@@ -1,33 +1,72 @@
 # OushadhaSetu
 
-Autonomous prescription refill resolution for physician practices and pharmacies—one shared case, one owner, one next step.
+**From refill request to resolution — without losing anyone along the way.**
 
-## The problem
+OushadhaSetu is an autonomous refill-resolution operating system for physician practices and pharmacies. It treats every stuck prescription as a living workflow: one case, one owner, one next step, and a human still in control of clinical decisions.
 
-When a refill needs provider intervention (no refills left, visit required, labs overdue, missing information, or insurance blocks), it bounces between pharmacy, practice staff, and patient over phone, fax, and portals. No one owns the work end to end, status is opaque, and patients are left waiting without updates.
+<p align="left">
+  <a href="#about">About</a> ·
+  <a href="#demo">Demo</a> ·
+  <a href="#run-locally">Run locally</a> ·
+  <a href="#environment-variables">Environment</a> ·
+  <a href="#deploy-on-vercel">Deploy</a> ·
+  <a href="#documentation">Docs</a>
+</p>
+
+---
+
+## About
+
+**Oushadha** means medicine. **Setu** means bridge. The product is the operating layer that sits between patient, pharmacy, provider, nurse, practice staff, insurance, and the EHR — the places a refill actually gets stuck.
+
+Most refill tools stop at a status label such as *Pending approval*. That is not useful. Everyone already knows it is pending. OushadhaSetu answers the operational questions:
+
+| Question | What the system shows |
+|----------|------------------------|
+| What is happening now? | Current state of the refill case |
+| What is missing? | The exact gap (visit, signature, coverage, identity) |
+| What is blocking progress? | Root cause, not a generic “pending” |
+| Who can fix it? | Named owner and role |
+| What should happen next? | Next action, urgency, and message |
+| Did it happen? | Timeline, audit, and a new state |
+
+AI investigates, drafts, and routes. Licensed humans approve, reject, or override. Nothing clinical is sent without that gate.
+
+This repository is the **interactive demo**: a React application with a full in-browser mock backend (seeded cases, state machine, SLA workers, MFA). You can evaluate the product without a live EHR or a paid model.
+
+Further reading: [docs/OVERVIEW.md](docs/OVERVIEW.md) · [FLOWS.md](FLOWS.md) · [TESTING.md](TESTING.md)
+
+---
 
 ## What it does
 
-OushadhaSetu (*Oushadha* = medicine, *Setu* = bridge) turns each stuck refill into a **Refill Case** with a single owner, a defined next action, and a due time. Cases move through a strict state machine. Deterministic rules surface blockers; AI assists with extraction and drafting; **providers retain clinical authority** (including step-up MFA for decisions). Patients do not log in—they receive SMS/email and a secure status page. Pharmacies and practices see aligned status without chasing each other.
+- Turns each stuck refill into a **Refill Case** with owner, blocker, due time, and next action  
+- Moves cases through a strict **state machine** (shared domain in `supabase/functions/_shared`)  
+- Uses **deterministic triage rules** for blockers; AI only assists (extract, summarise, draft)  
+- Requires **provider MFA** for clinical decisions  
+- Keeps patients off the login wall — they get SMS/email and a **secure status page**  
+- Aligns pharmacy and practice on the same case, without chasing faxes  
 
-## Demo accounts
+---
 
-All demo users share password **`Refill!2026`**. MFA challenge code: **`123456`**.
+## Demo
 
-| Key | Name | Email | Role | Organization |
-|-----|------|-------|------|----------------|
-| admin | Priya Shah | admin@lakeside.example.com | practice_admin (MFA) | Lakeside Family Medicine |
-| rao | Dr. Anika Rao | dr.rao@lakeside.example.com | provider (MFA) | Lakeside Family Medicine |
-| chen | Marcus Chen, NP | np.chen@lakeside.example.com | provider (covering) | Lakeside Family Medicine |
-| jordan | Jordan Ellis | staff@lakeside.example.com | practice_staff | Lakeside Family Medicine |
-| sam | Sam Okafor | ma@lakeside.example.com | practice_staff | Lakeside Family Medicine |
-| lena | Lena Novak | admin@citycare.example.com | pharmacy_admin (MFA) | CityCare Pharmacy |
-| omar | Omar Haddad | tech@citycare.example.com | pharmacy_staff | CityCare Pharmacy |
-| grace | Grace Kim, PharmD | rph@greenleaf.example.com | pharmacy_staff | GreenLeaf Pharmacy |
+All demo users share password **`Refill!2026`**. MFA code: **`123456`**.
 
-**Home routes after sign-in:** providers → `/provider/inbox`; practice staff and practice admins → `/queue`; pharmacy roles → `/pharmacy/requests`.
+| Name | Email | Role | Lands on |
+|------|-------|------|----------|
+| Priya Shah | `admin@lakeside.example.com` | Practice admin (MFA) | `/queue` |
+| Dr. Anika Rao | `dr.rao@lakeside.example.com` | Provider (MFA) | `/provider/inbox` |
+| Marcus Chen, NP | `np.chen@lakeside.example.com` | Provider | `/provider/inbox` |
+| Jordan Ellis | `staff@lakeside.example.com` | Practice staff | `/queue` |
+| Sam Okafor | `ma@lakeside.example.com` | Practice staff | `/queue` |
+| Lena Novak | `admin@citycare.example.com` | Pharmacy admin (MFA) | `/pharmacy/requests` |
+| Omar Haddad | `tech@citycare.example.com` | Pharmacy staff | `/pharmacy/requests` |
+| Grace Kim, PharmD | `rph@greenleaf.example.com` | Pharmacy staff | `/pharmacy/requests` |
 
-Step-by-step click paths: [FLOWS.md](FLOWS.md). Test and QA notes: [TESTING.md](TESTING.md).
+Refreshing the browser resets demo data. The mock database is in memory only.
+
+---
 
 ## Run locally
 
@@ -36,35 +75,73 @@ Requires **Node 20+**.
 ```bash
 npm install
 npm run dev      # http://localhost:5173
-npm test         # Vitest unit/component tests
-npm run lint
-npm run typecheck
-npm run build    # production build → dist/
-npm run preview  # serve dist/ locally
+npm test
+npm run build    # production bundle → dist/
 ```
 
-Refreshing the browser resets demo data—the in-browser mock database is in-memory only (no persistent patient data in browser storage).
+Optional local Groq (same names as Vercel): copy `.env.example` to `.env` and set `GROQ_API_KEY`. Leave it blank and the demo still runs.
 
-## Repository structure (brief)
+---
 
-- `src/features/` — application pages and flows
-- `src/services/` — service layer; mock implementation used by default
-- `src/services/mock/` — in-browser mock engine, seed data, and workers
-- `supabase/functions/_shared/` — shared domain logic (state machine, triage, SLA, schemas) used by the mock and intended for a future API
-- `vercel.json` — SPA hosting configuration
+## Environment variables
+
+For a **hackathon / demo deploy you can leave almost everything empty.** The app uses the in-browser mock unless you explicitly turn it off.
+
+### Fill these on Vercel (Groq)
+
+| Name | Required? | What to put |
+|------|-----------|-------------|
+| `GROQ_API_KEY` | No | API key from [console.groq.com](https://console.groq.com/keys) — **Groq**, not xAI Grok |
+| `GROQ_MODEL` | No | Leave blank. Default is `llama-3.1-8b-instant` (free-tier friendly) |
+
+Get a key: create a Groq account → **API Keys** → create key → paste into Vercel as `GROQ_API_KEY`. Do not commit it. Do not prefix it with `VITE_`.
+
+### Leave these empty
+
+| Name | Why |
+|------|-----|
+| `VITE_USE_MOCKS` | Do **not** set this to `false`. The demo needs mocks. |
+| `OPENAI_API_KEY` | Skip. You are on Groq. |
+| `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY` | Optional later. Not needed for the mock demo. |
+| `SUPABASE_SERVICE_ROLE_KEY` and other server secrets in `.env.example` | Future production backend. Empty for this deploy. |
+
+---
+
+## Deploy on Vercel
+
+1. Import [github.com/vaishnavi725/Oushadusetu---AI](https://github.com/vaishnavi725/Oushadusetu---AI) at [vercel.com/new](https://vercel.com/new).  
+2. Keep defaults: **Vite**, build `npm run build`, output `dist`.  
+3. In **Environment Variables**, add only `GROQ_API_KEY` if you have a Groq key.  
+4. Deploy. Client routes are rewritten to `index.html`; `/api/ai/*` is served by the serverless function.
+
+---
 
 ## Stack
 
-- **Frontend:** React 18, TypeScript, Vite 6, Tailwind CSS v4, React Router v6 (data router), TanStack Query, React Hook Form + Zod, Motion, Lucide icons
-- **Tests:** Vitest, React Testing Library, jsdom
-- **Planned backend (not required for the demo):** Supabase (Postgres, Auth, Edge Functions)—see `.env.example` for future env vars
+| Layer | Choice |
+|-------|--------|
+| UI | React 18, TypeScript, Vite 6, Tailwind CSS v4, Motion |
+| Routing / data | React Router v6 data router, TanStack Query, React Hook Form + Zod |
+| Demo backend | In-browser mock engine (`src/services/mock`) |
+| Domain | Shared state machine, triage, SLA (`supabase/functions/_shared`) |
+| Optional LLM | Groq OpenAI-compatible chat API (server only) |
 
-## Deploy
+---
 
-This project is a **Vite single-page application**. `vercel.json` rewrites non-API routes to `index.html` and sets security headers (CSP, HSTS, and related policies).
+## Documentation
 
-By default the app uses an **in-browser mock backend**. Mocks stay enabled unless `VITE_USE_MOCKS` is explicitly set to `"false"` (see `src/services/index.ts`). You can run and evaluate the full demo **without** configuring Supabase or any live API.
+| Guide | Contents |
+|-------|----------|
+| [docs/OVERVIEW.md](docs/OVERVIEW.md) | Product, stakeholders, built vs planned |
+| [docs/FRONTEND.md](docs/FRONTEND.md) | Routes and screens |
+| [docs/BACKEND.md](docs/BACKEND.md) | Mock engine and domain rules |
+| [docs/API.md](docs/API.md) | `/api/ai` and service contracts |
+| [docs/DEMO.md](docs/DEMO.md) | Click-through walkthrough |
+| [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Hosting and headers |
+| [docs/TESTING.md](docs/TESTING.md) | How tests are run |
+
+---
 
 ## Status
 
-The interactive demo runs entirely on the mock engine with seeded synthetic data (example.com emails, fictional organizations). A production Supabase deployment is optional for trying the product locally or on a static host.
+This is a **Phase 4 demo**: frontend plus in-browser mock. Synthetic organisations and `example.com` emails only. Not for clinical use. A production Supabase deployment is optional and is not required to try the product.

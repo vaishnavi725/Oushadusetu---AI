@@ -50,7 +50,7 @@ Judges and reviewers can assess:
 | In-memory `MockEngine` + workers (outbox, SLA) using shared state machine, triage, SLA | Live SMS/email, real fax ingestion, or EHR integration |
 | Mock auth + session; demo MFA code | Enterprise IdP or real TOTP provisioning |
 | `RefillService` / `AuthService` interfaces; mock is default | Complete Edge Function API matching every `RefillService` method |
-| Vite dev/preview AI routes via `viteAiPlugin`; Vercel `api/ai/*` handler; client fallback in `aiApiClient` | Guaranteed OpenAI/Anthropic calls (optional `OPENAI_API_KEY` on server only) |
+| Vite dev/preview AI routes via `viteAiPlugin`; Vercel `api/ai/*` handler; client fallback in `aiApiClient` | Required Groq or OpenAI (optional `GROQ_API_KEY` on the server) |
 | Vitest: domain + selected UI/service tests | End-to-end browser automation suite |
 | `vercel.json` SPA hosting + security headers | HIPAA/SOC 2 certification, named customers, or live production URLs |
 

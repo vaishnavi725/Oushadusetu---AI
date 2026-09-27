@@ -31,19 +31,9 @@ const supabaseUrl = process.env.VITE_SUPABASE_URL || fileEnv.VITE_SUPABASE_URL |
 const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || fileEnv.VITE_SUPABASE_ANON_KEY || '';
 const serverSupabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
-// Read AI API keys securely on the server (Grok preferred over OpenAI)
-const GROK_API_KEY =
-  process.env.GROK_API_KEY ||
-  process.env.XAI_API_KEY ||
-  fileEnv.GROK_API_KEY ||
-  fileEnv.XAI_API_KEY ||
-  '';
-const GROK_MODEL =
-  process.env.GROK_MODEL ||
-  process.env.XAI_MODEL ||
-  fileEnv.GROK_MODEL ||
-  fileEnv.XAI_MODEL ||
-  'grok-3-mini';
+// Server-side LLM: Groq (console.groq.com) first. OpenAI is optional. No key = fallback text.
+const GROQ_API_KEY = process.env.GROQ_API_KEY || fileEnv.GROQ_API_KEY || '';
+const GROQ_MODEL = process.env.GROQ_MODEL || fileEnv.GROQ_MODEL || 'llama-3.1-8b-instant';
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY || fileEnv.OPENAI_API_KEY || '';
 
 const OUSHADHA_SYSTEM_PROMPT =
@@ -84,14 +74,14 @@ async function callChatCompletions(
 }
 
 export async function callOpenAiIfConfigured(prompt: string, fallback: string): Promise<string> {
-  if (GROK_API_KEY) {
+  if (GROQ_API_KEY) {
     return callChatCompletions(
-      'https://api.x.ai/v1/chat/completions',
-      GROK_API_KEY,
-      GROK_MODEL,
+      'https://api.groq.com/openai/v1/chat/completions',
+      GROQ_API_KEY,
+      GROQ_MODEL,
       prompt,
       fallback,
-      'xAI Grok'
+      'Groq',
     );
   }
   if (OPENAI_API_KEY) {
@@ -101,7 +91,7 @@ export async function callOpenAiIfConfigured(prompt: string, fallback: string): 
       'gpt-4o-mini',
       prompt,
       fallback,
-      'OpenAI'
+      'OpenAI',
     );
   }
   return fallback;
