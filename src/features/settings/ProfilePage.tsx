@@ -136,12 +136,12 @@ function ChangePasswordCard({ email, name }: { email: string; name: string }) {
           {...register('password')}
           aria-describedby={errors.password ? 'new-password-error password-rules' : 'password-rules'}
         />
-        <ul id="password-rules" className="grid gap-1.5 rounded-lg bg-ice-50 px-3 py-2.5 sm:grid-cols-2" aria-label="Password requirements">
+        <ul id="password-rules" className="grid gap-2 rounded-xl border border-cyan-500/25 bg-[#06245A]/70 px-4 py-3 sm:grid-cols-2" aria-label="Password requirements">
           {PASSWORD_RULES.map((r) => {
             const ok = r.test(password);
             return (
-              <li key={r.id} className={cn('flex items-center gap-1.5 text-[12.5px]', ok ? 'text-ok-700' : 'text-ink-500')}>
-                {ok ? <CheckCircle2 className="size-3.5 shrink-0" aria-hidden /> : <Circle className="size-3.5 shrink-0" aria-hidden />}
+              <li key={r.id} className={cn('flex items-center gap-2 text-[13px] font-medium', ok ? 'text-emerald-300 font-semibold' : 'text-[#B8C7D9]')}>
+                {ok ? <CheckCircle2 className="size-4 shrink-0 text-emerald-400" aria-hidden /> : <Circle className="size-4 shrink-0 text-[#00D9FF]/40" aria-hidden />}
                 {r.label}
                 <span className="sr-only">{ok ? '(met)' : '(not met)'}</span>
               </li>
@@ -149,8 +149,8 @@ function ChangePasswordCard({ email, name }: { email: string; name: string }) {
           })}
           {password.length > 0 &&
             extraIssues.map((i) => (
-              <li key={i} className="flex items-center gap-1.5 text-[12.5px] text-bad-700 sm:col-span-2">
-                <XCircle className="size-3.5 shrink-0" aria-hidden />
+              <li key={i} className="flex items-center gap-2 text-[13px] font-semibold text-rose-300 sm:col-span-2">
+                <XCircle className="size-4 shrink-0 text-rose-400" aria-hidden />
                 {i}
               </li>
             ))}

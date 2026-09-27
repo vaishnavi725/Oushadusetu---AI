@@ -50,23 +50,23 @@ export default function SettingsLayout() {
         description="Your account, your organisation and how OushadhaSetu behaves for your team."
       />
       <nav aria-label="Settings" className="-mx-4 mb-6 overflow-x-auto border-b border-line px-4 [scrollbar-width:none] sm:mx-0 sm:px-0">
-        <ul className="flex min-w-max gap-1">
+        <ul className="flex min-w-max gap-1.5">
           {tabs.map((t) => (
             <li key={t.to}>
               <NavLink
                 to={t.to}
                 className={({ isActive }) =>
                   cn(
-                    'relative flex items-center gap-2 whitespace-nowrap rounded-t-md px-3 py-2.5 text-sm font-medium transition-colors',
-                    isActive ? 'text-brand-800' : 'text-ink-500 hover:text-ink-900',
+                    'relative flex items-center gap-2 whitespace-nowrap rounded-t-lg px-4 py-3 text-[14px] font-bold transition-all',
+                    isActive ? 'text-[#F5FAFF] bg-[#06245A]/90 border-b-2 border-[#00D9FF] shadow-[0_-2px_12px_rgba(0,217,255,0.15)]' : 'text-[#B8C7D9] hover:text-[#F5FAFF] hover:bg-[#06245A]/40',
                   )
                 }
               >
                 {({ isActive }) => (
                   <>
-                    {t.icon}
+                    <span className={isActive ? 'text-[#00D9FF]' : 'text-[#B8C7D9]'}>{t.icon}</span>
                     {t.label}
-                    {isActive && <motion.span layoutId="settings-tab" className="absolute inset-x-2 -bottom-px h-0.5 rounded-full bg-brand-600" aria-hidden />}
+                    {isActive && <motion.span layoutId="settings-tab" className="absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-[#00D9FF] shadow-[0_0_8px_#00D9FF]" aria-hidden />}
                   </>
                 )}
               </NavLink>
@@ -78,8 +78,8 @@ export default function SettingsLayout() {
         <Outlet />
       </div>
       {can(user.role, 'audit.view') && (
-        <p className="mt-10 flex items-center gap-1.5 text-[12px] text-ink-400">
-        <ClipboardCheck className="size-3.5" aria-hidden /> Changes to team, links and policies are recorded in the audit log.
+        <p className="mt-10 flex items-center gap-2 text-[13px] font-medium text-[#B8C7D9]">
+          <ClipboardCheck className="size-4 text-[#00D9FF]" aria-hidden /> Changes to team, links and policies are recorded in the audit log.
         </p>
       )}
     </div>

@@ -3,8 +3,8 @@ import { AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/format';
 
 const control =
-  'w-full rounded-[var(--radius-input)] border bg-[#06245A]/60 px-3 text-sm text-[#F5FAFF] placeholder:text-[#5076A8] transition-all duration-150 focus:outline-none focus:ring-4 disabled:bg-[#03132F]/50 disabled:text-[#5076A8] backdrop-blur-md';
-const ok = 'border-[rgba(0,217,255,0.25)] hover:border-[#00D9FF]/70 focus:border-[#00D9FF] focus:ring-[rgba(0,217,255,0.22)]';
+  'w-full rounded-[var(--radius-input)] border bg-[#06245A]/80 px-3.5 text-[14.5px] text-[#F5FAFF] placeholder:text-[#8AA8CC] transition-all duration-150 focus:outline-none focus:ring-4 disabled:bg-[#03132F]/60 disabled:text-[#6A8CAE] backdrop-blur-md font-medium';
+const ok = 'border-[rgba(0,217,255,0.3)] hover:border-[#00D9FF] focus:border-[#00D9FF] focus:ring-[rgba(0,217,255,0.25)]';
 const bad = 'border-bad-600 focus:border-bad-600 focus:ring-bad-500/20';
 
 interface FieldShellProps {
@@ -20,22 +20,22 @@ interface FieldShellProps {
 
 export function FieldShell({ label, htmlFor, hint, error, required, children, className, labelAction }: FieldShellProps) {
   return (
-    <div className={cn('flex flex-col gap-1.5', className)}>
+    <div className={cn('flex flex-col gap-2', className)}>
       <div className="flex items-center justify-between gap-2">
-        <label htmlFor={htmlFor} className="text-[13px] font-medium text-ink-700">
+        <label htmlFor={htmlFor} className="text-[13.5px] font-semibold text-[#B8C7D9] tracking-wide">
           {label}
-          {required && <span className="ml-0.5 text-bad-600" aria-hidden>*</span>}
+          {required && <span className="ml-1 text-bad-600" aria-hidden>*</span>}
         </label>
         {labelAction}
       </div>
       {children}
       {error ? (
-        <p id={`${htmlFor}-error`} role="alert" className="flex items-center gap-1 text-[12.5px] text-bad-700">
-          <AlertCircle className="size-3.5 shrink-0" aria-hidden />
+        <p id={`${htmlFor}-error`} role="alert" className="flex items-center gap-1.5 text-[13px] font-medium text-rose-400">
+          <AlertCircle className="size-4 shrink-0" aria-hidden />
           {error}
         </p>
       ) : hint ? (
-        <p id={`${htmlFor}-hint`} className="text-[12.5px] text-ink-500">
+        <p id={`${htmlFor}-hint`} className="text-[13px] text-[#A2B5CC] leading-relaxed">
           {hint}
         </p>
       ) : null}
@@ -98,8 +98,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
       required={required}
       aria-invalid={Boolean(error) || undefined}
       aria-label={hideLabel ? label : undefined}
-      className={cn(control, 'h-10 cursor-pointer appearance-none bg-[length:16px] bg-[right_10px_center] bg-no-repeat pr-9', error ? bad : ok, className)}
-      style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23647c85' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E\")" }}
+      className={cn(control, 'h-10 cursor-pointer appearance-none bg-[length:16px] bg-[right_10px_center] bg-no-repeat pr-9 [&>option]:bg-[#06245A] [&>option]:text-[#F5FAFF]', error ? bad : ok, className)}
+      style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300D9FF' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E\")" }}
       {...rest}
     >
       {children}

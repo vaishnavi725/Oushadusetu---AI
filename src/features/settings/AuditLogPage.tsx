@@ -89,38 +89,38 @@ export default function AuditLogPage() {
             />
           ) : (
             <>
-              <div className="surface hidden overflow-hidden md:block">
+              <div className="surface hidden overflow-hidden md:block border border-cyan-500/30 bg-[#06245A]/90">
                 <table className="w-full table-fixed text-sm">
                   <caption className="sr-only">Audit log entries, page {page}</caption>
                   <thead>
-                    <tr className="border-b border-line bg-ice-50 text-left text-[12px] uppercase tracking-wide text-ink-400">
-                      <th scope="col" className="w-[17%] px-4 py-2.5 font-medium">Time</th>
-                      <th scope="col" className="w-[19%] px-4 py-2.5 font-medium">Actor</th>
-                      <th scope="col" className="w-[25%] px-4 py-2.5 font-medium">Action</th>
-                      <th scope="col" className="w-[25%] px-4 py-2.5 font-medium">Entity</th>
-                      <th scope="col" className="w-[14%] px-4 py-2.5 font-medium">Request ID</th>
+                    <tr className="border-b border-cyan-500/30 bg-[#03132F]/80 text-left text-[12px] font-bold uppercase tracking-wider text-[#B8C7D9]">
+                      <th scope="col" className="w-[17%] px-4 py-3 font-bold">Time</th>
+                      <th scope="col" className="w-[19%] px-4 py-3 font-bold">Actor</th>
+                      <th scope="col" className="w-[25%] px-4 py-3 font-bold">Action</th>
+                      <th scope="col" className="w-[25%] px-4 py-3 font-bold">Entity</th>
+                      <th scope="col" className="w-[14%] px-4 py-3 font-bold">Request ID</th>
                     </tr>
                   </thead>
                   <tbody>
                     {visible.map((r) => (
-                      <tr key={r.id} className="border-b border-line align-top transition-colors last:border-0 hover:bg-ice-50">
-                        <td className="px-4 py-2.5 text-ink-700">
+                      <tr key={r.id} className="border-b border-cyan-500/20 align-top transition-colors last:border-0 hover:bg-[#06245A]/70 odd:bg-[#06245A]/30 even:bg-[#03132F]/40">
+                        <td className="px-4 py-3 text-[#B8C7D9] text-[13px] font-medium">
                           <time dateTime={r.createdAt} title={timeAgo(r.createdAt)}>
                             {formatDateTime(r.createdAt)}
                           </time>
                         </td>
-                        <td className="truncate px-4 py-2.5 text-ink-900" title={r.actorName}>
+                        <td className="truncate px-4 py-3 font-bold text-[#F5FAFF] text-[14px]" title={r.actorName}>
                           {r.actorName}
                         </td>
-                        <td className="px-4 py-2.5">
-                          <code className="break-all rounded bg-ice-100 px-1.5 py-0.5 font-mono text-[12px] text-brand-900">{r.action}</code>
+                        <td className="px-4 py-3">
+                          <code className="break-all rounded-md bg-[#03132F] border border-cyan-500/40 px-2 py-0.5 font-mono text-[12.5px] font-bold text-[#00D9FF]">{r.action}</code>
                         </td>
-                        <td className="px-4 py-2.5 text-ink-700">
-                          <span className="break-words">{r.entity}</span>
-                          {r.entityId && <span className="block truncate font-mono text-[11.5px] text-ink-400" title={r.entityId}>{r.entityId}</span>}
+                        <td className="px-4 py-3 text-[#B8C7D9] text-[13.5px]">
+                          <span className="break-words font-medium text-[#F5FAFF]">{r.entity}</span>
+                          {r.entityId && <span className="block truncate font-mono text-[12px] text-[#00D9FF]" title={r.entityId}>{r.entityId}</span>}
                         </td>
-                        <td className="px-4 py-2.5">
-                          <code className="font-mono text-[12px] text-ink-600" title={r.requestId}>
+                        <td className="px-4 py-3">
+                          <code className="font-mono text-[12.5px] font-semibold text-[#00D9FF]" title={r.requestId}>
                             {r.requestId.slice(0, 8)}
                           </code>
                         </td>
@@ -132,23 +132,23 @@ export default function AuditLogPage() {
 
               <ul className="space-y-2.5 md:hidden" aria-label={`Audit log entries, page ${page}`}>
                 {visible.map((r) => (
-                  <li key={r.id} className="surface p-3.5">
+                  <li key={r.id} className="surface p-4 border border-cyan-500/25 bg-[#06245A]/85 rounded-xl">
                     <div className="flex items-start justify-between gap-3">
-                      <code className="min-w-0 break-all rounded bg-ice-100 px-1.5 py-0.5 font-mono text-[12px] text-brand-900">{r.action}</code>
-                      <time dateTime={r.createdAt} className="shrink-0 text-[12px] text-ink-500">
+                      <code className="min-w-0 break-all rounded-md bg-[#03132F] border border-cyan-500/30 px-2 py-0.5 font-mono text-[12.5px] font-bold text-[#00D9FF]">{r.action}</code>
+                      <time dateTime={r.createdAt} className="shrink-0 text-[12px] font-medium text-[#B8C7D9]">
                         {formatDateTime(r.createdAt)}
                       </time>
                     </div>
-                    <dl className="mt-2 grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-1 text-[13px]">
-                      <dt className="text-ink-500">Actor</dt>
-                      <dd className="truncate text-ink-900">{r.actorName}</dd>
-                      <dt className="text-ink-500">Entity</dt>
-                      <dd className="truncate text-ink-700">
+                    <dl className="mt-2.5 grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-1.5 text-[13.5px]">
+                      <dt className="text-[#B8C7D9] font-medium">Actor</dt>
+                      <dd className="truncate font-bold text-[#F5FAFF]">{r.actorName}</dd>
+                      <dt className="text-[#B8C7D9] font-medium">Entity</dt>
+                      <dd className="truncate text-[#F5FAFF]">
                         {r.entity}
-                        {r.entityId && <span className="ml-1 font-mono text-[11.5px] text-ink-400">{r.entityId}</span>}
+                        {r.entityId && <span className="ml-1 font-mono text-[11.5px] text-[#00D9FF]">{r.entityId}</span>}
                       </dd>
-                      <dt className="text-ink-500">Request</dt>
-                      <dd className="font-mono text-[12px] text-ink-600">{r.requestId.slice(0, 8)}</dd>
+                      <dt className="text-[#B8C7D9] font-medium">Request</dt>
+                      <dd className="font-mono text-[12px] text-[#00D9FF]">{r.requestId.slice(0, 8)}</dd>
                     </dl>
                   </li>
                 ))}

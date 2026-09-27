@@ -495,30 +495,30 @@ export default function CommandCenterPage() {
 
 function KpiTile({ i, label, value, icon, color }: { i: number; label: string; value: number; icon: ReactNode; color: 'brand' | 'ok' | 'warn' | 'bad' | 'info' }) {
   const bg = {
-    brand: 'bg-[#087BFF]/20 text-[#00D9FF] border border-[rgba(0,217,255,0.35)]',
-    ok: 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30',
-    warn: 'bg-amber-500/20 text-amber-400 border border-amber-500/30',
-    bad: 'bg-rose-500/20 text-rose-400 border border-rose-500/30',
-    info: 'bg-[#4DA3FF]/20 text-[#4DA3FF] border border-[#4DA3FF]/30',
+    brand: 'bg-[#087BFF]/25 text-[#00D9FF] border border-[rgba(0,217,255,0.45)]',
+    ok: 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40',
+    warn: 'bg-amber-500/20 text-amber-300 border border-amber-500/40',
+    bad: 'bg-rose-500/20 text-rose-300 border border-rose-500/40',
+    info: 'bg-[#4DA3FF]/20 text-[#4DA3FF] border border-[#4DA3FF]/40',
   }[color];
   return (
-    <motion.div {...fadeUp(i)} className="surface flex flex-col items-center gap-1.5 p-3 text-center transition hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(0,217,255,0.3)] border border-[rgba(0,217,255,0.22)] bg-[#06245A]/50 backdrop-blur-md">
-      <span className={cn('flex size-8 items-center justify-center rounded-lg shadow-sm', bg)}>{icon}</span>
-      <span className="text-[22px] font-bold leading-none text-[#F5FAFF]">{value}</span>
-      <span className="text-[11px] font-medium text-[#749BC9]">{label}</span>
+    <motion.div {...fadeUp(i)} className="surface flex flex-col items-center gap-2 p-3.5 text-center transition hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(0,217,255,0.3)] border border-[rgba(0,217,255,0.25)] bg-[#06245A]/65 backdrop-blur-md rounded-2xl">
+      <span className={cn('flex size-9 items-center justify-center rounded-xl shadow-sm', bg)}>{icon}</span>
+      <span className="text-[28px] sm:text-[32px] font-bold leading-none text-[#F5FAFF] tracking-tight">{value}</span>
+      <span className="text-[12.5px] sm:text-[13px] font-semibold text-[#B8C7D9] tracking-wide">{label}</span>
     </motion.div>
   );
 }
 
 function ExplainCard({ step, title, desc, icon }: { step: string; title: string; desc: string; icon: ReactNode }) {
   return (
-    <div className="rounded-xl border border-line bg-gradient-to-br from-white to-ice-50 p-4 transition hover:shadow-[var(--shadow-soft)]">
-      <div className="mb-2 flex items-center gap-2">
-        <span className="flex size-8 items-center justify-center rounded-lg bg-brand-50 text-brand-600">{icon}</span>
-        <span className="text-[11px] font-bold uppercase tracking-wider text-brand-600">{step}</span>
+    <div className="rounded-2xl border border-[rgba(0,217,255,0.25)] bg-[#03132F]/85 p-4.5 transition hover:shadow-[0_0_20px_rgba(0,217,255,0.25)] backdrop-blur-md">
+      <div className="mb-2.5 flex items-center gap-2">
+        <span className="flex size-8 items-center justify-center rounded-xl bg-[#087BFF]/20 text-[#00D9FF] border border-[#00D9FF]/40">{icon}</span>
+        <span className="text-[12px] font-bold uppercase tracking-wider text-[#00D9FF]">{step}</span>
       </div>
-      <h4 className="text-[14px] font-semibold text-ink-900">{title}</h4>
-      <p className="mt-1 text-[12px] leading-relaxed text-ink-600">{desc}</p>
+      <h4 className="text-[16px] font-bold text-[#F5FAFF]">{title}</h4>
+      <p className="mt-1.5 text-[13.5px] leading-relaxed text-[#B8C7D9]">{desc}</p>
     </div>
   );
 }
@@ -553,71 +553,71 @@ function DecisionItem({
   const [status, setStatus] = useState<'pending' | 'approved' | 'rejected' | 'overridden'>('pending');
 
   return (
-    <div className="rounded-xl border border-line bg-ice-50/60 p-4 transition hover:bg-white hover:shadow-xs">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-line pb-2.5">
-        <div className="flex items-center gap-2">
-          <span className="font-mono text-xs font-semibold text-ink-500">{time}</span>
-          <span className="text-ink-300">·</span>
-          <span className="rounded-full bg-brand-50 border border-brand-200 px-2.5 py-0.5 text-[11px] font-bold text-brand-800">
+    <div className="rounded-2xl border border-[rgba(0,217,255,0.25)] bg-[#03132F]/90 p-5 transition hover:bg-[#06245A]/70 shadow-lg backdrop-blur-md">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 border-b border-white/10 pb-3">
+        <div className="flex items-center gap-2.5">
+          <span className="font-mono text-xs font-bold text-[#00D9FF]">{time}</span>
+          <span className="text-slate-500">·</span>
+          <span className="rounded-full bg-[#087BFF]/20 border border-[#00D9FF]/40 px-3 py-0.5 text-xs font-bold text-[#00D9FF]">
             {agent}
           </span>
-          <span className="text-xs font-semibold text-ink-900">{finding}</span>
+          <span className="text-[14px] font-bold text-[#F5FAFF]">{finding}</span>
         </div>
         <span
           className={cn(
-            'rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase w-fit',
-            risk === 'CRITICAL' ? 'bg-bad-50 text-bad-700 border border-bad-200' : 'bg-warn-50 text-warn-700 border border-warn-200'
+            'rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider w-fit shadow-xs',
+            risk === 'CRITICAL' ? 'bg-rose-950/85 text-rose-300 border border-rose-500/50' : 'bg-amber-950/85 text-amber-300 border border-amber-500/50'
           )}
         >
           {risk} RISK · {confidence}% CONFIDENCE
         </span>
       </div>
 
-      <div className="mt-3 grid gap-2 sm:grid-cols-2 text-xs">
+      <div className="mt-3.5 grid gap-3 sm:grid-cols-2 text-[13.5px]">
         <div>
-          <p className="text-ink-500">Patient: <strong className="text-ink-900 font-semibold">{patient}</strong></p>
-          <p className="mt-0.5 text-ink-500">Medication: <strong className="text-ink-800 font-medium">{medication}</strong></p>
+          <p className="text-[#B8C7D9]">Patient: <strong className="text-[#F5FAFF] font-bold">{patient}</strong></p>
+          <p className="mt-1 text-[#B8C7D9]">Medication: <strong className="text-[#F5FAFF] font-semibold">{medication}</strong></p>
           {daysRemaining !== undefined && (
-            <p className="mt-0.5 text-ink-500">
-              Days remaining: <strong className="text-bad-700 font-bold">{daysRemaining} days</strong>
+            <p className="mt-1 text-[#B8C7D9]">
+              Days remaining: <strong className="text-rose-300 font-bold">{daysRemaining} days</strong>
               {historicalLag && ` (Historical lag: ${historicalLag} days)`}
             </p>
           )}
         </div>
         <div>
-          <p className="text-ink-500 font-medium">WHY?</p>
-          <p className="mt-0.5 text-ink-800">{why}</p>
+          <p className="text-[#00D9FF] font-bold text-xs uppercase tracking-wider">Clinical Rationale</p>
+          <p className="mt-1 text-[#D8E7FA] leading-relaxed">{why}</p>
         </div>
       </div>
 
-      <div className="mt-3 rounded-lg border border-brand-100 bg-white p-2.5 text-xs">
-        <p className="text-ink-500 font-medium text-[11px] uppercase tracking-wide">EVIDENCE</p>
-        <ul className="mt-1 space-y-0.5 text-ink-600">
+      <div className="mt-3.5 rounded-xl border border-[rgba(0,217,255,0.22)] bg-[#06245A]/70 p-3 text-[13px]">
+        <p className="text-[#00D9FF] font-bold text-[11.5px] uppercase tracking-wider">EVIDENCE DOSSIER</p>
+        <ul className="mt-1.5 space-y-1 text-[#F5FAFF]">
           {evidence.map((ev) => (
-            <li key={ev} className="flex items-center gap-1.5">
-              <CheckCircle2 className="size-3 text-ok-600" />
+            <li key={ev} className="flex items-center gap-2">
+              <CheckCircle2 className="size-3.5 text-emerald-400 shrink-0" />
               <span>{ev}</span>
             </li>
           ))}
         </ul>
       </div>
 
-      <div className="mt-3 flex flex-wrap items-center justify-between gap-3 pt-2.5 border-t border-line">
-        <div className="text-xs text-ink-700">
-          <span className="text-ink-500">Action:</span> <strong className="font-semibold">{action}</strong>
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-white/10">
+        <div className="text-[13.5px] text-[#D8E7FA]">
+          <span className="text-[#B8C7D9] font-medium">Recommended Action:</span> <strong className="font-bold text-[#00D9FF]">{action}</strong>
         </div>
 
         <div className="flex items-center gap-2">
           {status === 'approved' ? (
-            <span className="rounded-lg bg-ok-50 border border-ok-200 px-3 py-1 text-xs font-bold text-ok-700">
+            <span className="rounded-xl bg-emerald-950/85 border border-emerald-500/50 px-3.5 py-1.5 text-xs font-bold text-emerald-300">
               ✓ Approved by Physician
             </span>
           ) : status === 'rejected' ? (
-            <span className="rounded-lg bg-bad-50 border border-bad-200 px-3 py-1 text-xs font-bold text-bad-700">
+            <span className="rounded-xl bg-rose-950/85 border border-rose-500/50 px-3.5 py-1.5 text-xs font-bold text-rose-300">
               ✕ Recommendation Rejected
             </span>
           ) : status === 'overridden' ? (
-            <span className="rounded-lg bg-warn-50 border border-warn-200 px-3 py-1 text-xs font-bold text-warn-700">
+            <span className="rounded-xl bg-amber-950/85 border border-amber-500/50 px-3.5 py-1.5 text-xs font-bold text-amber-300">
               ⊘ Overridden by Staff
             </span>
           ) : (
@@ -625,21 +625,21 @@ function DecisionItem({
               <button
                 type="button"
                 onClick={() => setStatus('approved')}
-                className="rounded-lg bg-brand-700 px-3 py-1.5 text-xs font-bold text-white shadow-2xs transition hover:bg-brand-800"
+                className="rounded-xl bg-gradient-to-r from-[#087BFF] to-[#0066e6] px-3.5 py-1.5 text-xs font-bold text-[#F5FAFF] shadow-[0_2px_10px_rgba(0,217,255,0.3)] transition hover:from-[#00D9FF] hover:to-[#087BFF] hover:text-[#03132F] cursor-pointer"
               >
                 Approve
               </button>
               <button
                 type="button"
                 onClick={() => setStatus('rejected')}
-                className="rounded-lg border border-line bg-white px-3 py-1.5 text-xs font-medium text-ink-700 transition hover:bg-bad-50 hover:text-bad-700 hover:border-bad-200"
+                className="rounded-xl border border-rose-500/40 bg-rose-950/60 px-3.5 py-1.5 text-xs font-bold text-rose-300 transition hover:bg-rose-900/60 cursor-pointer"
               >
                 Reject
               </button>
               <button
                 type="button"
                 onClick={() => setStatus('overridden')}
-                className="rounded-lg border border-line bg-white px-3 py-1.5 text-xs font-medium text-ink-700 transition hover:bg-warn-50 hover:text-warn-700 hover:border-warn-200"
+                className="rounded-xl border border-amber-500/40 bg-amber-950/60 px-3.5 py-1.5 text-xs font-bold text-amber-300 transition hover:bg-amber-900/60 cursor-pointer"
               >
                 Override
               </button>

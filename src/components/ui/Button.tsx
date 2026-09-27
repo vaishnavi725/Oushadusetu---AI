@@ -17,19 +17,19 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variants: Record<Variant, string> = {
   primary:
-    'bg-gradient-to-r from-[#087BFF] to-[#0066e6] text-[#F5FAFF] font-semibold shadow-[0_4px_16px_rgba(0,217,255,0.35),inset_0_1px_0_rgba(255,255,255,0.2)] hover:from-[#00D9FF] hover:to-[#087BFF] hover:text-[#03132F] hover:shadow-[0_6px_22px_rgba(0,217,255,0.5)] active:scale-[0.98]',
+    'bg-gradient-to-r from-[#087BFF] via-[#0066e6] to-[#087BFF] text-[#F5FAFF] font-bold border border-[#00D9FF]/40 shadow-[0_4px_16px_rgba(0,217,255,0.35),inset_0_1px_0_rgba(255,255,255,0.25)] hover:from-[#0066e6] hover:to-[#087BFF] hover:border-[#00D9FF] hover:shadow-[0_6px_22px_rgba(0,217,255,0.5)] active:scale-[0.98]',
   secondary:
-    'border border-[rgba(0,217,255,0.28)] bg-[#06245A]/75 text-[#F5FAFF] backdrop-blur-md hover:border-[#00D9FF] hover:bg-[#087BFF]/25 hover:text-[#00D9FF] active:bg-[#087BFF]/35',
-  ghost: 'text-[#A2C0E8] hover:bg-[#06245A]/70 hover:text-[#00D9FF] active:bg-[#06245A]',
-  subtle: 'bg-[#087BFF]/15 text-[#4DA3FF] hover:bg-[#087BFF]/25 hover:text-[#F5FAFF] active:bg-[#087BFF]/35',
-  danger: 'bg-bad-600 text-white hover:bg-bad-700 shadow-[0_6px_16px_-6px_rgb(239_68_68/0.6)]',
-  success: 'bg-ok-600 text-white hover:bg-ok-700 shadow-[0_6px_16px_-6px_rgb(16_185_129/0.6)]',
+    'border border-[rgba(0,217,255,0.4)] bg-[#06245A]/80 text-[#F5FAFF] font-semibold backdrop-blur-md hover:border-[#00D9FF] hover:bg-[#087BFF]/25 hover:text-[#FFFFFF] active:bg-[#087BFF]/35 shadow-[0_2px_10px_rgba(3,19,47,0.4)]',
+  ghost: 'text-[#B8C7D9] hover:bg-[#06245A]/80 hover:text-[#F5FAFF] active:bg-[#06245A]',
+  subtle: 'bg-[#087BFF]/20 text-[#00D9FF] border border-[#00D9FF]/30 hover:bg-[#087BFF]/30 hover:text-[#F5FAFF] active:bg-[#087BFF]/40 font-semibold',
+  danger: 'bg-bad-600 text-white hover:bg-bad-700 shadow-[0_6px_16px_-6px_rgb(239_68_68/0.6)] font-bold',
+  success: 'bg-ok-600 text-white hover:bg-ok-700 shadow-[0_6px_16px_-6px_rgb(16_185_129/0.6)] font-bold',
 };
 
 const sizes: Record<Size, string> = {
-  sm: 'h-8 px-3 text-[13px] gap-1.5',
-  md: 'h-10 px-4 text-sm gap-2',
-  lg: 'h-12 px-6 text-[15px] gap-2',
+  sm: 'h-8 px-3.5 text-[13px] gap-1.5 font-semibold',
+  md: 'h-10 px-4.5 text-[14.5px] gap-2 font-semibold',
+  lg: 'h-12 px-6 text-[16px] gap-2.5 font-bold',
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(

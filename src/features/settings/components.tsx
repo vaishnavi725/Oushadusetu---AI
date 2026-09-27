@@ -16,10 +16,10 @@ export const fadeUp = (i = 0) => ({
 /** Section heading used inside the settings layout (the layout owns the page <h1>). */
 export function SectionHeader({ title, description, action }: { title: string; description?: ReactNode; action?: ReactNode }) {
   return (
-    <motion.div {...fadeUp(0)} className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+    <motion.div {...fadeUp(0)} className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
       <div className="min-w-0">
-        <h2 className="text-xl font-light text-brand-900">{title}</h2>
-        {description && <p className="mt-1 max-w-2xl text-sm text-ink-500">{description}</p>}
+        <h2 className="text-[26px] sm:text-[30px] font-bold text-[#F5FAFF]">{title}</h2>
+        {description && <p className="mt-1 max-w-2xl text-[14.5px] font-medium text-[#B8C7D9]">{description}</p>}
       </div>
       {action && <div className="flex shrink-0 flex-wrap gap-2">{action}</div>}
     </motion.div>
@@ -28,13 +28,13 @@ export function SectionHeader({ title, description, action }: { title: string; d
 
 export function Callout({ icon, tone = 'info', children, className }: { icon: ReactNode; tone?: 'info' | 'warn' | 'brand'; children: ReactNode; className?: string }) {
   const tones = {
-    info: 'border-info-600/20 bg-info-50 text-info-700',
-    warn: 'border-warn-600/25 bg-warn-50 text-warn-700',
-    brand: 'border-brand-200 bg-brand-50 text-brand-800',
+    info: 'border-cyan-500/30 bg-[#06245A]/90 text-[#F5FAFF]',
+    warn: 'border-amber-500/40 bg-amber-950/40 text-amber-200',
+    brand: 'border-cyan-500/30 bg-[#06245A]/90 text-[#F5FAFF]',
   };
   return (
-    <div className={cn('flex items-start gap-3 rounded-xl border px-4 py-3 text-sm', tones[tone], className)}>
-      <span className="mt-0.5 shrink-0" aria-hidden>
+    <div className={cn('flex items-start gap-3 rounded-xl border px-4 py-3 text-[14px]', tones[tone], className)}>
+      <span className="mt-0.5 shrink-0 text-[#00D9FF]" aria-hidden>
         {icon}
       </span>
       <div className="min-w-0">{children}</div>
@@ -76,7 +76,7 @@ export function ConfirmModal({ open, onClose, onConfirm, title, description, con
         </>
       }
     >
-      {children ?? <p className="text-sm text-ink-600">You can change this again later.</p>}
+      {children ?? <p className="text-[14px] text-[#B8C7D9]">You can change this again later.</p>}
     </Modal>
   );
 }
@@ -101,7 +101,7 @@ export function CopyField({ label, value, hint }: { label: string; value: string
   };
   return (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={id} className="text-[13px] font-medium text-ink-700">
+      <label htmlFor={id} className="text-[13.5px] font-bold text-[#B8C7D9]">
         {label}
       </label>
       <div className="flex gap-2">
@@ -112,14 +112,14 @@ export function CopyField({ label, value, hint }: { label: string; value: string
           value={value}
           onFocus={(e) => e.currentTarget.select()}
           aria-describedby={hint ? `${id}-hint` : undefined}
-          className="h-10 min-w-0 flex-1 rounded-[var(--radius-input)] border border-line-strong bg-ice-50 px-3 font-mono text-[12.5px] text-ink-900 focus:border-brand-500 focus:outline-none focus:ring-4 focus:ring-brand-100"
+          className="h-10 min-w-0 flex-1 rounded-[var(--radius-input)] border border-cyan-500/30 bg-[#06245A]/90 px-3 font-mono text-[13px] font-semibold text-[#F5FAFF] focus:border-[#00D9FF] focus:outline-none focus:ring-4 focus:ring-cyan-500/20"
         />
-        <Button variant="secondary" onClick={() => void copy()} icon={copied ? <Check className="size-4 text-ok-600" aria-hidden /> : <Copy className="size-4" aria-hidden />} aria-live="polite">
+        <Button variant="secondary" onClick={() => void copy()} icon={copied ? <Check className="size-4 text-emerald-400" aria-hidden /> : <Copy className="size-4" aria-hidden />} aria-live="polite">
           {copied ? 'Copied' : 'Copy'}
         </Button>
       </div>
       {hint && (
-        <p id={`${id}-hint`} className="text-[12.5px] text-ink-500">
+        <p id={`${id}-hint`} className="text-[12.5px] text-[#B8C7D9]">
           {hint}
         </p>
       )}

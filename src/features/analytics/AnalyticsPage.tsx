@@ -181,90 +181,90 @@ export default function AnalyticsPage() {
           {/* ── 6 Primary Executive KPI Cards (Section 9 Specification) ── */}
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
             <motion.div {...fadeUp(0)}>
-              <Card className="p-4 rounded-2xl border border-teal-200 bg-teal-50/50">
-                <span className="flex items-center gap-1 text-[11px] font-bold text-teal-800 uppercase tracking-wider">
-                  <Clock3 className="size-3.5 text-teal-700" /> Avg Resolution Time
+              <Card className="p-4 rounded-2xl border border-cyan-500/30 bg-[#06245A]/85">
+                <span className="flex items-center gap-1.5 text-[11.5px] font-bold text-[#00D9FF] uppercase tracking-wider">
+                  <Clock3 className="size-3.5 text-[#00D9FF]" /> Avg Resolution Time
                 </span>
-                <p className="mt-2 text-2xl font-bold text-ink-900 leading-none">{averageResolutionTime}</p>
-                <span className="mt-1 text-[11px] text-ink-500 block">Pharmacy confirmation speed</span>
+                <p className="mt-2 text-[28px] sm:text-[32px] font-bold text-[#F5FAFF] leading-none">{averageResolutionTime}</p>
+                <span className="mt-1.5 text-[12px] text-[#B8C7D9] block">Pharmacy confirmation speed</span>
               </Card>
             </motion.div>
 
             <motion.div {...fadeUp(1)}>
-              <Card className="p-4 rounded-2xl border border-rose-200 bg-rose-50/50">
-                <span className="flex items-center gap-1 text-[11px] font-bold text-rose-800 uppercase tracking-wider">
-                  <AlertTriangle className="size-3.5 text-rose-700" /> Critical Refills
+              <Card className="p-4 rounded-2xl border border-rose-500/30 bg-[#06245A]/85">
+                <span className="flex items-center gap-1.5 text-[11.5px] font-bold text-rose-300 uppercase tracking-wider">
+                  <AlertTriangle className="size-3.5 text-rose-400" /> Critical Refills
                 </span>
-                <p className="mt-2 text-2xl font-bold text-rose-700 leading-none">{criticalRefills}</p>
-                <span className="mt-1 text-[11px] text-ink-500 block">Urgent or provider pending</span>
+                <p className="mt-2 text-[28px] sm:text-[32px] font-bold text-rose-300 leading-none">{criticalRefills}</p>
+                <span className="mt-1.5 text-[12px] text-[#B8C7D9] block">Urgent or provider pending</span>
               </Card>
             </motion.div>
 
             <motion.div {...fadeUp(2)}>
-              <Card className="p-4 rounded-2xl border border-amber-200 bg-amber-50/50">
-                <span className="flex items-center gap-1 text-[11px] font-bold text-amber-800 uppercase tracking-wider">
-                  <TimerOff className="size-3.5 text-amber-700" /> Escalation Rate
+              <Card className="p-4 rounded-2xl border border-amber-500/30 bg-[#06245A]/85">
+                <span className="flex items-center gap-1.5 text-[11.5px] font-bold text-amber-300 uppercase tracking-wider">
+                  <TimerOff className="size-3.5 text-amber-400" /> Escalation Rate
                 </span>
-                <p className="mt-2 text-2xl font-bold text-amber-900 leading-none">{escalationRate}%</p>
-                <span className="mt-1 text-[11px] text-ink-500 block">Breached or nurse review</span>
+                <p className="mt-2 text-[28px] sm:text-[32px] font-bold text-amber-300 leading-none">{escalationRate}%</p>
+                <span className="mt-1.5 text-[12px] text-[#B8C7D9] block">Breached or nurse review</span>
               </Card>
             </motion.div>
 
             <motion.div {...fadeUp(3)}>
-              <Card className="p-4 rounded-2xl border border-indigo-200 bg-indigo-50/50">
-                <span className="flex items-center gap-1 text-[11px] font-bold text-indigo-800 uppercase tracking-wider">
-                  <Brain className="size-3.5 text-indigo-700" /> AI Automation Rate
+              <Card className="p-4 rounded-2xl border border-cyan-500/30 bg-[#06245A]/85">
+                <span className="flex items-center gap-1.5 text-[11.5px] font-bold text-[#00D9FF] uppercase tracking-wider">
+                  <Brain className="size-3.5 text-[#00D9FF]" /> AI Automation Rate
                 </span>
-                <p className="mt-2 text-2xl font-bold text-indigo-900 leading-none">{aiAutomationRate}%</p>
-                <span className="mt-1 text-[11px] text-ink-500 block">Grounded agent assistance</span>
+                <p className="mt-2 text-[28px] sm:text-[32px] font-bold text-[#F5FAFF] leading-none">{aiAutomationRate}%</p>
+                <span className="mt-1.5 text-[12px] text-[#B8C7D9] block">Grounded agent assistance</span>
               </Card>
             </motion.div>
 
             <motion.div {...fadeUp(4)}>
-              <Card className="p-4 rounded-2xl border border-emerald-200 bg-emerald-50/50">
-                <span className="flex items-center gap-1 text-[11px] font-bold text-emerald-800 uppercase tracking-wider">
-                  <Shield className="size-3.5 text-emerald-700" /> Prevented Lapses
+              <Card className="p-4 rounded-2xl border border-emerald-500/30 bg-[#06245A]/85">
+                <span className="flex items-center gap-1.5 text-[11.5px] font-bold text-emerald-300 uppercase tracking-wider">
+                  <Shield className="size-3.5 text-emerald-400" /> Prevented Lapses
                 </span>
-                <p className="mt-2 text-2xl font-bold text-emerald-700 leading-none">{preventedLapses}</p>
-                <span className="mt-1 text-[11px] text-ink-500 block">Silent gap interventions</span>
+                <p className="mt-2 text-[28px] sm:text-[32px] font-bold text-emerald-300 leading-none">{preventedLapses}</p>
+                <span className="mt-1.5 text-[12px] text-[#B8C7D9] block">Silent gap interventions</span>
               </Card>
             </motion.div>
 
             <motion.div {...fadeUp(5)}>
-              <Card className="p-4 rounded-2xl border border-blue-200 bg-blue-50/50">
-                <span className="flex items-center gap-1 text-[11px] font-bold text-blue-800 uppercase tracking-wider">
-                  <CheckCircle2 className="size-3.5 text-blue-700" /> Resolved Escalations
+              <Card className="p-4 rounded-2xl border border-cyan-500/30 bg-[#06245A]/85">
+                <span className="flex items-center gap-1.5 text-[11.5px] font-bold text-[#00D9FF] uppercase tracking-wider">
+                  <CheckCircle2 className="size-3.5 text-[#00D9FF]" /> Resolved Escalations
                 </span>
-                <p className="mt-2 text-2xl font-bold text-blue-900 leading-none">{resolvedEscalations}</p>
-                <span className="mt-1 text-[11px] text-ink-500 block">Recovered clinical blockers</span>
+                <p className="mt-2 text-[28px] sm:text-[32px] font-bold text-[#F5FAFF] leading-none">{resolvedEscalations}</p>
+                <span className="mt-1.5 text-[12px] text-[#B8C7D9] block">Recovered clinical blockers</span>
               </Card>
             </motion.div>
           </div>
 
           {/* ── Most Important Visual: PREVENTED LAPSES vs RESOLVED ESCALATIONS ── */}
           <motion.div {...fadeUp(2)}>
-            <Card className="p-6 rounded-2xl border border-teal-200 shadow-sm">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-line pb-4 mb-4">
+            <Card className="p-6 rounded-2xl border border-cyan-500/30 bg-[#06245A]/90 shadow-xl">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyan-500/25 pb-4 mb-4">
                 <div>
                   <div className="flex items-center gap-2">
-                    <Sparkles className="size-5 text-teal-700" />
-                    <h3 className="text-base font-bold text-ink-900 tracking-tight">
+                    <Sparkles className="size-5 text-[#00D9FF]" />
+                    <h3 className="text-[17px] font-bold text-[#F5FAFF] tracking-tight">
                       PREVENTED LAPSES vs RESOLVED ESCALATIONS
                     </h3>
-                    <span className="rounded-full bg-teal-100 px-2.5 py-0.5 text-[11px] font-bold text-teal-900">
+                    <span className="rounded-full bg-cyan-950/60 border border-cyan-500/40 px-2.5 py-0.5 text-[11px] font-bold text-[#00D9FF]">
                       Primary Outcome Metric
                     </span>
                   </div>
-                  <p className="text-xs text-ink-500 mt-1">
+                  <p className="text-[13px] text-[#B8C7D9] mt-1">
                     Comparing proactive silent-lapse patient saves against reactive clinical bottleneck recoveries.
                   </p>
                 </div>
-                <div className="flex items-center gap-4 text-xs font-semibold">
-                  <span className="flex items-center gap-1.5 text-emerald-800">
-                    <span className="size-3 rounded-sm bg-emerald-600" /> Prevented Lapses: <strong>{preventedLapses}</strong>
+                <div className="flex items-center gap-4 text-xs font-bold">
+                  <span className="flex items-center gap-1.5 text-emerald-300">
+                    <span className="size-3 rounded-sm bg-emerald-400" /> Prevented Lapses: <strong className="text-[#F5FAFF]">{preventedLapses}</strong>
                   </span>
-                  <span className="flex items-center gap-1.5 text-teal-800">
-                    <span className="size-3 rounded-sm bg-teal-700" /> Resolved Escalations: <strong>{resolvedEscalations}</strong>
+                  <span className="flex items-center gap-1.5 text-[#00D9FF]">
+                    <span className="size-3 rounded-sm bg-[#00D9FF]" /> Resolved Escalations: <strong className="text-[#F5FAFF]">{resolvedEscalations}</strong>
                   </span>
                 </div>
               </div>
@@ -272,21 +272,22 @@ export default function AnalyticsPage() {
               <div className="h-72 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={comparisonData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                    <XAxis dataKey="period" tick={{ fontSize: 12, fill: '#64748b' }} axisLine={false} tickLine={false} />
-                    <YAxis tick={{ fontSize: 12, fill: '#64748b' }} axisLine={false} tickLine={false} allowDecimals={false} />
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0, 217, 255, 0.15)" />
+                    <XAxis dataKey="period" tick={{ fontSize: 12, fill: '#B8C7D9' }} axisLine={false} tickLine={false} />
+                    <YAxis tick={{ fontSize: 12, fill: '#B8C7D9' }} axisLine={false} tickLine={false} allowDecimals={false} />
                     <Tooltip
                       contentStyle={{
-                        backgroundColor: '#ffffff',
-                        border: '1px solid #cbd5e1',
+                        backgroundColor: '#03132F',
+                        border: '1px solid rgba(0,217,255,0.4)',
                         borderRadius: '12px',
                         fontSize: '12.5px',
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                        color: '#F5FAFF',
+                        boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
                       }}
                     />
-                    <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
-                    <Bar dataKey="prevented" name="Prevented Medication Lapses" fill="#059669" radius={[6, 6, 0, 0]} />
-                    <Bar dataKey="resolvedEscalations" name="Resolved Escalations" fill="#0f766e" radius={[6, 6, 0, 0]} />
+                    <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px', color: '#B8C7D9' }} />
+                    <Bar dataKey="prevented" name="Prevented Medication Lapses" fill="#10b981" radius={[6, 6, 0, 0]} />
+                    <Bar dataKey="resolvedEscalations" name="Resolved Escalations" fill="#00D9FF" radius={[6, 6, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -296,42 +297,42 @@ export default function AnalyticsPage() {
           {/* ── 4 Surveillance Intelligence Cards (Section 9 Specification) ── */}
           <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-4">
             <motion.div {...fadeUp(3)}>
-              <Card className="p-4 rounded-xl border border-line bg-white shadow-2xs">
-                <span className="flex items-center gap-1.5 text-[11.5px] font-bold text-amber-800 uppercase tracking-wider">
-                  <Radio className="size-3.5 text-amber-600" /> Silent-Lapse Risk
+              <Card className="p-4 rounded-xl border border-cyan-500/25 bg-[#06245A]/85 shadow-lg">
+                <span className="flex items-center gap-1.5 text-[11.5px] font-bold text-amber-300 uppercase tracking-wider">
+                  <Radio className="size-3.5 text-amber-400" /> Silent-Lapse Risk
                 </span>
-                <p className="mt-2 text-2xl font-bold text-ink-900 leading-none">{silentLapseRisks}</p>
-                <span className="mt-1 text-[11px] text-ink-500 block">Patients flagged near runout</span>
+                <p className="mt-2 text-[28px] font-bold text-[#F5FAFF] leading-none">{silentLapseRisks}</p>
+                <span className="mt-1.5 text-[12px] text-[#B8C7D9] block">Patients flagged near runout</span>
               </Card>
             </motion.div>
 
             <motion.div {...fadeUp(4)}>
-              <Card className="p-4 rounded-xl border border-line bg-white shadow-2xs">
-                <span className="flex items-center gap-1.5 text-[11.5px] font-bold text-teal-800 uppercase tracking-wider">
-                  <Send className="size-3.5 text-teal-600" /> Proactive Outreach
+              <Card className="p-4 rounded-xl border border-cyan-500/25 bg-[#06245A]/85 shadow-lg">
+                <span className="flex items-center gap-1.5 text-[11.5px] font-bold text-[#00D9FF] uppercase tracking-wider">
+                  <Send className="size-3.5 text-[#00D9FF]" /> Proactive Outreach
                 </span>
-                <p className="mt-2 text-2xl font-bold text-ink-900 leading-none">{proactiveOutreach}</p>
-                <span className="mt-1 text-[11px] text-ink-500 block">Outreach alerts dispatched</span>
+                <p className="mt-2 text-[28px] font-bold text-[#F5FAFF] leading-none">{proactiveOutreach}</p>
+                <span className="mt-1.5 text-[12px] text-[#B8C7D9] block">Outreach alerts dispatched</span>
               </Card>
             </motion.div>
 
             <motion.div {...fadeUp(5)}>
-              <Card className="p-4 rounded-xl border border-line bg-white shadow-2xs">
-                <span className="flex items-center gap-1.5 text-[11.5px] font-bold text-indigo-800 uppercase tracking-wider">
-                  <Brain className="size-3.5 text-indigo-600" /> AI Decisions
+              <Card className="p-4 rounded-xl border border-cyan-500/25 bg-[#06245A]/85 shadow-lg">
+                <span className="flex items-center gap-1.5 text-[11.5px] font-bold text-[#00D9FF] uppercase tracking-wider">
+                  <Brain className="size-3.5 text-[#00D9FF]" /> AI Decisions
                 </span>
-                <p className="mt-2 text-2xl font-bold text-ink-900 leading-none">{totalAiDecisions}</p>
-                <span className="mt-1 text-[11px] text-ink-500 block">Logged to ai_decisions table</span>
+                <p className="mt-2 text-[28px] font-bold text-[#F5FAFF] leading-none">{totalAiDecisions}</p>
+                <span className="mt-1.5 text-[12px] text-[#B8C7D9] block">Logged to ai_decisions table</span>
               </Card>
             </motion.div>
 
             <motion.div {...fadeUp(6)}>
-              <Card className="p-4 rounded-xl border border-line bg-white shadow-2xs">
-                <span className="flex items-center gap-1.5 text-[11.5px] font-bold text-emerald-800 uppercase tracking-wider">
-                  <CheckCircle2 className="size-3.5 text-emerald-600" /> Human Approvals
+              <Card className="p-4 rounded-xl border border-cyan-500/25 bg-[#06245A]/85 shadow-lg">
+                <span className="flex items-center gap-1.5 text-[11.5px] font-bold text-emerald-300 uppercase tracking-wider">
+                  <CheckCircle2 className="size-3.5 text-emerald-400" /> Human Approvals
                 </span>
-                <p className="mt-2 text-2xl font-bold text-ink-900 leading-none">{humanApprovals}</p>
-                <span className="mt-1 text-[11px] text-ink-500 block">Clinician authorized actions</span>
+                <p className="mt-2 text-[28px] font-bold text-emerald-300 leading-none">{humanApprovals}</p>
+                <span className="mt-1.5 text-[12px] text-[#B8C7D9] block">Clinician authorized actions</span>
               </Card>
             </motion.div>
           </div>
@@ -384,28 +385,28 @@ export default function AnalyticsPage() {
 
 function NorthStar({ pct, practice }: { pct: number; practice: boolean }) {
   return (
-    <motion.section {...fadeUp(0)} aria-labelledby="north-star-label" className="surface relative overflow-hidden p-5 sm:p-6">
-      <div className="pointer-events-none absolute -right-20 -top-24 size-72 rounded-full bg-brand-100/60 blur-3xl" aria-hidden />
+    <motion.section {...fadeUp(0)} aria-labelledby="north-star-label" className="surface relative overflow-hidden p-6 sm:p-7 border border-cyan-500/30 bg-[#06245A]/90">
+      <div className="pointer-events-none absolute -right-20 -top-24 size-72 rounded-full bg-cyan-500/10 blur-3xl" aria-hidden />
       <div className="relative flex flex-col gap-5 md:flex-row md:items-center md:gap-8">
         <div className="shrink-0">
-          <p className="flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.14em] text-brand-600">
-            <Target className="size-3.5" aria-hidden /> North Star
+          <p className="flex items-center gap-1.5 text-[12.5px] font-bold uppercase tracking-[0.14em] text-[#00D9FF]">
+            <Target className="size-4" aria-hidden /> North Star
           </p>
-          <p className="mt-1 font-sans text-[56px] font-semibold leading-none text-brand-900 sm:text-[64px]">
+          <p className="mt-1 font-sans text-[56px] font-bold leading-none text-[#F5FAFF] sm:text-[68px]">
             {pct}
-            <span className="ml-0.5 text-[28px] font-medium text-brand-700">%</span>
+            <span className="ml-1 text-[32px] font-bold text-[#00D9FF]">%</span>
           </p>
         </div>
         <div className="min-w-0 flex-1">
-          <h2 id="north-star-label" className="text-lg font-semibold leading-snug text-ink-900">
+          <h2 id="north-star-label" className="text-xl font-bold leading-snug text-[#F5FAFF]">
             of stuck refills resolved (pharmacy-confirmed) within 48 business hours
           </h2>
-          <p className="mt-1.5 max-w-2xl text-sm text-ink-500">
-            A refill is <em>stuck</em> when something blocks it — no refills left, a visit or lab due, missing information, or insurance. It counts as resolved only when the pharmacy confirms
+          <p className="mt-2 max-w-2xl text-[14.5px] text-[#B8C7D9] leading-relaxed">
+            A refill is <em className="text-[#F5FAFF]">stuck</em> when something blocks it — no refills left, a visit or lab due, missing information, or insurance. It counts as resolved only when the pharmacy confirms
             receipt, not when {practice ? 'your team' : 'the practice'} clicks approve.
           </p>
-          <div className="mt-4 h-2 w-full max-w-xl overflow-hidden rounded-full bg-brand-100" role="meter" aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct} aria-label="Stuck refills resolved within 48 business hours">
-            <motion.div className="h-full rounded-full bg-brand-600" initial={{ width: 0 }} animate={{ width: `${pct}%` }} transition={{ duration: 0.9, ease: 'easeOut', delay: 0.15 }} />
+          <div className="mt-4 h-2.5 w-full max-w-xl overflow-hidden rounded-full bg-[#03132F] border border-cyan-500/30" role="meter" aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct} aria-label="Stuck refills resolved within 48 business hours">
+            <motion.div className="h-full rounded-full bg-gradient-to-r from-[#087BFF] to-[#00D9FF] shadow-[0_0_12px_rgba(0,217,255,0.5)]" initial={{ width: 0 }} animate={{ width: `${pct}%` }} transition={{ duration: 0.9, ease: 'easeOut', delay: 0.15 }} />
           </div>
         </div>
       </div>
@@ -425,9 +426,9 @@ interface Tile {
 
 function Value({ n, unit }: { n: number | string; unit?: string }) {
   return (
-    <span className="inline-flex items-baseline gap-1">
-      <span className="text-[28px] font-semibold leading-none text-ink-900">{n}</span>
-      {unit && <span className="text-sm font-medium text-ink-500">{unit}</span>}
+    <span className="inline-flex items-baseline gap-1.5">
+      <span className="text-[30px] font-bold leading-none text-[#F5FAFF]">{n}</span>
+      {unit && <span className="text-[13.5px] font-bold text-[#00D9FF]">{unit}</span>}
     </span>
   );
 }

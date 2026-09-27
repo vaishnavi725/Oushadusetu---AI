@@ -61,9 +61,9 @@ export function NotesTab({ detail }: { detail: PracticeCaseDetail }) {
         <ul className="space-y-2">
           <AnimatePresence initial={false}>
             {detail.notes.map((n) => (
-              <motion.li key={n.id} layout initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} className={cn('rounded-xl border border-line bg-white p-3.5', n.id.startsWith('tmp-') && 'opacity-60')}>
-                <p className="whitespace-pre-wrap text-sm text-ink-800">{n.body}</p>
-                <p className="mt-1.5 text-[12px] text-ink-400">
+              <motion.li key={n.id} layout initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} className={cn('rounded-xl border border-cyan-500/25 bg-[#06245A]/85 p-3.5', n.id.startsWith('tmp-') && 'opacity-60')}>
+                <p className="whitespace-pre-wrap text-[14px] text-[#F5FAFF]">{n.body}</p>
+                <p className="mt-1.5 text-[12px] text-[#B8C7D9]">
                   {n.authorName} · {timeAgo(n.createdAt)}
                 </p>
               </motion.li>
@@ -89,12 +89,12 @@ export function TasksTab({ detail }: { detail: PracticeCaseDetail }) {
   return (
     <ul className="space-y-2">
       {detail.tasks.map((t) => (
-        <li key={t.id} className={cn('flex flex-wrap items-center justify-between gap-3 rounded-xl border bg-white p-3.5', t.status === 'open' ? 'border-line' : 'border-line opacity-60')}>
+        <li key={t.id} className={cn('flex flex-wrap items-center justify-between gap-3 rounded-xl border p-3.5', t.status === 'open' ? 'border-cyan-500/30 bg-[#06245A]/85' : 'border-cyan-500/15 bg-[#06245A]/50 opacity-60')}>
           <div className="flex min-w-0 items-start gap-2.5">
-            {t.status === 'open' ? <CircleDashed className="mt-0.5 size-4 shrink-0 text-warn-600" aria-hidden /> : <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-ok-600" aria-hidden />}
+            {t.status === 'open' ? <CircleDashed className="mt-0.5 size-4 shrink-0 text-amber-400" aria-hidden /> : <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-emerald-400" aria-hidden />}
             <div className="min-w-0">
-              <p className={cn('text-sm font-medium', t.status !== 'open' && 'line-through')}>{t.title}</p>
-              <p className="text-[12px] text-ink-500">
+              <p className={cn('text-[14.5px] font-bold text-[#F5FAFF]', t.status !== 'open' && 'line-through text-[#B8C7D9]')}>{t.title}</p>
+              <p className="text-[12.5px] text-[#B8C7D9]">
                 {t.status === 'open' ? `Due ${dueIn(t.dueAt)}` : 'Done'} · {t.assigneeName ?? 'Team queue'}
               </p>
             </div>
@@ -302,28 +302,28 @@ export function DeliveriesTab({ detail }: { detail: PracticeCaseDetail }) {
           </Button>
         </div>
       )}
-      <div className="overflow-hidden rounded-xl border border-line bg-white">
-        <table className="w-full text-left text-[13px]">
-          <thead className="bg-ice-50 text-[11.5px] uppercase tracking-wide text-ink-400">
+      <div className="overflow-hidden rounded-xl border border-cyan-500/30 bg-[#06245A]/90">
+        <table className="w-full text-left text-[13.5px]">
+          <thead className="bg-[#03132F]/80 text-[12px] uppercase tracking-wider text-[#B8C7D9] font-bold">
             <tr>
-              <th className="px-3 py-2 font-semibold">Message</th>
-              <th className="px-3 py-2 font-semibold">Status</th>
-              <th className="hidden px-3 py-2 font-semibold sm:table-cell">Attempts</th>
-              <th className="hidden px-3 py-2 font-semibold md:table-cell">Detail</th>
+              <th className="px-3.5 py-2.5 font-bold">Message</th>
+              <th className="px-3.5 py-2.5 font-bold">Status</th>
+              <th className="hidden px-3.5 py-2.5 font-bold sm:table-cell">Attempts</th>
+              <th className="hidden px-3.5 py-2.5 font-bold md:table-cell">Detail</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-line">
+          <tbody className="divide-y divide-cyan-500/20">
             {detail.outbox.map((o) => (
-              <tr key={o.id}>
-                <td className="px-3 py-2.5">
-                  <span className="font-medium capitalize">{o.channel}</span> · {o.template.replace(/_/g, ' ')}
-                  <div className="text-[11.5px] text-ink-400">{formatDateTime(o.createdAt)}</div>
+              <tr key={o.id} className="hover:bg-[#06245A]/60">
+                <td className="px-3.5 py-2.5">
+                  <span className="font-bold text-[#F5FAFF] capitalize">{o.channel}</span> · <span className="text-[#B8C7D9]">{o.template.replace(/_/g, ' ')}</span>
+                  <div className="text-[12px] text-[#00D9FF]">{formatDateTime(o.createdAt)}</div>
                 </td>
-                <td className="px-3 py-2.5">
+                <td className="px-3.5 py-2.5">
                   <Badge tone={OUTBOX[o.status].tone}>{OUTBOX[o.status].label}</Badge>
                 </td>
-                <td className="hidden px-3 py-2.5 sm:table-cell">{o.attempts}</td>
-                <td className="hidden px-3 py-2.5 text-ink-500 md:table-cell">{o.lastError ? `${o.lastError}${o.nextAttemptAt && o.status === 'failed' ? ` · next ${dueIn(o.nextAttemptAt)}` : ''}` : o.deliveredAt ? `Delivered ${formatDateTime(o.deliveredAt)}` : '—'}</td>
+                <td className="hidden px-3.5 py-2.5 text-[#F5FAFF] font-mono sm:table-cell">{o.attempts}</td>
+                <td className="hidden px-3.5 py-2.5 text-[#B8C7D9] md:table-cell">{o.lastError ? `${o.lastError}${o.nextAttemptAt && o.status === 'failed' ? ` · next ${dueIn(o.nextAttemptAt)}` : ''}` : o.deliveredAt ? `Delivered ${formatDateTime(o.deliveredAt)}` : '—'}</td>
               </tr>
             ))}
           </tbody>
@@ -361,9 +361,9 @@ function InfoRequestCard({ caseId, request: r, canAnswer }: { caseId: string; re
   });
   const answered = r.questions.filter((q) => q.answer).length;
   return (
-    <section className={cn('rounded-xl border p-4', r.status === 'answered' ? 'border-line bg-white' : 'border-warn-600/30 bg-warn-50/50')}>
+    <section className={cn('rounded-xl border p-4', r.status === 'answered' ? 'border-cyan-500/30 bg-[#06245A]/85' : 'border-amber-500/40 bg-amber-950/40')}>
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-        <h3 className="text-sm font-semibold">Questions for {r.requestedFrom}</h3>
+        <h3 className="text-[15px] font-bold text-[#F5FAFF]">Questions for {r.requestedFrom}</h3>
         <Badge tone={r.status === 'answered' ? 'ok' : 'warn'}>{r.status === 'answered' ? 'Answered' : `${answered} of ${r.questions.length} answered · due ${dueIn(r.dueAt)}`}</Badge>
       </div>
       <ol className="space-y-3">
@@ -371,10 +371,10 @@ function InfoRequestCard({ caseId, request: r, canAnswer }: { caseId: string; re
           <li key={q.id} className="text-sm">
             {q.answer || !canAnswer || r.status === 'answered' ? (
               <>
-                <p className="text-ink-700">
+                <p className="font-medium text-[#B8C7D9]">
                   {i + 1}. {q.text}
                 </p>
-                <p className={cn('mt-0.5 pl-4', q.answer ? 'font-medium text-ink-900' : 'text-ink-400')}>{q.answer ?? 'Not answered yet'}</p>
+                <p className={cn('mt-0.5 pl-4', q.answer ? 'font-bold text-[#F5FAFF]' : 'text-[#00D9FF]')}>{q.answer ?? 'Not answered yet'}</p>
               </>
             ) : (
               <Input label={`${i + 1}. ${q.text}`} value={answers[q.id] ?? ''} onChange={(e) => setAnswers((a) => ({ ...a, [q.id]: e.target.value }))} placeholder="Type the answer, or 'unknown'" maxLength={500} />

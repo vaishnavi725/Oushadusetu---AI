@@ -79,9 +79,9 @@ export function AppShell() {
         <div className="flex h-16 items-center px-5">
           <Logo />
         </div>
-        <div className="mx-4 mb-3 rounded-2xl border border-[rgba(0,217,255,0.22)] bg-gradient-to-br from-[#06245A]/80 via-[#03132F]/80 to-[#06245A]/60 px-3.5 py-3 shadow-[0_4px_16px_rgba(3,19,47,0.5)]">
-          <p className="truncate text-xs font-bold text-[#F5FAFF] tracking-tight">{user.orgName}</p>
-          <p className="text-[11px] text-[#4DA3FF] font-medium mt-0.5">{user.orgType === 'practice' ? 'Physician practice' : 'Pharmacy'}</p>
+        <div className="mx-4 mb-3 rounded-2xl border border-[rgba(0,217,255,0.25)] bg-gradient-to-br from-[#06245A]/90 via-[#03132F]/90 to-[#06245A]/70 px-4 py-3 shadow-[0_4px_16px_rgba(3,19,47,0.6)]">
+          <p className="truncate text-[13.5px] font-bold text-[#F5FAFF] tracking-tight">{user.orgName}</p>
+          <p className="text-[12px] text-[#00D9FF] font-semibold mt-0.5">{user.orgType === 'practice' ? 'Physician Practice' : 'Partner Pharmacy'}</p>
         </div>
         <nav className="flex-1 space-y-1 px-3" aria-label="Main">
           {items.map((item, i) => (
@@ -169,15 +169,24 @@ function SideLink({ item }: { item: NavItem }) {
       end={item.end}
       className={({ isActive }) =>
         cn(
-          'group relative flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-xs font-semibold tracking-wide transition-all duration-200 select-none',
+          'group relative flex items-center gap-3.5 rounded-xl px-4 py-2.5 text-[13.5px] tracking-wide transition-all duration-200 select-none',
           isActive
-            ? 'bg-[#087BFF] text-[#F5FAFF] shadow-[0_0_18px_rgba(0,217,255,0.4)] border border-[#00D9FF]/40'
-            : 'text-[#A2C0E8] hover:bg-[#06245A]/70 hover:text-[#00D9FF]'
+            ? 'bg-gradient-to-r from-[#06245A] to-[#083070] text-[#F5FAFF] font-bold shadow-[0_0_20px_rgba(0,217,255,0.35)] border border-[#00D9FF]/70'
+            : 'text-[#B8C7D9] font-medium hover:bg-[#06245A]/70 hover:text-[#F5FAFF]'
         )
       }
     >
-      <span className="transition-transform duration-200 group-hover:scale-105">{item.icon}</span>
-      {item.label}
+      {({ isActive }) => (
+        <>
+          {isActive && (
+            <span className="absolute left-1 top-2 bottom-2 w-1 rounded-full bg-[#00D9FF] shadow-[0_0_8px_#00D9FF]" />
+          )}
+          <span className={cn('transition-transform duration-200 group-hover:scale-105', isActive ? 'text-[#00D9FF]' : 'text-[#7EA0C4] group-hover:text-[#00D9FF]')}>
+            {item.icon}
+          </span>
+          <span className="truncate">{item.label}</span>
+        </>
+      )}
     </NavLink>
   );
 }
@@ -187,12 +196,12 @@ function UserCard({ onSignOut }: { onSignOut: () => void }) {
   if (!user) return null;
   const initials = user.name.replace(/^Dr\.\s*/, '').split(/\s+/).map((p) => p[0]).slice(0, 2).join('');
   return (
-    <div className="border-t border-[rgba(0,217,255,0.18)] p-3">
-      <div className="flex items-center gap-3 rounded-xl p-2 hover:bg-[#06245A]/60 transition">
-        <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#087BFF] to-[#06245A] border border-[#00D9FF]/40 text-[13px] font-bold text-[#F5FAFF] shadow-[0_0_12px_rgba(0,217,255,0.25)]">{initials}</div>
+    <div className="border-t border-[rgba(0,217,255,0.22)] p-3">
+      <div className="flex items-center gap-3 rounded-xl p-2.5 hover:bg-[#06245A]/80 transition">
+        <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#087BFF] to-[#06245A] border border-[#00D9FF]/60 text-[13px] font-bold text-[#F5FAFF] shadow-[0_0_12px_rgba(0,217,255,0.3)]">{initials}</div>
         <div className="min-w-0 flex-1">
-          <p className="truncate text-xs font-bold text-[#F5FAFF]">{user.name}</p>
-          <p className="flex items-center gap-1 text-[11px] text-[#749BC9] font-mono">
+          <p className="truncate text-[13.5px] font-bold text-[#F5FAFF]">{user.name}</p>
+          <p className="flex items-center gap-1.5 text-[12px] text-[#B8C7D9] font-medium">
             {ROLE_LABELS[user.role]}
             {user.aal === 'aal2' && (
               <span className="inline-flex items-center gap-0.5 text-[#00D9FF] font-bold" title="MFA verified this session">
@@ -201,7 +210,7 @@ function UserCard({ onSignOut }: { onSignOut: () => void }) {
             )}
           </p>
         </div>
-        <button type="button" onClick={onSignOut} className="rounded-lg p-2 text-[#749BC9] transition hover:bg-[#EF4444]/20 hover:text-[#EF4444] cursor-pointer" aria-label="Sign out" title="Sign out">
+        <button type="button" onClick={onSignOut} className="rounded-lg p-2 text-[#B8C7D9] transition hover:bg-[#EF4444]/20 hover:text-[#EF4444] cursor-pointer" aria-label="Sign out" title="Sign out">
           <LogOut className="size-4" />
         </button>
       </div>

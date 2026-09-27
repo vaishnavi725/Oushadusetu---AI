@@ -76,24 +76,24 @@ export default function TeamPage() {
       ) : (
         <>
           {/* Desktop table */}
-          <motion.div {...fadeUp(1)} className="surface hidden overflow-hidden md:block">
+          <motion.div {...fadeUp(1)} className="surface hidden overflow-hidden md:block border border-cyan-500/30 bg-[#06245A]/90">
             <table className="w-full text-sm">
               <caption className="sr-only">Team members</caption>
               <thead>
-                <tr className="border-b border-line bg-ice-50 text-left text-[12px] uppercase tracking-wide text-ink-400">
-                  <th scope="col" className="px-4 py-2.5 font-medium">Member</th>
-                  <th scope="col" className="px-4 py-2.5 font-medium">Role</th>
-                  <th scope="col" className="px-4 py-2.5 font-medium">Status</th>
-                  <th scope="col" className="px-4 py-2.5 font-medium">MFA</th>
-                  <th scope="col" className="px-4 py-2.5 font-medium">Last active</th>
-                  <th scope="col" className="px-4 py-2.5 text-right font-medium">
+                <tr className="border-b border-cyan-500/30 bg-[#03132F]/80 text-left text-[12px] font-bold uppercase tracking-wider text-[#B8C7D9]">
+                  <th scope="col" className="px-4 py-3 font-bold">Member</th>
+                  <th scope="col" className="px-4 py-3 font-bold">Role</th>
+                  <th scope="col" className="px-4 py-3 font-bold">Status</th>
+                  <th scope="col" className="px-4 py-3 font-bold">MFA</th>
+                  <th scope="col" className="px-4 py-3 font-bold">Last active</th>
+                  <th scope="col" className="px-4 py-3 text-right font-bold">
                     <span className="sr-only">Actions</span>
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {list.map((m) => (
-                  <tr key={m.id} className="border-b border-line transition-colors last:border-0 hover:bg-ice-50">
+                  <tr key={m.id} className="border-b border-cyan-500/20 transition-colors last:border-0 hover:bg-[#06245A]/70 odd:bg-[#06245A]/30 even:bg-[#03132F]/40">
                     <td className="max-w-0 px-4 py-3">
                       <MemberIdentity member={m} isYou={m.id === user?.id} />
                     </td>
@@ -103,9 +103,9 @@ export default function TeamPage() {
                     <td className="px-4 py-3">
                       <MemberStatusBadge status={m.status} />
                     </td>
-                    <td className="px-4 py-3">{m.status === 'invited' ? <span className="text-ink-400">—</span> : <MfaShortBadge enrolled={m.mfaEnrolled} required={MFA_REQUIRED_ROLES.includes(m.role)} />}</td>
-                    <td className="whitespace-nowrap px-4 py-3 text-ink-600">
-                      {m.lastActive ? <time dateTime={m.lastActive} title={formatDateTime(m.lastActive)}>{timeAgo(m.lastActive)}</time> : <span className="text-ink-400">Never</span>}
+                    <td className="px-4 py-3">{m.status === 'invited' ? <span className="text-[#B8C7D9]">—</span> : <MfaShortBadge enrolled={m.mfaEnrolled} required={MFA_REQUIRED_ROLES.includes(m.role)} />}</td>
+                    <td className="whitespace-nowrap px-4 py-3 text-[#B8C7D9] text-[13px] font-medium">
+                      {m.lastActive ? <time dateTime={m.lastActive} title={formatDateTime(m.lastActive)}>{timeAgo(m.lastActive)}</time> : <span className="text-[#B8C7D9]/60">Never</span>}
                     </td>
                     <td className="px-4 py-3 text-right">
                       <Button variant="ghost" size="sm" icon={<UserMinus className="size-4" aria-hidden />} aria-label={m.status === 'invited' ? `Revoke invite for ${m.email}` : `Remove ${displayName(m)}`} onClick={() => setRemoving(m)}>
@@ -192,11 +192,11 @@ function MemberIdentity({ member, isYou }: { member: Member; isYou: boolean }) {
         .toUpperCase();
   return (
     <div className="flex min-w-0 items-center gap-3">
-      <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-100 text-[13px] font-semibold text-brand-800" aria-hidden>
+      <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[#06245A] border border-cyan-500/40 text-[13px] font-bold text-[#00D9FF]" aria-hidden>
         {invited ? <Mail className="size-4" /> : initials}
       </span>
       <div className="min-w-0">
-        <p className="flex items-center gap-2 truncate font-medium text-ink-900">
+        <p className="flex items-center gap-2 truncate font-bold text-[14.5px] text-[#F5FAFF]">
           <span className="truncate">{invited ? 'Pending invite' : member.name}</span>
           {isYou && (
             <Badge tone="brand" className="shrink-0">
@@ -204,7 +204,7 @@ function MemberIdentity({ member, isYou }: { member: Member; isYou: boolean }) {
             </Badge>
           )}
         </p>
-        <p className="truncate text-[13px] text-ink-500">{member.email}</p>
+        <p className="truncate text-[13px] text-[#B8C7D9]">{member.email}</p>
       </div>
     </div>
   );

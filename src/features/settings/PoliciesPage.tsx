@@ -178,9 +178,9 @@ function PoliciesForm({ initial }: { initial: PoliciesFormInput }) {
       </PolicySection>
 
       <div className="sticky bottom-20 z-20 lg:bottom-4">
-        <div className="glass flex flex-col gap-3 rounded-xl px-4 py-3 shadow-[var(--shadow-lift)] sm:flex-row sm:items-center sm:justify-between">
-          <p className="flex items-center gap-2 text-[13px] text-ink-600" aria-live="polite">
-            <ShieldCheck className="size-4 shrink-0 text-brand-600" aria-hidden />
+        <div className="flex flex-col gap-3 rounded-xl border border-cyan-500/30 bg-[#06245A]/95 px-5 py-3.5 shadow-2xl backdrop-blur-md sm:flex-row sm:items-center sm:justify-between">
+          <p className="flex items-center gap-2 text-[14px] font-semibold text-[#F5FAFF]" aria-live="polite">
+            <ShieldCheck className="size-4 shrink-0 text-[#00D9FF]" aria-hidden />
             {isDirty ? (isValid ? 'You have unsaved changes. Saving asks for your authenticator code.' : 'Fix the highlighted fields to save.') : 'All changes saved.'}
           </p>
           <div className="flex gap-2">

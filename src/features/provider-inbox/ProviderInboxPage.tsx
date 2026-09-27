@@ -45,14 +45,14 @@ export default function ProviderInboxPage() {
         eyebrow="Provider inbox"
         title={
           <>
-            <span className="font-light">Good {greeting()},</span> <span className="font-bold">{user?.name.replace(/,.*$/, '')}</span>
+            <span className="font-light text-[#B8C7D9]">Good {greeting()},</span> <span className="font-bold text-[#F5FAFF]">{user?.name.replace(/,.*$/, '')}</span>
           </>
         }
         description={list.data ? `${list.data.meta.total} refill${list.data.meta.total === 1 ? '' : 's'} waiting for a clinical decision, most urgent first.` : 'Loading your queue…'}
         actions={
-          <div className="flex rounded-lg bg-white p-1 ring-1 ring-line" role="radiogroup" aria-label="Inbox scope">
+          <div className="flex rounded-xl bg-[#06245A]/90 p-1 ring-1 ring-cyan-500/30" role="radiogroup" aria-label="Inbox scope">
             {(['all', 'mine'] as const).map((s) => (
-              <button key={s} type="button" role="radio" aria-checked={scope === s} onClick={() => setParams(s === 'mine' ? { scope: 'mine' } : {})} className={cn('rounded-md px-3 py-1.5 text-[13px] font-medium transition', scope === s ? 'bg-brand-700 text-white' : 'text-ink-600 hover:bg-ice-100')}>
+              <button key={s} type="button" role="radio" aria-checked={scope === s} onClick={() => setParams(s === 'mine' ? { scope: 'mine' } : {})} className={cn('rounded-lg px-3.5 py-1.5 text-[13.5px] font-bold transition', scope === s ? 'bg-[#00D9FF] text-[#03132F] shadow-[0_0_12px_rgba(0,217,255,0.4)]' : 'text-[#B8C7D9] hover:bg-[#03132F]/50 hover:text-[#F5FAFF]')}>
                 {s === 'all' ? 'All providers' : 'Assigned to me'}
               </button>
             ))}
@@ -93,14 +93,14 @@ function InboxRow({ row: r, active, index, now, scope }: { row: CaseSummary; act
         to={`/provider/inbox/${r.id}${scope === 'mine' ? '?scope=mine' : ''}`}
         aria-current={active ? 'page' : undefined}
         className={cn(
-          'block rounded-xl border bg-white p-3.5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)]',
-          active ? 'border-brand-500 shadow-[var(--shadow-glow)]' : 'border-line hover:border-brand-300',
+          'block rounded-xl border p-3.5 transition-all duration-200 hover:-translate-y-0.5',
+          active ? 'bg-[#06245A] border-[#00D9FF] shadow-[0_0_20px_rgba(0,217,255,0.25)]' : 'bg-[#06245A]/75 border-cyan-500/25 hover:border-[#00D9FF]/60 hover:bg-[#06245A]/90',
         )}
       >
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
-            <p className="truncate font-semibold text-ink-900">{r.patientName}</p>
-            <p className="truncate text-[13px] text-ink-500">{r.medication}</p>
+            <p className="truncate font-bold text-[15px] text-[#F5FAFF]">{r.patientName}</p>
+            <p className="truncate text-[13.5px] font-medium text-[#B8C7D9]">{r.medication}</p>
           </div>
           <PriorityBadge priority={r.priority} />
         </div>
@@ -108,11 +108,11 @@ function InboxRow({ row: r, active, index, now, scope }: { row: CaseSummary; act
           {r.blockers.slice(0, 3).map((b) => (
             <BlockerChip key={b} code={b} />
           ))}
-          {r.blockers.length > 3 && <span className="text-[12px] text-ink-400">+{r.blockers.length - 3}</span>}
+          {r.blockers.length > 3 && <span className="text-[12px] font-semibold text-[#00D9FF]">+{r.blockers.length - 3}</span>}
         </div>
-        <div className="mt-2 flex items-center justify-between gap-2">
+        <div className="mt-2.5 flex items-center justify-between gap-2">
           <SlaBadge state={r.slaState} dueAt={r.dueAt} now={now} />
-          <span className="text-[11.5px] text-ink-400">{r.injectionSuspected ? <ShieldAlert className="inline size-3.5 text-bad-600" aria-label="Unusual instructions" /> : null} {timeAgo(r.statusSince, now)}</span>
+          <span className="text-[12px] text-[#B8C7D9]">{r.injectionSuspected ? <ShieldAlert className="inline size-3.5 text-rose-400" aria-label="Unusual instructions" /> : null} {timeAgo(r.statusSince, now)}</span>
         </div>
       </Link>
     </motion.li>
@@ -137,24 +137,24 @@ function InboxDetail({ caseId, onDecided }: { caseId: string; onDecided: () => v
   const decided = c.status !== 'WAITING_ON_PROVIDER';
   return (
     <motion.div key={caseId} initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.25 }} className="space-y-5">
-      <Link to="/provider/inbox" className="inline-flex items-center gap-1.5 text-sm text-ink-500 hover:text-brand-700 lg:hidden">
+      <Link to="/provider/inbox" className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#B8C7D9] hover:text-[#00D9FF] lg:hidden">
         <ArrowLeft className="size-4" /> Back to inbox
       </Link>
       <Card className="p-5">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className="font-mono text-[12.5px] text-brand-700">{c.caseNumber}</p>
-            <h2 className="text-2xl text-brand-900">
-              <span className="font-bold">{c.patientName}</span>
-              {d.patientAge !== null && <span className="font-light">, {d.patientAge}</span>}
+            <p className="font-mono text-[13px] font-bold text-[#00D9FF]">{c.caseNumber}</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#F5FAFF]">
+              <span>{c.patientName}</span>
+              {d.patientAge !== null && <span className="font-light text-[#B8C7D9]">, {d.patientAge}</span>}
             </h2>
-            <p className="mt-0.5 flex flex-wrap items-center gap-x-3 text-sm text-ink-600">
-              <span className="inline-flex items-center gap-1">
-                <Pill className="size-4 text-brand-500" /> {c.medication}
+            <p className="mt-1 flex flex-wrap items-center gap-x-3 text-[14.5px] text-[#B8C7D9]">
+              <span className="inline-flex items-center gap-1 font-semibold text-[#F5FAFF]">
+                <Pill className="size-4 text-[#00D9FF]" /> {c.medication}
               </span>
               {d.patient && (
                 <span>
-                  DOB {formatDob(d.patient.dob)} · <span className="font-mono">{d.patient.chartNumber}</span>
+                  DOB {formatDob(d.patient.dob)} · <span className="font-mono text-[#00D9FF] font-bold">{d.patient.chartNumber}</span>
                 </span>
               )}
             </p>
@@ -166,7 +166,7 @@ function InboxDetail({ caseId, onDecided }: { caseId: string; onDecided: () => v
           </Link>
         </div>
         {c.injectionSuspected && (
-          <p role="alert" className="mt-3 flex items-center gap-2 rounded-lg bg-bad-50 px-3 py-2 text-[13px] text-bad-700">
+          <p role="alert" className="mt-3 flex items-center gap-2 rounded-lg bg-rose-950/40 border border-rose-500/40 px-3 py-2 text-[13.5px] text-rose-200">
             <ShieldAlert className="size-4" /> This document contains unusual instructions. They were ignored — review the source carefully.
           </p>
         )}
@@ -175,15 +175,15 @@ function InboxDetail({ caseId, onDecided }: { caseId: string; onDecided: () => v
             <BlockerChip key={b.code} code={b.code} source={b.source} />
           ))}
         </div>
-        <ul className="mt-3 space-y-1 text-[13px] text-ink-600">
+        <ul className="mt-3 space-y-1 text-[13.5px] text-[#B8C7D9]">
           {c.blockerDetails.map((b) => (
             <li key={b.code}>
-              <span className="font-mono text-[11.5px] text-ink-400">{b.source}</span> {b.detail}
+              <span className="font-mono text-[12px] font-bold text-[#00D9FF]">{b.source}</span> {b.detail}
             </li>
           ))}
         </ul>
         {d.prescription && (
-          <dl className="mt-4 grid grid-cols-2 gap-3 rounded-xl bg-ice-50 p-3.5 sm:grid-cols-4">
+          <dl className="mt-4 grid grid-cols-2 gap-3 rounded-xl border border-cyan-500/25 bg-[#06245A]/70 p-3.5 sm:grid-cols-4">
             <KeyValue label="Refills left">{d.prescription.refillsRemaining}</KeyValue>
             <KeyValue label="Last fill">{formatDate(d.prescription.lastFillAt, { month: 'short', day: 'numeric' })}</KeyValue>
             <KeyValue label="Last visit">{formatDate(d.lastVisit, { month: 'short', year: 'numeric' })}</KeyValue>
@@ -191,7 +191,7 @@ function InboxDetail({ caseId, onDecided }: { caseId: string; onDecided: () => v
           </dl>
         )}
         {d.conflicts.length > 0 && (
-          <p className="mt-3 rounded-lg bg-warn-50 px-3 py-2 text-[13px] text-warn-700">
+          <p className="mt-3 rounded-lg border border-amber-500/40 bg-amber-950/40 px-3 py-2 text-[13.5px] text-amber-200">
             Conflict: {d.conflicts.map((x) => `${x.field} — pharmacy ${x.reported}, chart ${x.chart}`).join('; ')}
           </p>
         )}

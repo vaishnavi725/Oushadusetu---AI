@@ -100,26 +100,26 @@ export default function PharmaciesPage() {
       ) : (
         <ul className="grid gap-4 md:grid-cols-2 xl:grid-cols-3" aria-label={isPractice ? 'Linked pharmacies' : 'Linked practices'}>
           {list.map((l, i) => (
-            <motion.li key={l.id} {...fadeUp(i + 1)} className="surface flex flex-col p-4 transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)]">
+            <motion.li key={l.id} {...fadeUp(i + 1)} className="flex flex-col rounded-2xl border border-cyan-500/25 bg-[#06245A]/85 p-5 backdrop-blur-md shadow-lg transition hover:-translate-y-0.5 hover:border-cyan-400/40 hover:shadow-[var(--shadow-lift)]">
               <div className="flex items-start justify-between gap-3">
-                <div className="flex min-w-0 items-start gap-3">
-                  <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600" aria-hidden>
+                <div className="flex min-w-0 items-start gap-3.5">
+                  <span className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-cyan-500/30 bg-cyan-500/15 text-[#00D9FF] shadow-inner" aria-hidden>
                     {isPractice ? <Building2 className="size-5" /> : <Stethoscope className="size-5" />}
                   </span>
                   <div className="min-w-0">
-                    <h3 className="truncate text-[15px] font-semibold text-ink-900">{counterpart(l)}</h3>
-                    <p className="mt-0.5 flex items-center gap-1 text-[13px] text-ink-500">
-                      <MapPin className="size-3.5 shrink-0" aria-hidden />
+                    <h3 className="truncate text-[16px] font-bold text-[#F5FAFF]">{counterpart(l)}</h3>
+                    <p className="mt-0.5 flex items-center gap-1.5 text-[13.5px] font-medium text-[#B8C7D9]">
+                      <MapPin className="size-3.5 shrink-0 text-[#00D9FF]" aria-hidden />
                       {l.city && l.city !== '—' ? l.city : 'Location not set yet'}
                     </p>
                   </div>
                 </div>
                 <LinkStatusBadge status={l.status} />
               </div>
-              <dl className="mt-4 flex items-center justify-between border-t border-line pt-3 text-[13px]">
+              <dl className="mt-4 flex items-center justify-between border-t border-cyan-500/20 pt-3 text-[13.5px]">
                 <div>
-                  <dt className="text-ink-500">Cases, last 30 days</dt>
-                  <dd className="text-lg font-semibold tabular-nums text-ink-900">{l.casesLast30d}</dd>
+                  <dt className="text-[#B8C7D9] font-medium">Cases, last 30 days</dt>
+                  <dd className="text-xl font-bold tabular-nums text-[#F5FAFF]">{l.casesLast30d}</dd>
                 </div>
                 {isPractice && l.status !== 'revoked' && (
                   <Button variant="ghost" size="sm" icon={<Link2Off className="size-4" aria-hidden />} aria-label={`Unlink ${l.pharmacyName}`} onClick={() => setUnlinking(l)}>
@@ -139,7 +139,7 @@ export default function PharmaciesPage() {
                   </Button>
                 )}
               </dl>
-              {isPractice && l.status === 'pending' && <p className="mt-2 text-[12.5px] text-ink-500">Waiting for the pharmacy admin to accept.</p>}
+              {isPractice && l.status === 'pending' && <p className="mt-2.5 text-[13px] font-medium text-[#B8C7D9]">Waiting for the pharmacy admin to accept.</p>}
             </motion.li>
           ))}
         </ul>

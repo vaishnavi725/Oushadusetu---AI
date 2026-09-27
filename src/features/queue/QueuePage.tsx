@@ -163,7 +163,11 @@ export default function QueuePage() {
 }
 
 function Kpi({ label, value, icon, tone = 'brand', onClick, active }: { label: string; value: number; icon: React.ReactNode; tone?: 'brand' | 'bad' | 'warn'; onClick: () => void; active?: boolean }) {
-  const tones = { brand: 'bg-brand-50 text-brand-700', bad: 'bg-bad-50 text-bad-600', warn: 'bg-warn-50 text-warn-600' };
+  const tones = {
+    brand: 'bg-[#087BFF]/20 text-[#00D9FF] border border-[#00D9FF]/40',
+    bad: 'bg-rose-500/20 text-rose-300 border border-rose-500/40',
+    warn: 'bg-amber-500/20 text-amber-300 border border-amber-500/40',
+  };
   return (
     <motion.button
       type="button"
@@ -171,12 +175,12 @@ function Kpi({ label, value, icon, tone = 'brand', onClick, active }: { label: s
       aria-pressed={active}
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      className={cn('surface flex items-center gap-3 p-4 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)]', active && 'ring-2 ring-brand-400')}
+      className={cn('surface flex items-center gap-3.5 p-4.5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(0,217,255,0.3)] border border-[rgba(0,217,255,0.25)] bg-[#06245A]/60 backdrop-blur-md', active && 'ring-2 ring-[#00D9FF] border-[#00D9FF]')}
     >
-      <span className={cn('flex size-10 shrink-0 items-center justify-center rounded-xl', tones[tone])}>{icon}</span>
+      <span className={cn('flex size-11 shrink-0 items-center justify-center rounded-xl', tones[tone])}>{icon}</span>
       <span className="min-w-0">
-        <span className="block font-display text-2xl font-semibold text-ink-900">{value}</span>
-        <span className="block truncate text-[12.5px] text-ink-500">{label}</span>
+        <span className="block font-display text-3xl sm:text-[34px] font-bold text-[#F5FAFF] leading-none">{value}</span>
+        <span className="block truncate text-[13.5px] font-semibold text-[#B8C7D9] mt-1">{label}</span>
       </span>
     </motion.button>
   );
@@ -207,18 +211,18 @@ function QueueTable({ data, now, onOpen, listParams }: { data: Paginated<CaseSum
   return (
     <>
       {/* Desktop table */}
-      <div className="hidden overflow-hidden rounded-xl border border-[rgba(0,217,255,0.22)] bg-[#06245A]/40 backdrop-blur-md md:block shadow-[0_8px_32px_rgba(3,19,47,0.6)]">
+      <div className="hidden overflow-hidden rounded-2xl border border-[rgba(0,217,255,0.28)] bg-[#06245A]/50 backdrop-blur-md md:block shadow-[0_8px_32px_rgba(3,19,47,0.7)]">
         <table className="w-full text-left text-sm">
-          <thead className="bg-[#03132F]/80 text-[11.5px] uppercase tracking-wide text-[#00D9FF] border-b border-[rgba(0,217,255,0.18)]">
+          <thead className="bg-[#03132F]/90 text-[13px] uppercase tracking-wider text-[#00D9FF] font-bold border-b border-[rgba(0,217,255,0.25)]">
             <tr>
-              <th scope="col" className="px-4 py-2.5 font-semibold">Patient & medication</th>
-              <th scope="col" className="px-4 py-2.5 font-semibold">Status & blockers</th>
-              <th scope="col" className="hidden px-4 py-2.5 font-semibold xl:table-cell">Next action</th>
-              <th scope="col" className="px-4 py-2.5 font-semibold">Owner</th>
-              <th scope="col" className="px-4 py-2.5 font-semibold">SLA</th>
+              <th scope="col" className="px-5 py-3.5 font-bold">Patient &amp; medication</th>
+              <th scope="col" className="px-5 py-3.5 font-bold">Status &amp; blockers</th>
+              <th scope="col" className="hidden px-5 py-3.5 font-bold xl:table-cell">Next action</th>
+              <th scope="col" className="px-5 py-3.5 font-bold">Owner</th>
+              <th scope="col" className="px-5 py-3.5 font-bold">SLA</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[rgba(77,163,255,0.15)] bg-[#06245A]/30">
+          <tbody className="divide-y divide-[rgba(0,217,255,0.18)]">
             {data.data.map((r, i) => (
               <motion.tr
                 key={r.id}
@@ -226,45 +230,46 @@ function QueueTable({ data, now, onOpen, listParams }: { data: Paginated<CaseSum
                 animate={{ opacity: 1 }}
                 transition={{ delay: Math.min(i * 0.02, 0.2) }}
                 onClick={() => onOpen(r.id)}
-                className="group cursor-pointer transition-colors hover:bg-[#087BFF]/15"
+                className="group cursor-pointer transition-colors odd:bg-[#06245A]/40 even:bg-[#03132F]/50 hover:bg-[#087BFF]/20"
               >
-                <td className="px-4 py-3">
-                  <Link to={`/cases/${r.id}`} onClick={(e) => e.stopPropagation()} className="font-semibold text-[#F5FAFF] group-hover:text-[#00D9FF]">
+                <td className="px-5 py-4">
+                  <Link to={`/cases/${r.id}`} onClick={(e) => e.stopPropagation()} className="text-[16px] font-bold text-[#F5FAFF] group-hover:text-[#00D9FF] transition-colors">
                     {r.patientName}
                   </Link>
-                  <div className="flex items-center gap-2 text-[12.5px] text-[#A2C0E8]">
-                    <span className="font-mono text-[#00D9FF]">{r.caseNumber}</span>
-                    <span className="truncate">{r.medication}</span>
+                  <div className="flex items-center gap-2.5 text-[13.5px] text-[#B8C7D9] mt-0.5">
+                    <span className="font-mono text-[#00D9FF] font-bold">{r.caseNumber}</span>
+                    <span>·</span>
+                    <span className="truncate font-medium">{r.medication}</span>
                   </div>
                 </td>
-                <td className="px-4 py-3">
-                  <div className="flex flex-wrap items-center gap-1">
+                <td className="px-5 py-4">
+                  <div className="flex flex-wrap items-center gap-1.5">
                     <StatusBadge status={r.status} />
                     <PriorityBadge priority={r.priority} />
                   </div>
                   {r.blockers.length > 0 && (
-                    <div className="mt-1 flex flex-wrap gap-1">
+                    <div className="mt-1.5 flex flex-wrap gap-1.5">
                       {r.blockers.slice(0, 2).map((b) => (
                         <BlockerChip key={b} code={b} />
                       ))}
-                      {r.blockers.length > 2 && <span className="text-[11.5px] text-ink-400">+{r.blockers.length - 2}</span>}
+                      {r.blockers.length > 2 && <span className="text-[12px] font-semibold text-[#00D9FF]">+{r.blockers.length - 2} more</span>}
                     </div>
                   )}
                 </td>
-                <td className="hidden max-w-[220px] px-4 py-3 text-[13px] text-ink-600 xl:table-cell">{r.nextAction}</td>
-                <td className="px-4 py-3">
+                <td className="hidden max-w-[240px] px-5 py-4 text-[14px] text-[#E2EEFC] font-medium leading-relaxed xl:table-cell">{r.nextAction}</td>
+                <td className="px-5 py-4">
                   {r.ownerName ? (
-                    <span className="text-[13px] text-ink-700">{r.ownerName}</span>
+                    <span className="text-[14px] font-semibold text-[#F5FAFF]">{r.ownerName}</span>
                   ) : r.ownerRole === 'system' ? (
-                    <span className="text-[13px] text-ink-400">Automatic</span>
+                    <span className="text-[13px] font-medium text-[#B8C7D9]">Automatic</span>
                   ) : (
                     <Button size="sm" variant="secondary" icon={<Hand className="size-3.5" />} onClick={(e) => { e.stopPropagation(); claim.mutate(r.id); }}>
                       Claim
                     </Button>
                   )}
-                  {r.escalationLevel > 0 && <div className="mt-0.5 text-[11.5px] font-medium text-bad-700">Escalated L{r.escalationLevel}</div>}
+                  {r.escalationLevel > 0 && <div className="mt-1 text-[12px] font-bold text-rose-300">Escalated L{r.escalationLevel}</div>}
                 </td>
-                <td className="px-4 py-3">
+                <td className="px-5 py-4">
                   <SlaBadge state={r.slaState} dueAt={r.dueAt} now={now} />
                 </td>
               </motion.tr>
@@ -273,29 +278,29 @@ function QueueTable({ data, now, onOpen, listParams }: { data: Paginated<CaseSum
         </table>
       </div>
       {/* Mobile cards */}
-      <ul className="space-y-2.5 md:hidden">
+      <ul className="space-y-3 md:hidden">
         {data.data.map((r) => (
           <li key={r.id}>
-            <Link to={`/cases/${r.id}`} className="block rounded-xl border border-line bg-white p-3.5 transition active:scale-[0.99]">
+            <Link to={`/cases/${r.id}`} className="block rounded-2xl border border-[rgba(0,217,255,0.25)] bg-[#06245A]/85 p-4 transition active:scale-[0.99] shadow-lg backdrop-blur-md">
               <div className="flex items-start justify-between gap-2">
                 <div className="min-w-0">
-                  <p className="truncate font-semibold">{r.patientName}</p>
-                  <p className="truncate text-[12.5px] text-ink-500">
-                    <span className="font-mono text-brand-700">{r.caseNumber}</span> · {r.medication}
+                  <p className="truncate text-[16px] font-bold text-[#F5FAFF]">{r.patientName}</p>
+                  <p className="truncate text-[13.5px] text-[#B8C7D9] mt-0.5">
+                    <span className="font-mono text-[#00D9FF] font-bold">{r.caseNumber}</span> · {r.medication}
                   </p>
                 </div>
                 <PriorityBadge priority={r.priority} />
               </div>
-              <div className="mt-2 flex flex-wrap gap-1">
+              <div className="mt-2.5 flex flex-wrap gap-1.5">
                 <StatusBadge status={r.status} />
                 {r.blockers.slice(0, 2).map((b) => (
                   <BlockerChip key={b} code={b} />
                 ))}
               </div>
-              <p className="mt-2 text-[13px] text-ink-600">{r.nextAction}</p>
-              <div className="mt-2 flex items-center justify-between">
+              <p className="mt-2 text-[14px] text-[#E2EEFC] font-medium">{r.nextAction}</p>
+              <div className="mt-2.5 flex items-center justify-between border-t border-white/10 pt-2 text-[13px]">
                 <SlaBadge state={r.slaState} dueAt={r.dueAt} now={now} />
-                <span className="text-[12px] text-ink-500">{r.ownerName ?? 'Unassigned'}</span>
+                <span className="font-semibold text-[#00D9FF]">{r.ownerName ?? 'Unassigned'}</span>
               </div>
             </Link>
           </li>

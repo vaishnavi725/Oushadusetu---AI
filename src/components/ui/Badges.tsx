@@ -33,18 +33,18 @@ import { cn, dueIn } from '@/lib/format';
 
 type Tone = 'neutral' | 'brand' | 'ok' | 'warn' | 'bad' | 'info' | 'muted';
 const tones: Record<Tone, string> = {
-  neutral: 'bg-ice-100 text-ink-700 ring-line-strong',
-  brand: 'bg-brand-50 text-brand-800 ring-brand-200',
-  ok: 'bg-ok-50 text-ok-700 ring-ok-600/25',
-  warn: 'bg-warn-50 text-warn-700 ring-warn-600/25',
-  bad: 'bg-bad-50 text-bad-700 ring-bad-600/25',
-  info: 'bg-info-50 text-info-700 ring-info-600/25',
-  muted: 'bg-white text-ink-500 ring-line',
+  neutral: 'bg-[#06245A]/85 text-[#F5FAFF] border border-white/25 ring-1 ring-white/10 font-semibold',
+  brand: 'bg-[#06245A]/90 text-[#00D9FF] border border-[#00D9FF]/50 ring-1 ring-[#00D9FF]/30 font-bold',
+  ok: 'bg-emerald-950/85 text-emerald-300 border border-emerald-500/50 ring-1 ring-emerald-500/30 font-semibold',
+  warn: 'bg-amber-950/85 text-amber-300 border border-amber-500/50 ring-1 ring-amber-500/30 font-semibold',
+  bad: 'bg-rose-950/85 text-rose-300 border border-rose-500/50 ring-1 ring-rose-500/30 font-semibold',
+  info: 'bg-sky-950/85 text-cyan-300 border border-cyan-500/50 ring-1 ring-cyan-500/30 font-semibold',
+  muted: 'bg-[#03132F]/90 text-[#B8C7D9] border border-slate-700/80 ring-1 ring-slate-700/50 font-medium',
 };
 
 export function Badge({ tone = 'neutral', icon, children, className, title }: { tone?: Tone; icon?: ReactNode; children: ReactNode; className?: string; title?: string }) {
   return (
-    <span title={title} className={cn('inline-flex max-w-full items-center gap-1 whitespace-nowrap rounded-full px-2 py-0.5 text-[12px] font-medium ring-1 ring-inset', tones[tone], className)}>
+    <span title={title} className={cn('inline-flex max-w-full items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1 text-[13px] font-semibold ring-1 ring-inset', tones[tone], className)}>
       {icon}
       <span className="truncate">{children}</span>
     </span>

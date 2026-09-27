@@ -138,16 +138,16 @@ export function DecisionPanel({ detail, maxBridgeDays = 30, onDecided }: { detai
   const controlled = rx?.controlledSchedule;
   return (
     <section aria-labelledby="decide" className="surface overflow-hidden">
-      <div className="border-b border-line bg-gradient-to-r from-brand-50 to-white px-5 py-4">
-        <h2 id="decide" className="flex items-center gap-2 text-[15px] font-semibold text-ink-900">
-          <Signature className="size-4 text-brand-600" /> Your decision
+      <div className="border-b border-cyan-500/30 bg-[#06245A]/90 px-5 py-4">
+        <h2 id="decide" className="flex items-center gap-2 text-[16px] font-bold text-[#F5FAFF]">
+          <Signature className="size-4 text-[#00D9FF]" /> Your decision
         </h2>
-        <p className="mt-0.5 text-[13px] text-ink-500">You'll review the full order before it's signed. MFA is required.</p>
+        <p className="mt-0.5 text-[13.5px] text-[#B8C7D9]">You'll review the full order before it's signed. MFA is required.</p>
       </div>
       <form onSubmit={openReview} className="space-y-5 p-5" noValidate>
         {controlled && (
-          <div role="alert" className="flex gap-2.5 rounded-lg border border-bad-600/25 bg-bad-50 p-3 text-[13px] text-bad-700">
-            <ShieldAlert className="mt-0.5 size-4 shrink-0" />
+          <div role="alert" className="flex gap-2.5 rounded-lg border border-rose-500/40 bg-rose-950/40 p-3 text-[13.5px] text-rose-200">
+            <ShieldAlert className="mt-0.5 size-4 shrink-0 text-rose-400" />
             <p>
               Schedule {controlled} controlled substance. No AI suggestions.{' '}
               {controlled === 'II' ? 'Schedule II cannot be refilled — approving issues a new prescription with 0 refills.' : 'Check your state PDMP before approving.'}
@@ -163,18 +163,18 @@ export function DecisionPanel({ detail, maxBridgeDays = 30, onDecided }: { detai
                 <label
                   key={d.value}
                   className={cn(
-                    'relative flex cursor-pointer gap-3 rounded-xl border bg-white p-3 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)]',
-                    active ? 'border-brand-500 ring-2 ring-brand-200' : 'border-line hover:border-brand-300',
+                    'relative flex cursor-pointer gap-3 rounded-xl border p-3 transition-all duration-200 hover:-translate-y-0.5',
+                    active ? 'border-[#00D9FF] bg-[#06245A] shadow-[0_0_16px_rgba(0,217,255,0.3)] ring-2 ring-[#00D9FF]/40' : 'border-cyan-500/30 bg-[#06245A]/70 hover:border-[#00D9FF]/60 hover:bg-[#06245A]/90',
                     d.value === 'DENY' && 'sm:col-span-2',
                   )}
                 >
                   <input type="radio" value={d.value} {...form.register('decision')} className="sr-only" />
                   <span className={cn('mt-0.5', d.tone)}>{d.icon}</span>
                   <span className="min-w-0">
-                    <span className="block text-sm font-semibold text-ink-900">{d.label}</span>
-                    <span className="block text-[12.5px] text-ink-500">{d.description}</span>
+                    <span className="block text-[14.5px] font-bold text-[#F5FAFF]">{d.label}</span>
+                    <span className="block text-[13px] text-[#B8C7D9]">{d.description}</span>
                   </span>
-                  {active && <motion.span layoutId="decision-dot" className="absolute right-3 top-3 size-2.5 rounded-full bg-brand-600" />}
+                  {active && <motion.span layoutId="decision-dot" className="absolute right-3 top-3 size-2.5 rounded-full bg-[#00D9FF] shadow-[0_0_8px_#00D9FF]" />}
                 </label>
               );
             })}
@@ -308,9 +308,9 @@ function OrderConfirmDialog({ review, detail, onCancel, onConfirm, pending }: { 
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="grid grid-cols-[120px_1fr] gap-3 bg-white px-3.5 py-2.5">
-      <dt className="text-ink-500">{label}</dt>
-      <dd className="text-ink-900">{children}</dd>
+    <div className="grid grid-cols-[120px_1fr] gap-3 border-b border-cyan-500/20 bg-[#06245A]/90 px-3.5 py-2.5">
+      <dt className="text-[13px] font-bold text-[#B8C7D9]">{label}</dt>
+      <dd className="text-[14px] font-semibold text-[#F5FAFF]">{children}</dd>
     </div>
   );
 }

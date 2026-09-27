@@ -194,67 +194,67 @@ function AgentsView() {
                 <div className="flex items-start gap-3">
                   <div
                     className={cn(
-                      'flex size-10 items-center justify-center rounded-xl',
+                      'flex size-11 items-center justify-center rounded-xl border',
                       agent.status === 'active'
-                        ? 'bg-ok-50 text-ok-600'
+                        ? 'border-emerald-500/40 bg-emerald-950/40 text-emerald-300'
                         : agent.status === 'monitoring'
-                        ? 'bg-amber-50 text-amber-700'
-                        : 'bg-ice-200 text-ink-700'
+                        ? 'border-amber-500/40 bg-amber-950/40 text-amber-300'
+                        : 'border-cyan-500/30 bg-[#06245A] text-[#00D9FF]'
                     )}
                   >
                     <agent.icon className="size-5" />
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <h3 className="text-[14px] font-semibold text-ink-900">{agent.name}</h3>
+                      <h3 className="text-[16px] font-bold text-[#F5FAFF]">{agent.name}</h3>
                       <span
                         className={cn(
-                          'flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase',
+                          'flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-bold uppercase',
                           agent.status === 'active'
-                            ? 'bg-ok-50 text-ok-700 border border-ok-200'
+                            ? 'bg-emerald-950/60 text-emerald-300 border border-emerald-500/40'
                             : agent.status === 'monitoring'
-                            ? 'bg-amber-50 text-amber-700 border border-amber-200'
-                            : 'bg-ice-100 text-ink-700 border border-line'
+                            ? 'bg-amber-950/60 text-amber-300 border border-amber-500/40'
+                            : 'bg-cyan-950/60 text-cyan-300 border border-cyan-500/40'
                         )}
                       >
                         <span
                           className={cn(
                             'size-1.5 rounded-full',
                             agent.status === 'active'
-                              ? 'bg-ok-600 animate-pulse'
+                              ? 'bg-emerald-400 animate-pulse'
                               : agent.status === 'monitoring'
-                              ? 'bg-amber-600 animate-pulse'
-                              : 'bg-ink-400'
+                              ? 'bg-amber-400 animate-pulse'
+                              : 'bg-cyan-400'
                           )}
                         />
                         {agent.statusLabel}
                       </span>
                     </div>
-                    <p className="mt-1 text-[12px] leading-relaxed text-ink-500">{agent.desc}</p>
+                    <p className="mt-1 text-[13.5px] leading-relaxed text-[#B8C7D9]">{agent.desc}</p>
                   </div>
                 </div>
 
-                <div className="mt-3.5 rounded-lg border border-line bg-slate-50/70 p-2.5 text-xs space-y-1">
-                  <div className="flex items-center justify-between text-[11px] text-ink-400">
-                    <span className="font-semibold uppercase tracking-wider text-ink-500">Last Action</span>
-                    <span className="font-mono text-ink-500">{agent.timestamp}</span>
+                <div className="mt-3.5 rounded-xl border border-cyan-500/25 bg-[#06245A]/70 p-3 text-xs space-y-1">
+                  <div className="flex items-center justify-between text-[11.5px]">
+                    <span className="font-bold uppercase tracking-wider text-[#00D9FF]">Last Action</span>
+                    <span className="font-mono text-[#B8C7D9] font-medium">{agent.timestamp}</span>
                   </div>
-                  <p className="text-ink-800 text-[11.5px] leading-snug">{agent.lastAction}</p>
+                  <p className="text-[#F5FAFF] text-[13px] leading-snug font-medium">{agent.lastAction}</p>
                 </div>
               </div>
 
-              <div className="mt-4 grid grid-cols-3 gap-2 rounded-lg bg-ice-50 p-2.5 text-center">
+              <div className="mt-4 grid grid-cols-3 gap-2 rounded-xl border border-cyan-500/20 bg-[#06245A]/90 p-3 text-center">
                 <div>
-                  <p className="text-[16px] font-bold text-ink-900">{agent.decisions}</p>
-                  <p className="text-[10px] text-ink-500">Decisions</p>
+                  <p className="text-[20px] font-bold text-[#F5FAFF]">{agent.decisions}</p>
+                  <p className="text-[12px] font-medium text-[#B8C7D9]">Decisions</p>
                 </div>
                 <div>
-                  <p className="text-[16px] font-bold text-ok-700">{agent.accuracy}%</p>
-                  <p className="text-[10px] text-ink-500">Accuracy</p>
+                  <p className="text-[20px] font-bold text-emerald-300">{agent.accuracy}%</p>
+                  <p className="text-[12px] font-medium text-[#B8C7D9]">Accuracy</p>
                 </div>
                 <div>
-                  <p className="text-[16px] font-bold text-brand-700">{agent.avgTime}</p>
-                  <p className="text-[10px] text-ink-500">Avg Time</p>
+                  <p className="text-[20px] font-bold text-[#00D9FF]">{agent.avgTime}</p>
+                  <p className="text-[12px] font-medium text-[#B8C7D9]">Avg Time</p>
                 </div>
               </div>
             </Card>
@@ -264,12 +264,12 @@ function AgentsView() {
 
       {/* Structured Agent Status & Telemetry Table */}
       <Card className="overflow-hidden">
-        <div className="border-b border-line bg-ice-50/60 px-5 py-3.5 flex items-center justify-between">
+        <div className="border-b border-cyan-500/30 bg-[#06245A]/90 px-5 py-3.5 flex items-center justify-between">
           <div>
-            <h3 className="text-sm font-bold text-ink-900">Agent Surveillance Matrix</h3>
-            <p className="text-xs text-ink-500">Real-time status, latest action telemetry, and timestamp for all 6 autonomous agents</p>
+            <h3 className="text-[16px] font-bold text-[#F5FAFF]">Agent Surveillance Matrix</h3>
+            <p className="text-[13px] text-[#B8C7D9] mt-0.5">Real-time status, latest action telemetry, and timestamp for all 6 autonomous agents</p>
           </div>
-          <span className="rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-0.5 text-xs font-bold">
+          <span className="rounded-full bg-emerald-950/60 text-emerald-300 border border-emerald-500/40 px-3 py-1 text-xs font-bold">
             All 6 Agents Synchronized
           </span>
         </div>
@@ -277,7 +277,7 @@ function AgentsView() {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-line bg-ice-50 text-left text-[11px] font-bold uppercase tracking-wider text-ink-500">
+              <tr className="border-b border-cyan-500/30 bg-[#03132F]/80 text-left text-[12px] font-bold uppercase tracking-wider text-[#B8C7D9]">
                 <th className="px-5 py-3">Agent</th>
                 <th className="px-5 py-3">Status</th>
                 <th className="px-5 py-3">Last Action</th>
@@ -286,31 +286,31 @@ function AgentsView() {
             </thead>
             <tbody>
               {AGENTS.map((agent) => (
-                <tr key={agent.name} className="border-b border-line last:border-0 hover:bg-ice-50/50">
-                  <td className="px-5 py-3.5 font-semibold text-ink-900 whitespace-nowrap">
+                <tr key={agent.name} className="border-b border-cyan-500/20 last:border-0 hover:bg-[#06245A]/70 odd:bg-[#06245A]/30 even:bg-[#03132F]/40">
+                  <td className="px-5 py-3.5 font-bold text-[#F5FAFF] whitespace-nowrap">
                     <span className="flex items-center gap-2">
-                      <agent.icon className="size-4 text-brand-600" />
+                      <agent.icon className="size-4 text-[#00D9FF]" />
                       <span>{agent.name}</span>
                     </span>
                   </td>
                   <td className="px-5 py-3.5 whitespace-nowrap">
                     <span
                       className={cn(
-                        'rounded-full px-2.5 py-0.5 text-[10.5px] font-bold uppercase border',
+                        'rounded-full px-2.5 py-0.5 text-[11px] font-bold uppercase border',
                         agent.status === 'active'
-                          ? 'bg-ok-50 text-ok-700 border-ok-200'
+                          ? 'bg-emerald-950/60 text-emerald-300 border-emerald-500/40'
                           : agent.status === 'monitoring'
-                          ? 'bg-amber-50 text-amber-700 border-amber-200'
-                          : 'bg-ice-100 text-ink-700 border-line'
+                          ? 'bg-amber-950/60 text-amber-300 border-amber-500/40'
+                          : 'bg-cyan-950/60 text-cyan-300 border-cyan-500/40'
                       )}
                     >
                       {agent.statusLabel}
                     </span>
                   </td>
-                  <td className="px-5 py-3.5 text-xs text-ink-800 font-medium">
+                  <td className="px-5 py-3.5 text-[13px] text-[#F5FAFF] font-medium">
                     {agent.lastAction}
                   </td>
-                  <td className="px-5 py-3.5 text-right text-xs text-ink-500 whitespace-nowrap tabular-nums">
+                  <td className="px-5 py-3.5 text-right text-[12.5px] text-[#B8C7D9] whitespace-nowrap tabular-nums">
                     {agent.timestamp}
                   </td>
                 </tr>
@@ -361,9 +361,9 @@ function DecisionsView({
 
   return (
     <Card className="overflow-hidden">
-      <div className="border-b border-line bg-ice-50/50 px-5 py-3.5">
-        <h3 className="font-semibold text-ink-900 text-sm">Recent AI Decisions (Live from Supabase)</h3>
-        <p className="text-xs text-ink-500 mt-0.5">
+      <div className="border-b border-cyan-500/30 bg-[#06245A]/90 px-5 py-3.5">
+        <h3 className="font-bold text-[#F5FAFF] text-[16px]">Recent AI Decisions (Live from Supabase)</h3>
+        <p className="text-[13px] text-[#B8C7D9] mt-0.5">
           Showing verified AI agent recommendations with confidence scores and audit trail status.
         </p>
       </div>
@@ -371,7 +371,7 @@ function DecisionsView({
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-line bg-ice-50 text-left text-[11px] font-bold uppercase tracking-wider text-ink-500">
+            <tr className="border-b border-cyan-500/30 bg-[#03132F]/80 text-left text-[12px] font-bold uppercase tracking-wider text-[#B8C7D9]">
               <th className="px-5 py-3">Agent</th>
               <th className="px-5 py-3">Action</th>
               <th className="px-5 py-3">Reason</th>
@@ -388,52 +388,52 @@ function DecisionsView({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.04 * i }}
-                className="border-b border-line last:border-0 hover:bg-ice-50/60"
+                className="border-b border-cyan-500/20 last:border-0 hover:bg-[#06245A]/70 odd:bg-[#06245A]/30 even:bg-[#03132F]/40"
               >
-                <td className="px-5 py-3.5 font-semibold text-ink-900 whitespace-nowrap">
+                <td className="px-5 py-3.5 font-bold text-[#F5FAFF] whitespace-nowrap">
                   <span className="flex items-center gap-1.5">
-                    <Bot className="size-4 text-brand-600" />
+                    <Bot className="size-4 text-[#00D9FF]" />
                     <span>{d.agent_name}</span>
                   </span>
                 </td>
-                <td className="px-5 py-3.5 font-medium text-ink-800">{d.recommendation}</td>
-                <td className="px-5 py-3.5 text-xs text-ink-600 max-w-[260px]">{d.reasoning}</td>
+                <td className="px-5 py-3.5 font-bold text-[#F5FAFF]">{d.recommendation}</td>
+                <td className="px-5 py-3.5 text-[13px] text-[#B8C7D9] max-w-[260px]">{d.reasoning}</td>
                 <td className="px-5 py-3.5 whitespace-nowrap">
-                  <span className="rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-bold text-brand-700 border border-brand-200">
+                  <span className="rounded-full bg-cyan-950/60 px-2.5 py-0.5 text-xs font-bold text-[#00D9FF] border border-cyan-500/40">
                     {d.confidence}%
                   </span>
                 </td>
                 <td className="px-5 py-3.5 whitespace-nowrap">
                   <span
                     className={cn(
-                      'rounded-full px-2.5 py-0.5 text-[11px] font-bold uppercase',
+                      'rounded-full px-2.5 py-0.5 text-[11px] font-bold uppercase border',
                       d.human_approval_status === 'APPROVED'
-                        ? 'bg-ok-50 text-ok-700 border border-ok-200'
+                        ? 'bg-emerald-950/60 text-emerald-300 border-emerald-500/40'
                         : d.human_approval_status === 'REJECTED'
-                        ? 'bg-bad-50 text-bad-700 border border-bad-200'
+                        ? 'bg-rose-950/60 text-rose-300 border-rose-500/40'
                         : d.human_approval_status === 'OVERRIDDEN'
-                        ? 'bg-warn-50 text-warn-700 border border-warn-200'
-                        : 'bg-amber-50 text-amber-700 border border-amber-200'
+                        ? 'bg-amber-950/60 text-amber-300 border-amber-500/40'
+                        : 'bg-amber-950/60 text-amber-300 border-amber-500/40'
                     )}
                   >
                     {d.human_approval_status}
                   </span>
                 </td>
-                <td className="px-5 py-3.5 text-xs text-ink-500 whitespace-nowrap tabular-nums">
+                <td className="px-5 py-3.5 text-[12.5px] text-[#B8C7D9] whitespace-nowrap tabular-nums">
                   {new Date(d.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </td>
                 <td className="px-5 py-3.5 text-right whitespace-nowrap">
                   {d.human_approval_status === 'APPROVED' ? (
-                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-ok-700">
-                      <Check className="size-3.5 text-ok-600" /> Approved
+                    <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-300">
+                      <Check className="size-3.5 text-emerald-400" /> Approved
                     </span>
                   ) : d.human_approval_status === 'REJECTED' ? (
-                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-bad-700">
-                      <X className="size-3.5 text-bad-600" /> Rejected
+                    <span className="inline-flex items-center gap-1 text-xs font-bold text-rose-300">
+                      <X className="size-3.5 text-rose-400" /> Rejected
                     </span>
                   ) : d.human_approval_status === 'OVERRIDDEN' ? (
-                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-warn-700">
-                      <Slash className="size-3.5 text-warn-600" /> Overridden
+                    <span className="inline-flex items-center gap-1 text-xs font-bold text-amber-300">
+                      <Slash className="size-3.5 text-amber-400" /> Overridden
                     </span>
                   ) : (
                     <div className="inline-flex items-center gap-1.5">
@@ -441,7 +441,7 @@ function DecisionsView({
                         type="button"
                         disabled={actingId === d.id}
                         onClick={() => void handleAction(d, 'approved')}
-                        className="rounded-md bg-brand-700 px-2.5 py-1 text-xs font-semibold text-white transition hover:bg-brand-800 disabled:opacity-50"
+                        className="rounded-lg bg-emerald-600 px-3 py-1 text-xs font-bold text-white transition hover:bg-emerald-500 disabled:opacity-50"
                       >
                         Approve
                       </button>
@@ -449,7 +449,7 @@ function DecisionsView({
                         type="button"
                         disabled={actingId === d.id}
                         onClick={() => void handleAction(d, 'rejected')}
-                        className="rounded-md border border-line bg-white px-2 py-1 text-xs font-medium text-ink-700 transition hover:bg-bad-50 hover:text-bad-700 disabled:opacity-50"
+                        className="rounded-lg border border-rose-500/40 bg-rose-950/40 px-2.5 py-1 text-xs font-bold text-rose-300 transition hover:bg-rose-900/60 disabled:opacity-50"
                       >
                         Reject
                       </button>
@@ -494,11 +494,11 @@ function ProactiveWorkflowView() {
 
   return (
     <Card className="p-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-line pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyan-500/30 pb-5">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-brand-700">Autonomous Pipeline</span>
-          <h3 className="text-lg font-bold text-ink-900 mt-0.5">Proactive Silent-Lapse Prevention Workflow</h3>
-          <p className="text-sm text-ink-500 mt-1 max-w-2xl">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#00D9FF]">Autonomous Pipeline</span>
+          <h3 className="text-xl font-bold text-[#F5FAFF] mt-0.5">Proactive Silent-Lapse Prevention Workflow</h3>
+          <p className="text-[14px] text-[#B8C7D9] mt-1 max-w-2xl">
             This end-to-end clinical workflow detects patient stockout risks before patients run out of medicine, computes lag, and queues proactive outreach for human approval.
           </p>
         </div>
@@ -506,7 +506,7 @@ function ProactiveWorkflowView() {
           type="button"
           disabled={isRunning}
           onClick={() => void runSimulation()}
-          className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-brand-700 to-secondary-700 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:shadow-lg disabled:opacity-50 active:scale-95 shrink-0"
+          className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#087BFF] to-[#00D9FF] px-5 py-2.5 text-sm font-bold text-[#03132F] shadow-lg transition hover:shadow-cyan-500/30 disabled:opacity-50 active:scale-95 shrink-0"
         >
           <Sparkles className="size-4" />
           <span>{isRunning ? 'Running Pipeline…' : completed ? 'Re-run Workflow' : 'Execute Demo Workflow'}</span>
@@ -528,20 +528,20 @@ function ProactiveWorkflowView() {
               className={cn(
                 'relative flex items-center gap-3 rounded-xl border p-3.5 transition-all',
                 isCurrent
-                  ? 'border-brand-500 bg-brand-50/80 shadow-md ring-2 ring-brand-300'
+                  ? 'border-[#00D9FF] bg-cyan-950/50 shadow-md ring-2 ring-[#00D9FF]/40'
                   : isPassed
-                  ? 'border-ok-300 bg-ok-50/60'
-                  : 'border-line bg-white'
+                  ? 'border-emerald-500/40 bg-emerald-950/40'
+                  : 'border-cyan-500/25 bg-[#06245A]/70'
               )}
             >
               <div
                 className={cn(
                   'flex size-8 shrink-0 items-center justify-center rounded-lg font-bold text-xs',
                   isPassed
-                    ? 'bg-ok-600 text-white'
+                    ? 'bg-emerald-500 text-[#03132F]'
                     : isCurrent
-                    ? 'bg-brand-700 text-white animate-pulse'
-                    : 'bg-ice-200 text-ink-500'
+                    ? 'bg-[#00D9FF] text-[#03132F] animate-pulse'
+                    : 'bg-[#03132F] text-[#B8C7D9] border border-cyan-500/30'
                 )}
               >
                 {isPassed ? <Check className="size-4" /> : index + 1}
@@ -550,13 +550,13 @@ function ProactiveWorkflowView() {
               <div className="min-w-0 flex-1">
                 <p
                   className={cn(
-                    'text-xs font-semibold leading-tight',
-                    isPassed ? 'text-ok-900' : isCurrent ? 'text-brand-900' : 'text-ink-700'
+                    'text-xs font-bold leading-tight',
+                    isPassed ? 'text-emerald-200' : isCurrent ? 'text-[#00D9FF]' : 'text-[#F5FAFF]'
                   )}
                 >
                   {step}
                 </p>
-                <p className="text-[10.5px] text-ink-400 mt-0.5">
+                <p className="text-[11px] text-[#B8C7D9] mt-0.5">
                   {index === 0 && 'Active script on file'}
                   {index === 1 && 'Supply: 2 days left'}
                   {index === 2 && 'Avg pharmacy lag: 5 days'}
@@ -573,7 +573,7 @@ function ProactiveWorkflowView() {
               </div>
 
               {index < WORKFLOW_STEPS.length - 1 && (
-                <div className="hidden lg:block absolute -right-2 top-1/2 -translate-y-1/2 z-10 text-ink-300">
+                <div className="hidden lg:block absolute -right-2 top-1/2 -translate-y-1/2 z-10 text-[#00D9FF]/40">
                   <ArrowRight className="size-3" />
                 </div>
               )}
@@ -586,18 +586,18 @@ function ProactiveWorkflowView() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mt-6 rounded-xl border border-ok-300 bg-ok-50 p-4 flex items-center justify-between"
+          className="mt-6 rounded-xl border border-emerald-500/40 bg-emerald-950/50 p-4 flex items-center justify-between"
         >
           <div className="flex items-center gap-3">
-            <CheckCircle2 className="size-6 text-ok-600 shrink-0" />
+            <CheckCircle2 className="size-6 text-emerald-400 shrink-0" />
             <div>
-              <p className="text-sm font-bold text-ok-900">Workflow Complete — Prevented Medication Lapse</p>
-              <p className="text-xs text-ok-700">
+              <p className="text-[15px] font-bold text-[#F5FAFF]">Workflow Complete — Prevented Medication Lapse</p>
+              <p className="text-[13px] text-[#B8C7D9]">
                 Action recorded to <code>agent_actions</code>, audit verified in <code>audit_logs</code>, and lapse prevented in <code>proactive_risks</code>.
               </p>
             </div>
           </div>
-          <span className="rounded-full bg-ok-600 px-3 py-1 text-xs font-bold text-white shadow-xs">
+          <span className="rounded-full bg-emerald-500 px-3.5 py-1 text-xs font-bold text-[#03132F] shadow-xs">
             SUCCESS
           </span>
         </motion.div>

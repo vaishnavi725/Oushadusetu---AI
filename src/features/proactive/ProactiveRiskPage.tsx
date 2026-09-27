@@ -60,37 +60,37 @@ export default function ProactiveRiskPage() {
     <div className="space-y-6">
       <PageHeader
         eyebrow="Proactive Intelligence"
-        title={<>Silent-Lapse <span className="font-bold text-teal-800">Prevention</span></>}
+        title={<>Silent-Lapse <span className="font-bold text-[#00D9FF]">Prevention</span></>}
         description="Patients who may run out of medication before requesting a refill. OushadhaSetu connects to Supabase proactive_risks to detect lapses before they happen."
         actions={
-          <Link to="/command-center" className="inline-flex h-10 items-center gap-2 rounded-lg border border-line bg-white px-4 text-sm font-medium text-ink-900 shadow-xs transition hover:bg-teal-50">
+          <Link to="/command-center" className="inline-flex h-10 items-center gap-2 rounded-xl border border-cyan-500/30 bg-[#06245A]/70 px-4 text-sm font-semibold text-[#F5FAFF] shadow-md transition hover:border-[#00D9FF] hover:text-[#00D9FF]">
             ← AI Command Center
           </Link>
         }
       />
 
       {/* KPI Bar */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <motion.div {...fadeUp(0)} className="surface p-4 text-center rounded-2xl border border-rose-200 bg-rose-50/40">
-          <p className="text-[28px] font-bold text-rose-700">{criticalCount}</p>
-          <p className="text-[12px] font-semibold text-rose-950 uppercase tracking-wide">Critical Risk</p>
+      <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-4">
+        <motion.div {...fadeUp(0)} className="surface p-4 text-center rounded-2xl border border-rose-500/40 bg-[#06245A]/85">
+          <p className="text-[32px] font-bold text-rose-300 leading-none">{criticalCount}</p>
+          <p className="mt-2 text-[12px] font-bold text-rose-200 uppercase tracking-wider">Critical Risk</p>
         </motion.div>
-        <motion.div {...fadeUp(1)} className="surface p-4 text-center rounded-2xl border border-amber-200 bg-amber-50/40">
-          <p className="text-[28px] font-bold text-amber-700">{highCount}</p>
-          <p className="text-[12px] font-semibold text-amber-950 uppercase tracking-wide">High Risk</p>
+        <motion.div {...fadeUp(1)} className="surface p-4 text-center rounded-2xl border border-amber-500/40 bg-[#06245A]/85">
+          <p className="text-[32px] font-bold text-amber-300 leading-none">{highCount}</p>
+          <p className="mt-2 text-[12px] font-bold text-amber-200 uppercase tracking-wider">High Risk</p>
         </motion.div>
-        <motion.div {...fadeUp(2)} className="surface p-4 text-center rounded-2xl border border-emerald-200 bg-emerald-50/40">
-          <p className="text-[28px] font-bold text-emerald-700">{preventedCount}</p>
-          <p className="text-[12px] font-semibold text-emerald-950 uppercase tracking-wide">Prevented Lapses</p>
+        <motion.div {...fadeUp(2)} className="surface p-4 text-center rounded-2xl border border-emerald-500/40 bg-[#06245A]/85">
+          <p className="text-[32px] font-bold text-emerald-300 leading-none">{preventedCount}</p>
+          <p className="mt-2 text-[12px] font-bold text-emerald-200 uppercase tracking-wider">Prevented Lapses</p>
         </motion.div>
-        <motion.div {...fadeUp(3)} className="surface p-4 text-center rounded-2xl border border-teal-200 bg-teal-50/40">
-          <p className="text-[28px] font-bold text-teal-800">{avgDays}d</p>
-          <p className="text-[12px] font-semibold text-teal-950 uppercase tracking-wide">Avg Days Left</p>
+        <motion.div {...fadeUp(3)} className="surface p-4 text-center rounded-2xl border border-cyan-500/40 bg-[#06245A]/85">
+          <p className="text-[32px] font-bold text-[#00D9FF] leading-none">{avgDays}d</p>
+          <p className="mt-2 text-[12px] font-bold text-[#B8C7D9] uppercase tracking-wider">Avg Days Left</p>
         </motion.div>
       </div>
 
       {/* Filters */}
-      <Card className="p-4 rounded-2xl border border-line">
+      <Card className="p-4 rounded-2xl border border-cyan-500/30 bg-[#06245A]/80">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
           <div className="flex-1">
             <Input label="Search" placeholder="Search patient or medication…" value={search} onChange={(e) => setSearch(e.target.value)} />
@@ -108,13 +108,13 @@ export default function ProactiveRiskPage() {
       </Card>
 
       {/* AI Proactive Banner */}
-      <motion.div {...fadeUp(4)} className="rounded-2xl border border-teal-200 bg-gradient-to-r from-teal-50/80 via-white to-blue-50/50 p-4.5 shadow-xs">
+      <motion.div {...fadeUp(4)} className="rounded-2xl border border-cyan-500/30 bg-[#06245A]/90 p-5 shadow-lg">
         <div className="flex items-start gap-3">
-          <Brain className="mt-0.5 size-5 text-teal-700 shrink-0" />
+          <Brain className="mt-0.5 size-5 text-[#00D9FF] shrink-0" />
           <div>
-            <p className="text-[14px] font-bold text-teal-950">Supabase Proactive Intelligence Stream</p>
-            <p className="mt-1 text-[13px] text-ink-600 leading-relaxed">
-              When <strong>Days Remaining &lt; Historical Refill Lag</strong>, the Proactive Risk Agent marks a silent-lapse risk in Supabase.
+            <p className="text-[15px] font-bold text-[#F5FAFF]">Supabase Proactive Intelligence Stream</p>
+            <p className="mt-1 text-[13.5px] text-[#B8C7D9] leading-relaxed">
+              When <strong className="text-[#F5FAFF]">Days Remaining &lt; Historical Refill Lag</strong>, the Proactive Risk Agent marks a silent-lapse risk in Supabase.
               Clinicians review and initiate patient outreach with a single click.
             </p>
           </div>
@@ -126,11 +126,11 @@ export default function ProactiveRiskPage() {
         <EmptyState icon={<Radio className="size-6" />} title="No risks found" description={search || riskFilter !== 'all' ? 'Try adjusting your filters.' : 'All patients are on track.'} />
       ) : (
         <motion.div {...fadeUp(5)}>
-          <Card className="overflow-hidden rounded-2xl border border-line shadow-xs">
+          <Card className="overflow-hidden rounded-2xl border border-cyan-500/30 bg-[#06245A]/90 shadow-xl">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-line bg-slate-50 text-left text-[11.5px] font-semibold uppercase tracking-wider text-ink-500">
+                  <tr className="border-b border-cyan-500/30 bg-[#03132F]/80 text-left text-[12px] font-bold uppercase tracking-wider text-[#B8C7D9]">
                     <th className="px-5 py-3.5">Patient</th>
                     <th className="px-5 py-3.5">Medication</th>
                     <th className="px-4 py-3.5 text-center">Days Remaining</th>

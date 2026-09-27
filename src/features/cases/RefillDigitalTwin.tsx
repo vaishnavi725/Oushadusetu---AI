@@ -86,111 +86,111 @@ export function RefillDigitalTwin({ detail }: { detail: PracticeCaseDetail }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35 }}
       aria-label="Refill Digital Twin"
-      className="overflow-hidden rounded-2xl border border-teal-200/90 bg-gradient-to-br from-white via-teal-50/20 to-blue-50/30 p-5 shadow-sm"
+      className="overflow-hidden rounded-2xl border border-[rgba(0,217,255,0.3)] bg-gradient-to-br from-[#06245A]/90 via-[#03132F]/90 to-[#06245A]/75 p-6 shadow-[0_8px_32px_rgba(3,19,47,0.7)] backdrop-blur-xl"
     >
       {/* Digital Twin Header Badge */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-teal-100 pb-4">
-        <div className="flex items-center gap-2.5">
-          <div className="flex size-9 items-center justify-center rounded-xl bg-teal-700 text-white shadow-xs">
-            <Sparkles className="size-4" />
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[rgba(0,217,255,0.22)] pb-4.5">
+        <div className="flex items-center gap-3">
+          <div className="flex size-10 items-center justify-center rounded-xl bg-[#087BFF] text-[#F5FAFF] shadow-[0_0_15px_rgba(0,217,255,0.4)] border border-[#00D9FF]/40">
+            <Sparkles className="size-5 text-[#00D9FF]" />
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <h2 className="text-base font-bold text-ink-900 tracking-tight">Refill Digital Twin</h2>
-              <span className="rounded-full bg-teal-100/90 border border-teal-200 px-2 py-0.5 text-[11px] font-bold text-teal-900">
+            <div className="flex items-center gap-2.5">
+              <h2 className="text-xl font-bold text-[#F5FAFF] tracking-tight">Refill Digital Twin</h2>
+              <span className="rounded-full bg-[#087BFF]/20 border border-[#00D9FF]/50 px-2.5 py-0.5 text-xs font-bold text-[#00D9FF] shadow-[0_0_10px_rgba(0,217,255,0.2)]">
                 Live State Tracking
               </span>
             </div>
-            <p className="text-xs text-ink-500 font-normal">
+            <p className="text-[13.5px] text-[#B8C7D9] font-normal mt-0.5">
               Autonomous clinical simulation and state machine grounded in EHR &amp; Supabase.
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           <span
             className={cn(
-              'rounded-full px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider border',
+              'rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider border shadow-sm',
               riskLevel === 'HIGH'
-                ? 'bg-amber-50 text-amber-700 border-amber-200'
-                : 'bg-teal-50 text-teal-800 border-teal-200'
+                ? 'bg-amber-950/85 text-amber-300 border-amber-500/50'
+                : 'bg-cyan-950/85 text-cyan-300 border-cyan-500/50'
             )}
           >
             {riskLevel} RISK
           </span>
-          <span className="rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-0.5 text-[11px] font-bold">
+          <span className="rounded-full bg-emerald-950/85 text-emerald-300 border border-emerald-500/50 px-3 py-1 text-xs font-bold shadow-sm">
             Resolution Probability: {resolutionProbability}%
           </span>
         </div>
       </div>
 
       {/* Primary Entity Grid */}
-      <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <div className="rounded-xl border border-line bg-white/90 p-3 shadow-2xs">
-          <span className="flex items-center gap-1.5 text-[11px] font-medium text-ink-500">
-            <UserRound className="size-3.5 text-teal-700" /> Patient
+      <div className="mt-5 grid grid-cols-2 gap-3.5 sm:grid-cols-4">
+        <div className="rounded-xl border border-[rgba(0,217,255,0.22)] bg-[#03132F]/85 p-3.5 shadow-md">
+          <span className="flex items-center gap-1.5 text-[13px] font-bold uppercase tracking-wider text-[#B8C7D9]">
+            <UserRound className="size-4 text-[#00D9FF]" /> Patient
           </span>
-          <p className="mt-1 font-bold text-ink-900 text-sm truncate">{patientName}</p>
-          <span className="text-[11px] text-ink-500 font-mono">{p?.chartNumber || 'Chart on file'}</span>
+          <p className="mt-1.5 font-bold text-[#F5FAFF] text-[16px] truncate">{patientName}</p>
+          <span className="text-[13px] text-[#00D9FF] font-mono">{p?.chartNumber || 'Chart on file'}</span>
         </div>
 
-        <div className="rounded-xl border border-line bg-white/90 p-3 shadow-2xs">
-          <span className="flex items-center gap-1.5 text-[11px] font-medium text-ink-500">
-            <Pill className="size-3.5 text-blue-700" /> Medication
+        <div className="rounded-xl border border-[rgba(0,217,255,0.22)] bg-[#03132F]/85 p-3.5 shadow-md">
+          <span className="flex items-center gap-1.5 text-[13px] font-bold uppercase tracking-wider text-[#B8C7D9]">
+            <Pill className="size-4 text-[#00D9FF]" /> Medication
           </span>
-          <p className="mt-1 font-bold text-ink-900 text-sm truncate">{medication}</p>
-          <span className="text-[11px] text-ink-500">{rx?.sig || 'Daily maintenance'}</span>
+          <p className="mt-1.5 font-bold text-[#F5FAFF] text-[16px] truncate">{medication}</p>
+          <span className="text-[13px] text-[#00D9FF] font-medium">{rx?.sig || 'Daily maintenance'}</span>
         </div>
 
-        <div className="rounded-xl border border-line bg-white/90 p-3 shadow-2xs">
-          <span className="flex items-center gap-1.5 text-[11px] font-medium text-ink-500">
-            <Stethoscope className="size-3.5 text-indigo-700" /> Provider
+        <div className="rounded-xl border border-[rgba(0,217,255,0.22)] bg-[#03132F]/85 p-3.5 shadow-md">
+          <span className="flex items-center gap-1.5 text-[13px] font-bold uppercase tracking-wider text-[#B8C7D9]">
+            <Stethoscope className="size-4 text-[#00D9FF]" /> Provider
           </span>
-          <p className="mt-1 font-bold text-ink-900 text-sm truncate">{providerName}</p>
-          <span className="text-[11px] text-ink-500">Physician Reviewer</span>
+          <p className="mt-1.5 font-bold text-[#F5FAFF] text-[16px] truncate">{providerName}</p>
+          <span className="text-[13px] text-[#B8C7D9]">Physician Reviewer</span>
         </div>
 
-        <div className="rounded-xl border border-line bg-white/90 p-3 shadow-2xs">
-          <span className="flex items-center gap-1.5 text-[11px] font-medium text-ink-500">
-            <Building2 className="size-3.5 text-emerald-700" /> Pharmacy
+        <div className="rounded-xl border border-[rgba(0,217,255,0.22)] bg-[#03132F]/85 p-3.5 shadow-md">
+          <span className="flex items-center gap-1.5 text-[13px] font-bold uppercase tracking-wider text-[#B8C7D9]">
+            <Building2 className="size-4 text-[#00D9FF]" /> Pharmacy
           </span>
-          <p className="mt-1 font-bold text-ink-900 text-sm truncate">{pharmacyName}</p>
-          <span className="text-[11px] text-ink-500">Dispensing Partner</span>
+          <p className="mt-1.5 font-bold text-[#F5FAFF] text-[16px] truncate">{pharmacyName}</p>
+          <span className="text-[13px] text-[#B8C7D9]">Dispensing Partner</span>
         </div>
       </div>
 
       {/* Operational State & Blocker Detail */}
-      <div className="mt-3.5 grid gap-3 sm:grid-cols-3">
-        <div className="rounded-xl border border-teal-200/80 bg-teal-50/50 p-3">
-          <span className="text-[10.5px] font-bold uppercase tracking-wider text-teal-800">Current State</span>
-          <p className="mt-0.5 font-bold text-teal-950 text-[13px]">{currentState}</p>
+      <div className="mt-4 grid gap-3.5 sm:grid-cols-3">
+        <div className="rounded-xl border border-[rgba(0,217,255,0.3)] bg-[#06245A]/85 p-4 shadow-md">
+          <span className="text-[13px] font-bold uppercase tracking-wider text-[#B8C7D9]">Current State</span>
+          <p className="mt-1 font-bold text-[#F5FAFF] text-[17px]">{currentState}</p>
         </div>
 
-        <div className="rounded-xl border border-amber-200/80 bg-amber-50/50 p-3">
-          <span className="text-[10.5px] font-bold uppercase tracking-wider text-amber-800">Primary Blocker</span>
-          <p className="mt-0.5 font-semibold text-amber-950 text-[13px] truncate" title={blocker}>
+        <div className="rounded-xl border border-amber-500/45 bg-amber-950/70 p-4 shadow-md">
+          <span className="text-[13px] font-bold uppercase tracking-wider text-amber-300">Primary Blocker</span>
+          <p className="mt-1 font-bold text-amber-100 text-[17px] truncate" title={blocker}>
             {blocker}
           </p>
         </div>
 
-        <div className="rounded-xl border border-blue-200/80 bg-blue-50/50 p-3">
-          <span className="text-[10.5px] font-bold uppercase tracking-wider text-blue-800">Responsible Party</span>
-          <p className="mt-0.5 font-bold text-blue-950 text-[13px]">{responsibleParty}</p>
+        <div className="rounded-xl border border-[#087BFF]/50 bg-[#06245A]/85 p-4 shadow-md">
+          <span className="text-[13px] font-bold uppercase tracking-wider text-[#00D9FF]">Responsible Party</span>
+          <p className="mt-1 font-bold text-[#F5FAFF] text-[17px]">{responsibleParty}</p>
         </div>
       </div>
 
       {/* Visual State Machine Stepper */}
-      <div className="mt-5 rounded-xl border border-line bg-white p-4 shadow-2xs">
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-ink-700 flex items-center gap-1.5">
-            <Activity className="size-3.5 text-teal-700" /> Workflow State Machine
+      <div className="mt-5 rounded-2xl border border-[rgba(0,217,255,0.25)] bg-[#03132F]/90 p-5 shadow-lg">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3.5 border-b border-white/10 pb-3">
+          <h3 className="text-sm font-bold uppercase tracking-wider text-[#F5FAFF] flex items-center gap-2">
+            <Activity className="size-4 text-[#00D9FF]" /> Workflow State Machine
           </h3>
-          <span className="text-[11.5px] text-ink-500">
-            Next Action: <strong className="text-teal-900 font-semibold">{nextAction}</strong>
+          <span className="text-[13.5px] text-[#B8C7D9]">
+            Next Action: <strong className="text-[#00D9FF] font-bold">{nextAction}</strong>
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-5 gap-2 relative">
+        <div className="grid grid-cols-1 sm:grid-cols-5 gap-2.5 relative">
           {pipelineSteps.map((step, idx) => {
             const isCompleted = activeIndex > idx || isResolved;
             const isCurrent = activeIndex === idx && !isResolved;
@@ -199,33 +199,33 @@ export function RefillDigitalTwin({ detail }: { detail: PracticeCaseDetail }) {
               <div
                 key={step.id}
                 className={cn(
-                  'relative rounded-xl border p-2.5 transition-all text-left',
+                  'relative rounded-xl border p-3 transition-all text-left',
                   isCompleted
-                    ? 'border-emerald-300 bg-emerald-50/50 text-emerald-950'
+                    ? 'border-emerald-500/50 bg-emerald-950/50 text-[#F5FAFF]'
                     : isCurrent
-                    ? 'border-teal-500 bg-teal-50/80 text-teal-950 ring-2 ring-teal-200'
-                    : 'border-slate-200 bg-slate-50/60 text-slate-500'
+                    ? 'border-2 border-[#00D9FF] bg-[#06245A] text-[#F5FAFF] ring-2 ring-[#00D9FF]/40 shadow-[0_0_15px_rgba(0,217,255,0.3)]'
+                    : 'border-slate-800 bg-[#06245A]/35 text-[#8AA8CC]'
                 )}
               >
                 <div className="flex items-center justify-between">
                   <span
                     className={cn(
-                      'flex size-5 items-center justify-center rounded-full text-[10px] font-bold',
+                      'flex size-5.5 items-center justify-center rounded-full text-[11px] font-bold',
                       isCompleted
-                        ? 'bg-emerald-600 text-white'
+                        ? 'bg-emerald-500 text-[#03132F]'
                         : isCurrent
-                        ? 'bg-teal-700 text-white animate-pulse'
-                        : 'bg-slate-200 text-slate-600'
+                        ? 'bg-[#00D9FF] text-[#03132F] animate-pulse'
+                        : 'bg-slate-700 text-slate-300'
                     )}
                   >
                     {isCompleted ? '✓' : idx + 1}
                   </span>
                   {idx < pipelineSteps.length - 1 && (
-                    <ArrowRight className="size-3 text-slate-300 hidden sm:block" />
+                    <ArrowRight className="size-3.5 text-slate-500 hidden sm:block" />
                   )}
                 </div>
-                <p className="mt-1.5 text-xs font-bold">{step.label}</p>
-                <p className="text-[10px] opacity-75 mt-0.5 leading-snug">{step.desc}</p>
+                <p className="mt-2 text-[13.5px] font-bold text-[#F5FAFF]">{step.label}</p>
+                <p className="text-[12px] text-[#B8C7D9] mt-0.5 leading-snug">{step.desc}</p>
               </div>
             );
           })}
@@ -233,21 +233,21 @@ export function RefillDigitalTwin({ detail }: { detail: PracticeCaseDetail }) {
 
         {/* Alternative Branches / Exceptions */}
         {(isInsuranceBlocked || isAppointmentRequired || isEscalated) && (
-          <div className="mt-3 flex flex-wrap items-center gap-2 pt-2.5 border-t border-line text-xs">
-            <span className="font-semibold text-ink-600">Active Workflow Branch:</span>
+          <div className="mt-4 flex flex-wrap items-center gap-2 pt-3 border-t border-white/10 text-[13px]">
+            <span className="font-bold text-[#F5FAFF]">Active Workflow Branch:</span>
             {isInsuranceBlocked && (
-              <span className="inline-flex items-center gap-1 rounded-md bg-amber-50 border border-amber-200 px-2 py-0.5 font-bold text-amber-800 text-[11px]">
-                <Shield className="size-3" /> Insurance Blocked Branch
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-950/80 border border-amber-500/50 px-3 py-1 font-bold text-amber-300 text-xs">
+                <Shield className="size-3.5" /> Insurance Blocked Branch
               </span>
             )}
             {isAppointmentRequired && (
-              <span className="inline-flex items-center gap-1 rounded-md bg-blue-50 border border-blue-200 px-2 py-0.5 font-bold text-blue-800 text-[11px]">
-                <CalendarDays className="size-3" /> Appointment Required Branch
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-950/80 border border-blue-500/50 px-3 py-1 font-bold text-blue-300 text-xs">
+                <CalendarDays className="size-3.5" /> Appointment Required Branch
               </span>
             )}
             {isEscalated && (
-              <span className="inline-flex items-center gap-1 rounded-md bg-rose-50 border border-rose-200 px-2 py-0.5 font-bold text-rose-800 text-[11px]">
-                <Zap className="size-3 text-rose-600" /> Escalated SLA Branch
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-rose-950/80 border border-rose-500/50 px-3 py-1 font-bold text-rose-300 text-xs">
+                <Zap className="size-3.5 text-rose-400" /> Escalated SLA Branch
               </span>
             )}
           </div>
