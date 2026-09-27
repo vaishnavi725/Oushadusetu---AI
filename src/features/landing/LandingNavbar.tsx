@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight, Sparkles } from 'lucide-react';
 import { OushadhaLogo } from './OushadhaLogo';
 
 const NAV_LINKS = [
@@ -14,7 +14,11 @@ const NAV_LINKS = [
   { label: 'Analytics', href: '#analytics' },
 ];
 
-export function LandingNavbar() {
+interface LandingNavbarProps {
+  onReplayIntro?: () => void;
+}
+
+export function LandingNavbar({ onReplayIntro }: LandingNavbarProps = {}) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [active, setActive] = useState('');
@@ -84,6 +88,17 @@ export function LandingNavbar() {
 
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center gap-3">
+            {onReplayIntro && (
+              <button
+                type="button"
+                onClick={onReplayIntro}
+                className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3.5 py-1.5 text-xs font-semibold text-cyan-700 hover:bg-cyan-500/20 hover:text-cyan-900 transition-colors"
+                title="Replay cinematic capsule entrance"
+              >
+                <Sparkles className="size-3 text-cyan-600 animate-pulse" />
+                <span>Capsule Intro</span>
+              </button>
+            )}
             <Link
               to="/login"
               className="rounded-full px-4 py-2 text-xs font-semibold text-slate-600 transition hover:bg-slate-50 hover:text-slate-950"
