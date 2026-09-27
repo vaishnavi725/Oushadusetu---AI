@@ -1,9 +1,10 @@
-import { lazy, Suspense, useEffect, type ReactNode } from 'react';
-import { createBrowserRouter, Outlet, ScrollRestoration, useRouteError } from 'react-router-dom';
+import { lazy, Suspense, useEffect, useRef, useState, type ReactNode } from 'react';
+import { createBrowserRouter, Outlet, ScrollRestoration, useLocation, useRouteError } from 'react-router-dom';
+import { motion, AnimatePresence } from 'motion/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { PHARMACY_ROLES, PRACTICE_ROLES } from '@shared/types.ts';
 import { onBackendChange } from '@/services/mock/backend';
-import { Spinner } from '@/components/ui/States';
+import { PillLoader, PillLoadingScreen, ProjectFactCard } from '@/components/ui/PillLoader';
 import { AppShell } from './AppShell';
 import { AuthProvider, useAuth } from './auth-context';
 import { CrashScreen } from './ErrorBoundary';
@@ -39,11 +40,7 @@ const ProactiveRiskPage = lazy(() => import('@/features/proactive/ProactiveRiskP
 const AgentActivityPage = lazy(() => import('@/features/agents/AgentActivityPage'));
 
 function PageFallback() {
-  return (
-    <div className="flex min-h-[50vh] items-center justify-center">
-      <Spinner className="size-6" />
-    </div>
-  );
+  return <PillLoadingScreen />;
 }
 
 /** Bridges non-React events (401s, worker ticks) into React state. */
@@ -65,9 +62,52 @@ function BackendBridge() {
 }
 
 function RootLayout() {
+  const location = useLocation();
+  // Hold initial animation for at least 2 seconds on cold start
+  const [initialLoading, setInitialLoading] = useState(true);
+  const [routeTransitioning, setRouteTransitioning] = useState(false);
+  const currentPath = useRef(location.pathname);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setInitialLoading(false);
+    }, 2200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Hold centered pill animation with project facts for at least 2 seconds on route transition
+  useEffect(() => {
+    if (currentPath.current !== location.pathname) {
+      currentPath.current = location.pathname;
+      setRouteTransitioning(true);
+      const timer = setTimeout(() => {
+        setRouteTransitioning(false);
+      }, 2200);
+      return () => clearTimeout(timer);
+    }
+  }, [location.pathname]);
+
+  const showPillOverlay = initialLoading || routeTransitioning;
+
   return (
     <AuthProvider>
       <BackendBridge />
+      <AnimatePresence mode="wait">
+        {showPillOverlay && (
+          <motion.div
+            key="center-pill-animation"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35, ease: 'easeInOut' }}
+            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#FAF6F0] p-4 select-none"
+          >
+            <div className="flex flex-col items-center justify-center">
+              <PillLoader size="2xl" showRings />
+              <ProjectFactCard />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <Suspense fallback={<PageFallback />}>
         <Outlet />
       </Suspense>

@@ -15,6 +15,8 @@ import { BottomCtaBanner } from './BottomCtaBanner';
 import { LandingFooter } from './LandingFooter';
 import { RefillWalkthrough } from './RefillWalkthrough';
 import { AboutSection } from './AboutSection';
+import { PyramidSolutionSection } from './PyramidSolutionSection';
+import { AutoAdvanceWidget } from './AutoAdvanceWidget';
 
 export default function LandingPage() {
   return (
@@ -123,10 +125,16 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
+
+        {/* Curved Organic Arch Boundary Transition */}
+        <div className="pointer-events-none absolute -bottom-1 inset-x-0 h-10 bg-[#FAF6F0] [clip-path:ellipse(60%_100%_at_50%_100%)] opacity-85" />
       </section>
 
       {/* 2. Section: About OushadhaSetu */}
       <AboutSection />
+
+      {/* 3. Section: 4-Tier Refill Resolution Pyramid Hierarchy */}
+      <PyramidSolutionSection />
 
       <RefillWalkthrough />
 
@@ -152,6 +160,9 @@ export default function LandingPage() {
 
       {/* 10. Minimal Healthcare SaaS Footer */}
       <LandingFooter />
+
+      {/* 11. 2-Minute Auto-Advance Tour Widget */}
+      <AutoAdvanceWidget durationSeconds={120} destinationRoute="/login" />
     </div>
   );
 }
